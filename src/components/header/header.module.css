@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  background-color: black;
+}
+
+.navBar {
+  display: flex;
+  list-style: none;
+}
+
+.navItem a {
+  text-decoration: none;
+  padding: 35px;
+  color: white;
+}
+
+.navItem a.activeLink {
+  background-color: grey;
+  border-bottom: 4px solid hotpink;
+}
+
+.navItem a:hover {
+  background-color: lightsteelblue;
+}

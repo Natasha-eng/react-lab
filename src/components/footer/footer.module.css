@@ -1,0 +1,14 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  font-size: 45px;
+}
+
+.footer a {
+  padding: 10px;
+}
+
+.footer a:hover {
+  background-color: lightsteelblue;
+}

@@ -5,14 +5,37 @@ import imgSmall from "images/testSmall.png"; // start-path is 'images' because w
 import imgCamera from "images/camera.svg";
 import { Component, StrictMode } from "react";
 import ReactDom from "react-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import style from "./styles/main.module.css";
 import someTypeScript from "./someTypeScript";
+import Header, { path } from "./components/header/header";
+import Home from "./components/Home";
+import About from "./components/About";
+import Products from "./components/Products";
+import Footer from "./components/footer/footer";
 
 interface AppProps {
   nothing: boolean;
 }
 interface AppState {
   title: string;
+}
+
+function App() {
+  return (
+    <>
+      <Header />
+      <div>
+        <Switch>
+          <Route path={path.home} render={() => <Home />} />
+          <Route path={path.products} render={() => <Products />} />
+          <Route path={path.about} render={() => <About />} />
+          <Redirect from="*" to="/home" />
+        </Switch>
+      </div>
+      <Footer />
+    </>
+  );
 }
 
 class AppContainer extends Component<AppProps, AppState> {
@@ -33,20 +56,23 @@ class AppContainer extends Component<AppProps, AppState> {
   render() {
     return (
       <StrictMode>
-        <div className="test-block">
-          <h2 className={style.mainTitle}>{this.state.title}</h2>
-        </div>
-        <div className={["test-block", style.background].join(" ")}>
-          <h2>Test-block for url-loader</h2>
-          <img src={imgSmall} alt="smallImage" />
-        </div>
-        {/*  or it can be
+        <BrowserRouter>
+          <App />
+          <div className="test-block">
+            <h2 className={style.mainTitle}>{this.state.title}</h2>
+          </div>
+          <div className={["test-block", style.background].join(" ")}>
+            <h2>Test-block for url-loader</h2>
+            <img src={imgSmall} alt="smallImage" />
+          </div>
+          {/*  or it can be
           <img src='/src/images/testSmall.png' alt="smallImage"></img>
         */}
-        <div className={["test-block", style.svgBackground].join(" ")}>
-          <h2>Test-block for svg-url-loader</h2>
-          <img src={imgCamera} alt="small_SVG_Image" />
-        </div>
+          <div className={["test-block", style.svgBackground].join(" ")}>
+            <h2>Test-block for svg-url-loader</h2>
+            <img src={imgCamera} alt="small_SVG_Image" />
+          </div>
+        </BrowserRouter>
       </StrictMode>
     );
   }
