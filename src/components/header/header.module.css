@@ -9,11 +9,12 @@
 .navBar {
   display: flex;
   list-style: none;
+  position: relative;
 }
 
 .navItem a {
   text-decoration: none;
-  padding: 35px;
+  padding: 31px;
   color: white;
 }
 
@@ -24,4 +25,42 @@
 
 .navItem a:hover {
   background-color: lightsteelblue;
+}
+
+.subMenu {
+  position: absolute;
+  top: 49px;
+  background-color: black;
+  width: 118px;
+}
+
+.subMenu .subItem {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.subMenu .subItem:hover {
+  background-color: lightsteelblue;
+}
+
+.SlideSideBar {
+  /* height: 114px; */
+  display: block;
+}
+
+.CloseSlideSideBar {
+  /* height: 0; */
+  display: none;
+}
+
+.navSlide {
+  display: flex;
+  flex-direction: column;
+  background-color: dimgray;
+  position: fixed;
+  top: 0px;
 }

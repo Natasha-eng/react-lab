@@ -24,6 +24,9 @@ module.exports = (env, argv) => {
     target: "web", // force target otherwise HMR doesn't work for style-loader
     devServer: {
       hot: true,
+      proxy: {
+        "/api": "http://localhost:5000",
+      },
       historyApiFallback: {
         // provide index.html instead of 404:not found error (for SPA app)
         rewrites: [
@@ -34,18 +37,18 @@ module.exports = (env, argv) => {
         children: false, // disable console.info for node_modules/*
         modules: false,
       },
-      before: (app) =>
-        webpackMockServer.use(app, {
-          entry: ["webpack.mock.ts"],
-          tsConfigFileName: "tsconfig.json",
-          before: (req, res, next) => {
-            console.log(`Got request: ${req.method} ${req.url}`);
-            // res.once("finish", () => {
-            //   console.log(`Sent response: ${req.method} ${req.url}`);
-            // });
-            next();
-          },
-        }),
+      // before: (app) =>
+      //   webpackMockServer.use(app, {
+      //     entry: ["webpack.mock.ts"],
+      //     tsConfigFileName: "tsconfig.json",
+      //     before: (req, res, next) => {
+      //       console.log(`Got request: ${req.method} ${req.url}`);
+      //       // res.once("finish", () => {
+      //       //   console.log(`Sent response: ${req.method} ${req.url}`);
+      //       // });
+      //       next();
+      //     },
+      //   }),
       contentBase: assets, // folder with static content
       watchContentBase: true, // enable hot-reload by changes in contentBase folder
     },

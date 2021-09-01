@@ -20,3 +20,8 @@
   margin: auto;
   background-color: gray;
 }
+
+.container {
+  height: 80vh;
+  background-color: slategrey;
+}

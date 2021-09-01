@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Minecraft",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/11307x4B5WLoVoIUtdewG4uJ_YuDRTwBxQy0qP8ylgazLLc01PBxbsFG1pGOWmqhZsxnNkrU3GXbdXIowBAstzlrhtQ4LCI4 (1).webp",
+    "category": "playstation"
+  },
+  {
+    "id": 2,
+    "name": "League of Legends",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/20190410aa132918149cb9a22655a68631d88b4e.jpg",
+    "category": "pc"
+  },
+  {
+    "id": 3,
+    "name": "Counter-Strike: Global Offensive",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/5b94664bd1-2_1390x600.jpg",
+    "category": "playstation"
+  },
+  {
+    "id": 4,
+    "name": "Grand Theft Auto V",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/bzWYflpfTNj2oa93U4TuZdF44hDjW2Pb.jpg",
+    "category": "xbox"
+  },
+  {
+    "id": 5,
+    "name": "Valorant",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/Valorant_1591218052835_1591218061187.webp",
+    "category": "pc"
+  },
+  {
+    "id": 6,
+    "name": "Call of Duty: Modern Warfare/Warzone",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/wz-social-share.jpg",
+    "category": "playstation"
+  },
+  {
+    "id": 7,
+    "name": "ROBLOX",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/Roblox_large.jpg",
+    "category": "pc"
+  },
+  {
+    "id": 8,
+    "name": "Fortnite",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/17BR_S17_Launcher_EGS_Blade_2560x1440_2560x1440-713334cd3a6adfe74ca68f25498f3d74.jpg",
+    "category": "xbox"
+  },
+  {
+    "id": 9,
+    "name": "Rocket League",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/egs-landscapeproductimage-2560x1440-2560x1440-ab6e2579d98e.jpg",
+    "category": "playstation"
+  },
+  {
+    "id": 10,
+    "name": "Apex Legends",
+    "price": 23.99,
+    "data": "new Date()",
+    "img": "../assets/images/apex-legends-emergence-patch-notes-thumbnail.jpg.adapt.crop191x100.628p.jpg",
+    "category": "pc"
+  }
+]

@@ -1,0 +1,42 @@
+.input {
+  display: flex;
+  justify-content: center;
+}
+
+.filterInput {
+  width: 30%;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  outline: none;
+}
+
+.subTitle {
+  border-bottom: 2px solid black;
+  padding: 10px;
+}
+
+.categories {
+  display: flex;
+  justify-content: space-around;
+}
+
+.category {
+  margin-top: 10px;
+  border: 1px solid slategrey;
+  border-radius: 10px;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  background-color: black;
+}
+
+.category a {
+  padding: 30px;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: slategrey;
+}
