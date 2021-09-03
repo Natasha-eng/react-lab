@@ -13,6 +13,16 @@ export const api = {
   getGamesByCategory(category: string) {
     return instance.get<GameType[]>(`products/${category}`);
   },
+  getGamesByDate() {
+    return instance.get<GameType[]>(`home/getTopProducts`);
+  },
+  getGamesByName(name: string) {
+    return instance.get<GameType[]>(`home/search`, {
+      params: {
+        name,
+      },
+    });
+  },
 };
 
 export default api;

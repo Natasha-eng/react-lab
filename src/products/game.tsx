@@ -7,10 +7,12 @@ interface GamePropsType {
 
 function Game(props: GamePropsType): JSX.Element {
   return (
-    <div className={main.container} key={props.game.id}>
-      <div>games</div>
+    <div className={main.gameContainer} key={props.game.id}>
+      <div>game page</div>
+      <img src={props.game.img} alt="computer games" />
       <div>{props.game.name}</div>
       <div>{props.game.price}</div>
+      <div>{props.game.category}</div>
     </div>
   );
 }

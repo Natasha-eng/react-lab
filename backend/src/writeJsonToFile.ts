@@ -5,7 +5,7 @@ export interface IGame {
   id: number;
   name: string;
   price: number;
-  data: string;
+  date: string;
   img: string;
   category: string;
 }

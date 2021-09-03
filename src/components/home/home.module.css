@@ -1,16 +1,3 @@
-.input {
-  display: flex;
-  justify-content: center;
-}
-
-.filterInput {
-  width: 30%;
-  border-radius: 10px;
-  padding: 10px;
-  margin-top: 10px;
-  outline: none;
-}
-
 .subTitle {
   border-bottom: 2px solid black;
   padding: 10px;
@@ -39,4 +26,10 @@
   box-sizing: border-box;
   text-decoration: none;
   color: slategrey;
+}
+
+.gamesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }

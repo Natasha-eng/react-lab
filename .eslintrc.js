@@ -17,6 +17,7 @@ module.exports = {
     es6: true,
     node: true,
     browser: true,
+    commonjs: true,
   },
   globals: {
     DEV_SERVER: true,
@@ -86,6 +87,10 @@ module.exports = {
       typescript: {
         alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
         project: ["./tsconfig.json"],
+        node: {
+          extensions: [".js", ".jsx", ".ts", ".tsx"],
+          moduleDirectory: ["node_modules", "src/"],
+        },
       },
     },
   },

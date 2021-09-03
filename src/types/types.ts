@@ -4,4 +4,5 @@ export interface GameType {
   price: number;
   data: string;
   img: string;
+  category: string;
 }

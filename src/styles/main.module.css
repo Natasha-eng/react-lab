@@ -22,6 +22,21 @@
 }
 
 .container {
-  height: 80vh;
+  min-height: 80vh;
   background-color: slategrey;
+}
+
+.inputLink {
+  outline: none;
+  text-decoration: none;
+}
+
+.gameContainer {
+  min-height: 20vh;
+  background-color: slategrey;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid black;
+  width: 200px;
 }
