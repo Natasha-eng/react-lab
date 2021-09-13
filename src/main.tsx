@@ -12,6 +12,7 @@ import { AppRootState } from "./app/storetype";
 import Profile from "./components/profile/Profile";
 import About from "./components/about/About";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import mainStyle from "./styles/main.module.css";
 
 interface AppProps {
   nothing: boolean;
@@ -26,7 +27,7 @@ function App() {
   return (
     <div>
       <Header isSignedIn={isSignedIn} />
-      <div>
+      <div className={mainStyle.container}>
         <Switch>
           <Route path={path.home} render={(routeProps) => <Home {...routeProps} />} />
           <ProtectedRoute path={path.products} isSignedIn={isSignedIn}>
