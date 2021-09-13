@@ -1,4 +1,19 @@
-import { setFilteredGamesAC, SetFilteredGamesActionType, setGamesAC, SetGamesActionType } from "@/actions/actions";
+import {
+  isFetchingAC,
+  isFetchingActionType,
+  setErrorAC,
+  setErrorActionType,
+  setFilteredGamesAC,
+  SetFilteredGamesActionType,
+  setGamesAC,
+  SetGamesActionType,
+  setIsSignedInAC,
+  setIsSignedInActionType,
+  setUserNameAC,
+  setUserNameActionType,
+  setUserProfileAC,
+  setUserProfileActonType,
+} from "@/actions/actions";
 import { api } from "@/api/games-api";
 import { AppRootState } from "@/app/storetype";
 import { ThunkDispatch } from "redux-thunk";
@@ -8,7 +23,7 @@ export const fetchGamesThunkCreator =
   () =>
   async (dispatch: ThunkDispatch<AppRootState, unknown, SetGamesActionType>): Promise<void> => {
     const response = await api.getGames();
-    // const response = await fetch("/api/home");
+
     dispatch(setGamesAC(response.data));
   };
 
@@ -20,8 +35,13 @@ export const fetchGamesByCategoryThunkCreator =
   };
 
 export const fetchGamesByNameThunkCreator =
-  (name: string) => async (dispatch: ThunkDispatch<AppRootState, unknown, SetFilteredGamesActionType>) => {
+  (name: string) =>
+  async (
+    dispatch: ThunkDispatch<AppRootState, unknown, SetFilteredGamesActionType | isFetchingActionType>
+  ): Promise<void> => {
+    dispatch(isFetchingAC(true));
     const response = await api.getGamesByName(name);
+    dispatch(isFetchingAC(false));
     dispatch(setFilteredGamesAC(response.data));
   };
 
@@ -30,4 +50,41 @@ export const fetchGamesByDateThunkCreator =
   async (dispatch: ThunkDispatch<AppRootState, unknown, SetGamesActionType>): Promise<void> => {
     const response = await api.getGamesByDate();
     dispatch(setGamesAC(response.data));
+  };
+
+export const signInThunkCreator =
+  (login: string, password: string) =>
+  async (
+    dispatch: ThunkDispatch<AppRootState, unknown, setIsSignedInActionType | setUserNameActionType | setErrorActionType>
+  ): Promise<void> => {
+    const response = await api.signIn(login, password);
+    if (response.data.status === 201) {
+      dispatch(setUserNameAC(response.data.name));
+      dispatch(setIsSignedInAC(true));
+    } else {
+      dispatch(setErrorAC(response.data.errorMessage));
+      dispatch(setIsSignedInAC(false));
+    }
+  };
+
+export const signUpThunkCreator =
+  (login: string, password: string) =>
+  async (
+    dispatch: ThunkDispatch<AppRootState, unknown, setIsSignedInActionType | setErrorActionType>
+  ): Promise<void> => {
+    const response = await api.signUp(login, password);
+    if (response.data.status === 202) {
+      dispatch(setIsSignedInAC(true));
+    } else {
+      dispatch(setErrorAC(response.data.errorMessage));
+      dispatch(setIsSignedInAC(false));
+    }
+  };
+
+export const fetchProfileThunkCreator =
+  () =>
+  async (dispatch: ThunkDispatch<AppRootState, unknown, setUserProfileActonType>): Promise<void> => {
+    const response = await api.getProfile();
+
+    dispatch(setUserProfileAC(response.data.message));
   };
