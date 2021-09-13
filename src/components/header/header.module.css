@@ -4,6 +4,7 @@
   align-items: center;
   color: white;
   background-color: black;
+  padding: 22px 0 22px 0;
 }
 
 .title {
@@ -18,6 +19,10 @@
   display: flex;
   list-style: none;
   position: relative;
+}
+
+.navItem {
+  list-style: none;
 }
 
 .navItem a {
@@ -40,6 +45,7 @@
   top: 49px;
   background-color: black;
   width: 118px;
+  list-style: none;
 }
 
 .subMenu .subItem {
