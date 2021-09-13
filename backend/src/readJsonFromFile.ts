@@ -1,5 +1,4 @@
 import * as fs from "fs/promises";
-import util = require("util");
 
 export interface IUser {
   id: number;

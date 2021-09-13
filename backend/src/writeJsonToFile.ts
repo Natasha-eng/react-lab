@@ -11,7 +11,7 @@ export interface IGame {
 }
 
 const writeJsonToFile = (filePath: string, data: Array<IUser>): Promise<unknown> =>
-  fs.writeFile(filePath, JSON.stringify(data));
+  fs.writeFile(filePath, JSON.stringify(data), "utf-8");
 
 // const writeJsonToFile = (filePath: string, data) =>
 //   new Promise((resolve, reject) => {

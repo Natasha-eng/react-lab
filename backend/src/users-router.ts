@@ -37,8 +37,8 @@ router.post("/auth/signUp", async (req: Request, res: Response) => {
   const user = users.find((u) => u.login === req.body.login);
   if (!user) {
     users.push({ id: 11, login: req.body.login, password: req.body.password });
-    await writeJsonToFile("./data/users.json", users);
-    res.send({ status: 202 });
+    await writeJsonToFile("./src/data/users.json", users);
+    res.send({ status: 202, name: req.body.login });
   } else {
     res.send({ status: 400, errorMessage: "This name is already in use" });
   }
