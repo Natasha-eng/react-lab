@@ -9,7 +9,7 @@ import headerStyle from "./header.module.css";
 
 export const path = {
   home: "/home",
-  products: "/products",
+  products: "/products/:category?",
   about: "/about",
   profile: "/profile",
 };
@@ -25,6 +25,7 @@ function Header(props: IHome): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
   const userName = useSelector<AppRootState, string>((state) => state.profile.userName);
+  const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
   const slide = `${headerStyle.subMenu} ${dropdown ? headerStyle.SlideSideBar : headerStyle.CloseSlideSideBar}`;
 
@@ -33,16 +34,22 @@ function Header(props: IHome): JSX.Element {
   };
 
   const toggleSignIn = () => {
+    if (isSignedIn) {
+      setSignIn(false);
+    }
     setSignIn(!signIn);
   };
 
   const toggleSignUp = () => {
+    if (isSignedIn) {
+      setSignUp(false);
+    }
     setSignUp(!signUp);
   };
 
   const signOutHandler = () => {
     dispatch(setIsSignedInAC(false));
-    history.push("/home");
+    history.push(path.home);
   };
 
   const handleKeyPress = (e: KeyboardEvent<HTMLLIElement>) => {

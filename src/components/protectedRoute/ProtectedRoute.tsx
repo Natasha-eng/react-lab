@@ -2,6 +2,7 @@ import { AppRootState } from "@/app/storetype";
 import { ReactNode, useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
+import { path } from "../header/header";
 import SignInContainer from "../signin/SignInContainer";
 
 interface IProtectedRoute {
@@ -28,7 +29,7 @@ export default function ProtectedRoute(props: IProtectedRoute) {
         if (props.isSignedIn) {
           return props.children;
         }
-        return <Redirect to={{ pathname: "/home", state: { from: routeProps.location } }} />;
+        return <Redirect to={{ pathname: path.home, state: { from: routeProps.location } }} />;
       }}
     />
   );
