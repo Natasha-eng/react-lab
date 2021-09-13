@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "login": "Natasha",
+    "password": "1$qwerty1"
+  },
+  {
+    "id": 2,
+    "login": "Nick",
+    "password": "23.99"
+  },
+  {
+    "id": 3,
+    "login": "Kate",
+    "password": "23.99"
+  },
+  {
+    "id": 4,
+    "login": "Viktor",
+    "password": "23.99"
+  },
+  {
+    "id": 5,
+    "login": "John",
+    "password": "23.99"
+  },
+  {
+    "id": 6,
+    "login": "Vladimir",
+    "password": "23.99"
+  },
+  {
+    "id": 7,
+    "login": "Dmitri",
+    "password": "23.99"
+  },
+  {
+    "id": 8,
+    "login": "Lena",
+    "password": "23.99"
+  },
+  {
+    "id": 9,
+    "login": "Dasha",
+    "password": "23.99"
+  },
+  {
+    "id": 10,
+    "login": "Alex",
+    "password": "23.99"
+  }
+]
