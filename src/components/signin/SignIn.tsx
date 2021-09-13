@@ -5,7 +5,7 @@ import { signInThunkCreator } from "@/thunks/thunks";
 import { isLoginValide, isPasswordValide } from "@/utils/util";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import modalStyle from "../modal/modal.module.css";
 
@@ -75,6 +75,11 @@ export default function SignIn(props: ISignIn): JSX.Element {
     dispatch(signInThunkCreator(signInLoginValue, signInPasswordValue));
     dispatch(setErrorAC(""));
   };
+  useEffect(() => {
+    if (isSignedIn) {
+      props.toggleSignIn();
+    }
+  }, [isSignedIn]);
 
   return (
     <>

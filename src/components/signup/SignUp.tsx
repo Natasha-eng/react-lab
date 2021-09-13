@@ -1,10 +1,11 @@
+import { setErrorAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
 import InputText from "@/elements/input/InputText";
 import { signUpThunkCreator } from "@/thunks/thunks";
 import { isLoginValide, isPasswordValide } from "@/utils/util";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import modalStyle from "../modal/modal.module.css";
@@ -16,11 +17,12 @@ interface ISignUp {
 export default function SignUp(props: ISignUp): JSX.Element {
   const dispatch = useDispatch();
   const [signUpLoginValue, setSignUpLoginValue] = useState("");
-  const [signUnPasswordValue, setSignUpPasswordValue] = useState("");
+  const [signUpPasswordValue, setSignUpPasswordValue] = useState("");
   const [signUnRepeatPasswordValue, setSignUpRepeatPasswordValue] = useState("");
   const history = useHistory();
   const [error, setError] = useState({ loginError: "", passwordError: "", repeatPasswordError: "", error: "" });
   const backError = useSelector<AppRootState, string>((state) => state.auth.error);
+  const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
   const errorLogin =
     "Your login is not valid. Only characters A-Z, a-z, numbers 0-9 are  acceptable. Login can be at least 2 charecters long and no more than 20 characters";
@@ -65,7 +67,7 @@ export default function SignUp(props: ISignUp): JSX.Element {
         ...error,
         passwordError: errorPassword,
       });
-      if (value !== signUnPasswordValue) {
+      if (value !== signUpPasswordValue) {
         setError({
           ...error,
           repeatPasswordError: errorRepeatPassword,
@@ -94,17 +96,25 @@ export default function SignUp(props: ISignUp): JSX.Element {
 
   const signUpHandler = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if (signUpLoginValue === "" && signUnPasswordValue === "") {
+    if (signUpLoginValue === "" && signUpPasswordValue === "") {
       setError({ ...error, error: "Fields are required" });
       return;
     }
-    if (backError !== "") {
-      setError({ ...error, error: backError });
-    }
+
     setError({ ...error, error: "" });
-    dispatch(signUpThunkCreator(signUpLoginValue, signUnPasswordValue));
-    history.push("/profile");
+    if (backError) {
+      dispatch(setErrorAC(""));
+    }
+    dispatch(signUpThunkCreator(signUpLoginValue, signUpPasswordValue));
   };
+
+  useEffect(() => {
+    if (isSignedIn) {
+      props.toggleSignUp();
+      history.push("/profile");
+    }
+  }, [isSignedIn]);
+
   return (
     <>
       <form className={modalStyle.modalBackground} onClick={props.toggleSignUp}>
@@ -131,7 +141,7 @@ export default function SignUp(props: ISignUp): JSX.Element {
               name="password"
               type="password"
               label="Password"
-              value={signUnPasswordValue}
+              value={signUpPasswordValue}
               onBlurHander={onBlurPasswordHandler}
               error={error.passwordError}
               onChangeValueHandler={changePasswordHandler}
@@ -145,6 +155,8 @@ export default function SignUp(props: ISignUp): JSX.Element {
               error={error.repeatPasswordError}
               onChangeValueHandler={changeRepeatPasswordHandler}
             />
+
+            {backError && <div>{backError}</div>}
             <button type="submit" onClick={signUpHandler}>
               Submit
             </button>
