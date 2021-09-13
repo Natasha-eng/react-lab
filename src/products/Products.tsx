@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, withRouter } from "react-router-dom";
 import { GameType } from "@/types/types";
 import { useEffect } from "react";
 import { AppRootState } from "@/app/storetype";
@@ -34,4 +34,4 @@ function Products(): JSX.Element {
   );
 }
 
-export default Products;
+export default withRouter(Products);
