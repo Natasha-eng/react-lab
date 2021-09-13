@@ -1,17 +1,41 @@
 .input {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
 .filterInput {
   width: 30%;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px;
   margin-top: 10px;
   outline: none;
 }
 
 .filteredGamesContainer {
-  height: 65px;
+  position: absolute;
+  top: 48px;
+  width: 31%;
+  height: 0;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
   overflow-y: scroll;
+  background-color: slategrey;
+  transition: height 0.2s;
+}
+
+.searchSlider {
+  height: 80px;
+}
+
+.closeSearchSlider {
+  height: 0;
+}
+
+.filteredGamesContainer div {
+  padding: 5px;
+  border-bottom: 1px solid black;
+  cursor: pointer;
 }
