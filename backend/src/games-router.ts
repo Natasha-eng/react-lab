@@ -40,6 +40,9 @@ router.get("/products/:category", async (req: Request, res: Response) => {
   const filteredGames = games.filter((g: IGame) => g.category === category);
   if (!games) {
     res.send(500);
+  }
+  if (category === undefined) {
+    res.send(games);
   } else {
     res.send(filteredGames);
   }

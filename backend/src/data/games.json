@@ -3,6 +3,8 @@
     "id": 1,
     "name": "Minecraft",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-29T12:00:00Z",
     "img": "https://images.indianexpress.com/2020/05/Minecraft-1200-1.jpg",
     "category": "playstation"
@@ -11,6 +13,8 @@
     "id": 2,
     "name": "League of Legends",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-30T12:00:00Z",
     "img": "https://i.pinimg.com/originals/51/87/b2/5187b24c6cd144076d7a45fb301d54fc.jpg",
     "category": "pc"
@@ -19,6 +23,8 @@
     "id": 3,
     "name": "Counter-Strike: Global Offensive",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-30T11:10:00Z",
     "img": "https://dmarket.com/blog/best-csgo-wallpapers/CS-GO-wallpaper-HD-art_hue3ed7aeab8fceb3ccf3a35de14fc82fb_1114369_1920x1080_resize_q75_lanczos.jpg",
     "category": "playstation"
@@ -27,6 +33,8 @@
     "id": 4,
     "name": "Grand Theft Auto V",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-29T10:00:00Z",
     "img": "https://sm.ign.com/ign_ru/screenshot/default/gta-v-283maxresdefault_er1c.jpg",
     "category": "xbox"
@@ -35,6 +43,8 @@
     "id": 5,
     "name": "Valorant",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-29T10:15:00Z",
     "img": "https://images.livemint.com/img/2020/06/03/1600x900/Valorant_1591218052835_1591218061187.jpg",
     "category": "pc"
@@ -43,6 +53,8 @@
     "id": 6,
     "name": "Call of Duty: Modern Warfare/Warzone",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-29T13:20:00Z",
     "img": "https://www.callofduty.com/content/dam/atvi/callofduty/cod-touchui/warzone/social/wz-social-share.jpg",
     "category": "playstation"
@@ -51,6 +63,8 @@
     "id": 7,
     "name": "ROBLOX",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-30T11:15:00Z",
     "img": "https://d2e111jq13me73.cloudfront.net/sites/default/files/styles/amp_blog_image_large/public/blog/csm-blog/parents-ultimate-guide-to-roblox-blog.jpeg?itok=o20H9csm",
     "category": "pc"
@@ -59,6 +73,8 @@
     "id": 8,
     "name": "Fortnite",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-30T11:20:00Z",
     "img": "https://cdn2.unrealengine.com/metaimage1-1920x1080-abb60090deaf.png",
     "category": "xbox"
@@ -67,6 +83,8 @@
     "id": 9,
     "name": "Rocket League",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-29T10:20:00Z",
     "img": "https://cdn.earlygame.com/uploads/images/_headerImage/rocket-league-update-1.96.jpg",
     "category": "playstation"
@@ -75,6 +93,8 @@
     "id": 10,
     "name": "Apex Legends",
     "price": 23.99,
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, modi?",
+    "allowedAge": "+12",
     "date": "2021-08-29T14:20:00Z",
     "img": "https://svirtus.cdnvideo.ru/-wTFAlq3rD2PvercVsK1N9O_OJI=/fit-in/670x377/middle/https://img.youtube.com/vi/ZAE21AV4utI/maxresdefault.jpg",
     "category": "pc"
