@@ -53,6 +53,7 @@ function SearchInput(): JSX.Element {
         className={searchInputStyles.filterInput}
         placeholder="Search game..."
         onChange={searchByNameHandler}
+        onBlur={() => setSearch(false)}
       />
       {isFetching ? (
         <Preloader />
