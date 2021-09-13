@@ -30,10 +30,12 @@ function App() {
       <div className={mainStyle.container}>
         <Switch>
           <Route path={path.home} render={(routeProps) => <Home {...routeProps} />} />
-          <ProtectedRoute path={path.products} isSignedIn={isSignedIn}>
+          <ProtectedRoute path="/products/:category?" isSignedIn={isSignedIn}>
             <Products />
           </ProtectedRoute>
-          <Route path="/products/:category" render={() => <Products />} />
+
+          {/* <Route path="/products" render={() => <Products />} /> */}
+          {/* <Route path="/products/:category" render={() => <Products />} /> */}
           {/* <Route path={path.about} render={() => <About />} /> */}
           <ProtectedRoute path={path.about} isSignedIn={isSignedIn}>
             <About />
