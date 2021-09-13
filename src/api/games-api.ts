@@ -23,6 +23,16 @@ export const api = {
       },
     });
   },
+  signUp(login: string, password: string) {
+    return instance.post(`auth/signUp`, { login, password });
+  },
+  signIn(login: string, password: string) {
+    return instance.post(`auth/signIn`, { login, password });
+  },
+
+  getProfile() {
+    return instance.get<{ message: string }>(`profile`);
+  },
 };
 
 export default api;
