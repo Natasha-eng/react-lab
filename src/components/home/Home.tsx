@@ -4,13 +4,13 @@ import { fetchGamesByDateThunkCreator } from "@/thunks/thunks";
 import { GameType } from "@/types/types";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, RouteComponentProps } from "react-router-dom";
 import main from "../../styles/main.module.css";
 import headerStyle from "../header/header.module.css";
 import SearchInput from "../search/SearchInput";
 import homeStyles from "./home.module.css";
 
-function Home(): JSX.Element {
+function Home(props: RouteComponentProps): JSX.Element {
   const dispatch = useDispatch();
   const games = useSelector<AppRootState, Array<GameType>>((state) => state.games);
 
