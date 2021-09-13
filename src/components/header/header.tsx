@@ -1,6 +1,6 @@
 import { setIsSignedInAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import SignInContainer from "../signin/SignInContainer";
@@ -19,17 +19,17 @@ interface IHome {
 }
 
 function Header(props: IHome): JSX.Element {
-  const [clicked, setClicked] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [signUp, setSignUp] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const userName = useSelector<AppRootState, string>((state) => state.profile.userName);
 
-  const slide = `${headerStyle.subMenu} ${clicked ? headerStyle.SlideSideBar : headerStyle.CloseSlideSideBar}`;
+  const slide = `${headerStyle.subMenu} ${dropdown ? headerStyle.SlideSideBar : headerStyle.CloseSlideSideBar}`;
 
-  const clickHandler = () => {
-    setClicked(!clicked);
+  const toggleDropdown = () => {
+    setDropdown(!dropdown);
   };
 
   const toggleSignIn = () => {
@@ -45,6 +45,12 @@ function Header(props: IHome): JSX.Element {
     history.push("/home");
   };
 
+  const handleKeyPress = (e: KeyboardEvent<HTMLLIElement>) => {
+    if (e.code === "Enter") {
+      setDropdown(!dropdown);
+    }
+  };
+
   return (
     <header className={headerStyle.header}>
       <h1 className={headerStyle.title}>Best Games Market</h1>
@@ -56,23 +62,35 @@ function Header(props: IHome): JSX.Element {
           </NavLink>
         </li>
 
-        <li className={headerStyle.navItem}>
-          <NavLink to="/products" activeClassName={headerStyle.activeLink} onClick={clickHandler}>
+        <li
+          className={headerStyle.navItem}
+          onMouseLeave={() => setDropdown(false)}
+          onMouseEnter={() => setDropdown(true)}
+          onClick={toggleDropdown}
+          onKeyPress={handleKeyPress}
+          role="menuitem"
+          tabIndex={0}
+        >
+          <NavLink to="/products" activeClassName={headerStyle.activeLink} onClick={toggleDropdown}>
             Products
-            <div className={slide}>
-              <NavLink to="/pc" className={headerStyle.subItem}>
+          </NavLink>
+          <ul className={slide}>
+            <li>
+              <NavLink to="/products/pc" className={headerStyle.subItem} onClick={toggleDropdown}>
                 PC
               </NavLink>
-
-              <NavLink to="/playstation" className={headerStyle.subItem}>
+            </li>
+            <li>
+              <NavLink to="/products/playstation" className={headerStyle.subItem} onClick={toggleDropdown}>
                 Playstation
               </NavLink>
-
-              <NavLink to="/xbox" className={headerStyle.subItem}>
+            </li>
+            <li>
+              <NavLink to="/products/xbox" className={headerStyle.subItem} onClick={toggleDropdown}>
                 Xbox
               </NavLink>
-            </div>
-          </NavLink>
+            </li>
+          </ul>
         </li>
 
         <li className={headerStyle.navItem}>
