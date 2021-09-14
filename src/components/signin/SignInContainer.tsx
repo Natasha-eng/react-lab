@@ -1,5 +1,5 @@
 import Modal from "../modal/Modal";
-import SignIn from "./SignIn";
+import SignInWithContext from "./SignInWithContext";
 
 interface ISignInContainer {
   toggleSignIn: () => void;
@@ -8,7 +8,7 @@ interface ISignInContainer {
 export default function SignInContainer(props: ISignInContainer): JSX.Element {
   return (
     <Modal>
-      <SignIn toggleSignIn={props.toggleSignIn} />
+      <SignInWithContext toggleSignIn={props.toggleSignIn} />
     </Modal>
   );
 }
