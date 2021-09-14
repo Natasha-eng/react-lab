@@ -12,7 +12,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 router.get("/home", async (req: Request, res: Response) => {
   const games = await readJsonFromFile("src/data/games.json");
   if (!games) {
-    res.send(404);
+    res.status(404);
   } else {
     res.send(games);
   }
@@ -27,7 +27,7 @@ router.get("/home/search", async (req: Request, res: Response) => {
   const filteredGames = games.filter((g: IGame) => g.name.toLowerCase().includes(name.toLocaleLowerCase()));
 
   if (!filteredGames) {
-    res.send(500);
+    res.status(500);
   } else {
     res.send(filteredGames);
   }
@@ -39,7 +39,7 @@ router.get("/products/:category", async (req: Request, res: Response) => {
   const games: IGame[] = JSON.parse(data) as IGame[];
   const filteredGames = games.filter((g: IGame) => g.category === category);
   if (!games) {
-    res.send(500);
+    res.status(500);
   }
   if (category === undefined) {
     res.send(games);
