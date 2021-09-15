@@ -9,7 +9,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-router.get("/home", async (req: Request, res: Response) => {
+router.get("/products", async (req: Request, res: Response) => {
   const games = await readJsonFromFile("src/data/games.json");
   if (!games) {
     res.send(404);
