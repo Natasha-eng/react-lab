@@ -45,7 +45,7 @@ router.post("/auth/signUp", async (req: Request, res: Response) => {
 });
 
 router.get("/profile", (req: Request, res: Response) => {
-  res.send({ message: "User Profile" });
+  res.status(200).send({ message: "User Profile" });
 });
 
 export default router;
