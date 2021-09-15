@@ -1,7 +1,6 @@
-import { setErrorAC } from "@/actions/actions";
+import { setErrorAC, signInSagaAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
 import InputText from "@/elements/input/InputText";
-import { signInThunkCreator } from "@/thunks/thunks";
 import { isLoginValide, isPasswordValide } from "@/utils/util";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -72,7 +71,7 @@ export default function SignIn(props: ISignIn): JSX.Element {
       return;
     }
     setError({ ...error, error: "" });
-    dispatch(signInThunkCreator(signInLoginValue, signInPasswordValue));
+    dispatch(signInSagaAC(signInLoginValue, signInPasswordValue));
     dispatch(setErrorAC(""));
   };
   useEffect(() => {
