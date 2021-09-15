@@ -6,13 +6,14 @@ import { Provider, useSelector } from "react-redux";
 import Home from "./components/home/Home";
 import Products from "./products/Products";
 import Footer from "./components/footer/footer";
-import Header, { path } from "./components/header/header";
+import { path } from "./components/header/header";
 import { store } from "./app/store";
 import { AppRootState } from "./app/storetype";
 import Profile from "./components/profile/Profile";
 import About from "./components/about/About";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import mainStyle from "./styles/main.module.css";
+import HeaderContainer from "./components/header/HeaderContainer";
 
 interface AppProps {
   nothing: boolean;
@@ -26,7 +27,7 @@ function App() {
 
   return (
     <div>
-      <Header isSignedIn={isSignedIn} />
+      <HeaderContainer />
       <div className={mainStyle.container}>
         <Switch>
           <Route path={path.home} render={(routeProps) => <Home {...routeProps} />} />

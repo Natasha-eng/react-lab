@@ -1,7 +1,6 @@
 import { setIsSignedInAC } from "@/actions/actions";
-import { AppRootState } from "@/app/storetype";
 import { KeyboardEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import SignInContainer from "../signin/SignInContainer";
 import SignUpContainer from "../signup/SignUpContainer";
@@ -16,6 +15,7 @@ export const path = {
 
 interface IHome {
   isSignedIn: boolean;
+  userName: string;
 }
 
 function Header(props: IHome): JSX.Element {
@@ -24,8 +24,8 @@ function Header(props: IHome): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const userName = useSelector<AppRootState, string>((state) => state.profile.userName);
-  const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
+  // const userName = useSelector<AppRootState, string>((state) => state.profile.userName);
+  // const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
   const slide = `${headerStyle.subMenu} ${dropdown ? headerStyle.SlideSideBar : headerStyle.CloseSlideSideBar}`;
 
@@ -34,14 +34,14 @@ function Header(props: IHome): JSX.Element {
   };
 
   const toggleSignIn = () => {
-    if (isSignedIn) {
+    if (props.isSignedIn) {
       setSignIn(false);
     }
     setSignIn(!signIn);
   };
 
   const toggleSignUp = () => {
-    if (isSignedIn) {
+    if (props.isSignedIn) {
       setSignUp(false);
     }
     setSignUp(!signUp);
@@ -109,7 +109,7 @@ function Header(props: IHome): JSX.Element {
           <>
             <li className={headerStyle.navItem}>
               <NavLink to={path.profile} activeClassName={headerStyle.activeLink}>
-                {userName}
+                {props.userName}
               </NavLink>
             </li>
             <button type="submit" onClick={signOutHandler}>
