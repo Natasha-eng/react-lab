@@ -8,7 +8,7 @@ const instance = axios.create({
 // api
 export const api = {
   getGames() {
-    return instance.get<GameType[]>(`home`);
+    return instance.get<GameType[]>(`products`);
   },
   getGamesByCategory(category: string) {
     return instance.get<GameType[]>(`products/${category}`);
