@@ -21,7 +21,7 @@ function HeaderWithContext(): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
+  // const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
   const { signedIn, loginName, signInHandler } = useContext(SignInContext);
 
@@ -32,14 +32,14 @@ function HeaderWithContext(): JSX.Element {
   };
 
   const toggleSignIn = () => {
-    if (isSignedIn) {
+    if (signedIn) {
       setSignIn(false);
     }
     setSignIn(!signIn);
   };
 
   const toggleSignUp = () => {
-    if (isSignedIn) {
+    if (signedIn) {
       setSignUp(false);
     }
     setSignUp(!signUp);
