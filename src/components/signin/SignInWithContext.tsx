@@ -75,17 +75,13 @@ export default function SignInWithContext(props: ISignIn): JSX.Element {
       return;
     }
     setError({ ...error, error: "" });
-    // dispatch(signInThunkCreator(signInLoginValue, signInPasswordValue));
 
     const response = await api.signIn(signInLoginValue, signInPasswordValue);
     if (response.status === 201) {
       signInHandler({ signedIn: true, loginName: response.data.name });
-      // dispatch(setUserNameAC(response.data.name));
-      // dispatch(setIsSignedInAC(true));
     } else {
       signInHandler({ signedIn: false, loginName: "" });
       dispatch(setErrorAC(response.data.errorMessage));
-      // dispatch(setIsSignedInAC(false));
     }
     dispatch(setErrorAC(""));
   };

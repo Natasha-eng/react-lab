@@ -1,8 +1,7 @@
 import { setIsSignedInAC } from "@/actions/actions";
-import { AppRootState } from "@/app/storetype";
 import { SignInContext } from "@/signInContex/SignInContex";
 import { KeyboardEvent, useContext, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import SignInContainer from "../signin/SignInContainer";
 import SignUpContainer from "../signup/SignUpContainer";
@@ -21,7 +20,6 @@ function HeaderWithContext(): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  // const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
   const { signedIn, loginName, signInHandler } = useContext(SignInContext);
 
