@@ -20,9 +20,9 @@ router.post("/auth/signIn", async (req: Request, res: Response) => {
   const users: Array<IUser> = JSON.parse(data) as Array<IUser>;
   const user = users.find((u) => u.login === req.body.login && u.password === req.body.password);
   if (!user) {
-    res.send({ status: 500, errorMessage: "Such user doesn't exist" });
+    res.status(500).send({ errorMessage: "Such user doesn't exist" });
   } else {
-    res.send({ status: 201, name: user.login });
+    res.status(201).send({ name: user.login });
   }
 });
 
@@ -38,14 +38,14 @@ router.post("/auth/signUp", async (req: Request, res: Response) => {
   if (!user) {
     users.push({ id: 11, login: req.body.login, password: req.body.password });
     await writeJsonToFile("./src/data/users.json", users);
-    res.send({ status: 202, name: req.body.login });
+    res.status(202).send({ name: req.body.login });
   } else {
-    res.send({ status: 400, errorMessage: "This name is already in use" });
+    res.status(400).send({ errorMessage: "This name is already in use" });
   }
 });
 
 router.get("/profile", (req: Request, res: Response) => {
-  res.send({ message: "User Profile" });
+  res.status(200).send({ message: "User Profile" });
 });
 
 export default router;

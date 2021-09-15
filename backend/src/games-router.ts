@@ -12,9 +12,9 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 router.get("/products", async (req: Request, res: Response) => {
   const games = await readJsonFromFile("src/data/games.json");
   if (!games) {
-    res.send(404);
+    res.status(500).send("We can't give you games");
   } else {
-    res.send(games);
+    res.status(200).send(games);
   }
 });
 
@@ -27,9 +27,9 @@ router.get("/home/search", async (req: Request, res: Response) => {
   const filteredGames = games.filter((g: IGame) => g.name.toLowerCase().includes(name.toLocaleLowerCase()));
 
   if (!filteredGames) {
-    res.send(500);
+    res.status(500).send("There are no games with such category");
   } else {
-    res.send(filteredGames);
+    res.status(200).send(filteredGames);
   }
 });
 
@@ -39,12 +39,9 @@ router.get("/products/:category", async (req: Request, res: Response) => {
   const games: IGame[] = JSON.parse(data) as IGame[];
   const filteredGames = games.filter((g: IGame) => g.category === category);
   if (!games) {
-    res.send(500);
-  }
-  if (category === undefined) {
-    res.send(games);
+    res.status(500).send("We can't give you games");
   } else {
-    res.send(filteredGames);
+    res.status(200).send(filteredGames);
   }
 });
 
@@ -55,9 +52,9 @@ router.get("/home/getTopProducts", async (req: Request, res: Response) => {
   const sortedGames: IGame[] = games.sort(byDate);
   const firstThreeeGames = sortedGames.slice(0, 3);
   if (!games) {
-    res.send(500);
+    res.send(500).send("We can't give you games");
   } else {
-    res.send(firstThreeeGames);
+    res.status(200).send(firstThreeeGames);
   }
 });
 

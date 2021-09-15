@@ -1,18 +1,18 @@
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
-import { Component, StrictMode } from "react";
+import { Component, StrictMode, useContext } from "react";
 import ReactDom from "react-dom";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { Provider, useSelector } from "react-redux";
+import { BrowserRouter, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
 import Home from "./components/home/Home";
 import Products from "./products/Products";
 import Footer from "./components/footer/footer";
-import Header, { path } from "./components/header/header";
+import HeaderWithContext, { path } from "./components/header/headerWithContext";
 import { store } from "./app/store";
-import { AppRootState } from "./app/storetype";
-import Profile from "./components/profile/Profile";
 import About from "./components/about/About";
-import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import mainStyle from "./styles/main.module.css";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import Profile from "./components/profile/Profile";
+import Context, { SignInContext } from "./signInContex/SignInContex";
 
 interface AppProps {
   nothing: boolean;
@@ -22,25 +22,26 @@ interface AppState {
 }
 
 function App() {
-  const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
+  // const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
+  const { signedIn } = useContext(SignInContext);
 
   return (
     <div>
-      <Header isSignedIn={isSignedIn} />
+      <HeaderWithContext />
       <div className={mainStyle.container}>
         <Switch>
-          <Route path={path.home} render={(routeProps) => <Home {...routeProps} />} />
-          <ProtectedRoute path={path.products} isSignedIn={isSignedIn}>
+          <Route path={path.home} render={(routeProps: RouteComponentProps) => <Home {...routeProps} />} />
+          <ProtectedRoute path={path.products} isSignedIn={signedIn}>
             <Products />
           </ProtectedRoute>
 
           {/* <Route path="/products" render={() => <Products />} /> */}
           {/* <Route path="/products/:category" render={() => <Products />} /> */}
           {/* <Route path={path.about} render={() => <About />} /> */}
-          <ProtectedRoute path={path.about} isSignedIn={isSignedIn}>
+          <ProtectedRoute path={path.about} isSignedIn={signedIn}>
             <About />
           </ProtectedRoute>
-          <Route path={path.profile} render={() => <Profile isSignedIn={isSignedIn} />} />
+          <Route path={path.profile} render={() => <Profile isSignedIn={signedIn} />} />
           <Redirect from="*" to={path.home} />
           <Redirect to={path.profile} />
         </Switch>
@@ -84,7 +85,9 @@ class AppContainer extends Component<AppProps, AppState> {
 
 ReactDom.render(
   <Provider store={store}>
-    <AppContainer nothing={false} />
+    <Context>
+      <AppContainer nothing={false} />
+    </Context>
   </Provider>,
   document.getElementById("app")
 );
