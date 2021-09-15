@@ -1,5 +1,10 @@
 import * as fs from "fs/promises";
-import util = require("util");
+
+export interface IUser {
+  id: number;
+  login: string;
+  password: string;
+}
 
 const readJsonFromFile = (filePath: string): Promise<unknown> => fs.readFile(filePath, "utf8");
 

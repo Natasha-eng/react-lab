@@ -1,0 +1,19 @@
+[
+  { "id": 1, "login": "Natasha", "password": "1$qwerty1" },
+  { "id": 2, "login": "Nick", "password": "23.99" },
+  { "id": 3, "login": "Kate", "password": "23.99" },
+  { "id": 4, "login": "Viktor", "password": "23.99" },
+  { "id": 5, "login": "John", "password": "23.99" },
+  { "id": 6, "login": "Vladimir", "password": "23.99" },
+  { "id": 7, "login": "Dmitri", "password": "23.99" },
+  { "id": 8, "login": "Lena", "password": "23.99" },
+  { "id": 9, "login": "Dasha", "password": "23.99" },
+  { "id": 10, "login": "Alex", "password": "23.99" },
+  { "id": 11, "login": "Natasha2", "password": "2$qwerty2" },
+  { "id": 11, "login": "Natasha3", "password": "3$qwerty3" },
+  { "id": 11, "login": "Natasha4", "password": "4$qwerty4" },
+  { "id": 11, "login": "Kate1", "password": "1@qwerty1" },
+  { "id": 11, "login": "Kate2", "password": "2@qwerty2" },
+  { "id": 11, "login": "Kate3", "password": "3@qwerty3" },
+  { "id": 11, "login": "Kate4", "password": "4#qwerty4" }
+]

@@ -8,7 +8,7 @@ const instance = axios.create({
 // api
 export const api = {
   getGames() {
-    return instance.get<GameType[]>(`home`);
+    return instance.get<GameType[]>(`products`);
   },
   getGamesByCategory(category: string) {
     return instance.get<GameType[]>(`products/${category}`);
@@ -22,6 +22,16 @@ export const api = {
         name,
       },
     });
+  },
+  signUp(login: string, password: string) {
+    return instance.post(`auth/signUp`, { login, password });
+  },
+  signIn(login: string, password: string) {
+    return instance.post(`auth/signIn`, { login, password });
+  },
+
+  getProfile() {
+    return instance.get<{ message: string }>(`profile`);
   },
 };
 

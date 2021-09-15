@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, withRouter } from "react-router-dom";
 import { GameType } from "@/types/types";
 import { useEffect } from "react";
 import { AppRootState } from "@/app/storetype";
-import { fetchGamesByCategoryThunkCreator } from "@/thunks/thunks";
+import { fetchGamesByCategoryThunkCreator, fetchGamesThunkCreator } from "@/thunks/thunks";
 import main from "../styles/main.module.css";
 import Game from "./game";
 import homeStyles from "../components/home/home.module.css";
@@ -19,7 +19,11 @@ function Products(): JSX.Element {
   const { category } = useParams<CategoryParams>();
 
   useEffect(() => {
-    dispatch(fetchGamesByCategoryThunkCreator(category));
+    if (category) {
+      dispatch(fetchGamesByCategoryThunkCreator(category));
+    } else {
+      dispatch(fetchGamesThunkCreator());
+    }
   }, [category]);
 
   return (
@@ -34,4 +38,4 @@ function Products(): JSX.Element {
   );
 }
 
-export default Products;
+export default withRouter(Products);

@@ -1,0 +1,81 @@
+.gameContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.flipCardBack,
+.flipCardFront {
+  width: 380px;
+  min-height: 500px;
+  height: auto;
+  text-align: center;
+  border-radius: 10px;
+  -webkit-backface-visibility: hidden;
+  background-color: black;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.flipCardFront {
+  -webkit-transform: rotate(0deg);
+  -webkit-transform: rotateY(0deg);
+}
+
+.flipCardBack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform: rotateY(180deg);
+}
+
+.flipCardBack::after,
+.flipCardFront::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.flipCardFront .inner,
+.flipCardBack .inner {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateZ(60px) scale(0.94);
+  z-index: 2;
+}
+
+.inner h3 {
+  margin-bottom: 8px;
+  color: white;
+  font-size: 30px;
+  line-height: 40px;
+  text-transform: capitalize;
+}
+
+.inner p {
+  color: white;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.gameContainer:hover .flipCardFront {
+  transform: rotateY(-180deg);
+}
+
+.gameContainer:hover .flipCardBack {
+  transform: rotateY(0deg);
+}
+
+.inner img {
+  width: 300px;
+  height: auto;
+}

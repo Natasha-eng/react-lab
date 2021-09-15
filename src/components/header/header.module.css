@@ -4,12 +4,25 @@
   align-items: center;
   color: white;
   background-color: black;
+  padding: 22px 0 22px 0;
+}
+
+.title {
+  padding-left: 20px;
+  color: #ff7d7d;
+  text-shadow: 0 0 2px #ff0000, 0 0 2px #ff0000, 0 0 4px #ff0000, 0 0 10px #ff0000, 0 0 10px #ff0000, 0 0 10px #ff0000,
+    0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 40px #ff0000, 0 0 40px #ff0000, 0 0 45px #ff0000, 0 0 65px #ff0000;
+  filter: brightness(300%);
 }
 
 .navBar {
   display: flex;
   list-style: none;
   position: relative;
+}
+
+.navItem {
+  list-style: none;
 }
 
 .navItem a {
@@ -32,6 +45,7 @@
   top: 49px;
   background-color: black;
   width: 118px;
+  list-style: none;
 }
 
 .subMenu .subItem {
@@ -50,6 +64,7 @@
 .SlideSideBar {
   /* height: 114px; */
   display: block;
+  z-index: 2;
 }
 
 .CloseSlideSideBar {

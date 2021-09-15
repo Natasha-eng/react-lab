@@ -9,7 +9,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-router.get("/home", async (req: Request, res: Response) => {
+router.get("/products", async (req: Request, res: Response) => {
   const games = await readJsonFromFile("src/data/games.json");
   if (!games) {
     res.send(404);
@@ -40,6 +40,9 @@ router.get("/products/:category", async (req: Request, res: Response) => {
   const filteredGames = games.filter((g: IGame) => g.category === category);
   if (!games) {
     res.send(500);
+  }
+  if (category === undefined) {
+    res.send(games);
   } else {
     res.send(filteredGames);
   }

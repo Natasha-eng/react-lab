@@ -1,5 +1,5 @@
 import * as fs from "fs/promises";
-import util = require("util");
+import { IUser } from "./readJsonFromFile";
 
 export interface IGame {
   id: number;
@@ -10,7 +10,8 @@ export interface IGame {
   category: string;
 }
 
-const writeFile = util.promisify(fs.readFile);
+const writeJsonToFile = (filePath: string, data: Array<IUser>): Promise<unknown> =>
+  fs.writeFile(filePath, JSON.stringify(data), "utf-8");
 
 // const writeJsonToFile = (filePath: string, data) =>
 //   new Promise((resolve, reject) => {
@@ -25,4 +26,4 @@ const writeFile = util.promisify(fs.readFile);
 //     });
 //   });
 
-// export default writeJsonToFile;
+export default writeJsonToFile;

@@ -2,13 +2,17 @@
 import { Component, StrictMode } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import Home from "./components/home/Home";
-import About from "./components/about/About";
 import Products from "./products/Products";
 import Footer from "./components/footer/footer";
 import Header, { path } from "./components/header/header";
 import { store } from "./app/store";
+import { AppRootState } from "./app/storetype";
+import Profile from "./components/profile/Profile";
+import About from "./components/about/About";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import mainStyle from "./styles/main.module.css";
 
 interface AppProps {
   nothing: boolean;
@@ -18,19 +22,32 @@ interface AppState {
 }
 
 function App() {
+  const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
+
   return (
-    <>
-      <Header />
-      <div>
+    <div>
+      <Header isSignedIn={isSignedIn} />
+      <div className={mainStyle.container}>
         <Switch>
-          <Route path={path.home} render={() => <Home />} />
-          <Route path="/products/:category" render={() => <Products />} />
-          <Route path={path.about} render={() => <About />} />
-          <Redirect from="*" to="/home" />
+          <Route path={path.home} render={(routeProps) => <Home {...routeProps} />} />
+          <ProtectedRoute path={path.products} isSignedIn={isSignedIn}>
+            <Products />
+          </ProtectedRoute>
+
+          {/* <Route path="/products" render={() => <Products />} /> */}
+          {/* <Route path="/products/:category" render={() => <Products />} /> */}
+          {/* <Route path={path.about} render={() => <About />} /> */}
+          <ProtectedRoute path={path.about} isSignedIn={isSignedIn}>
+            <About />
+          </ProtectedRoute>
+          <Route path={path.profile} render={() => <Profile isSignedIn={isSignedIn} />} />
+          <Redirect from="*" to={path.home} />
+          <Redirect to={path.profile} />
         </Switch>
       </div>
+
       <Footer />
-    </>
+    </div>
   );
 }
 
