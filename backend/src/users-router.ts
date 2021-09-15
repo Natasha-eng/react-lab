@@ -11,10 +11,10 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 router.post("/auth/signIn", async (req: Request, res: Response) => {
-  const validLogin = isLoginValide(req.body.login);
-  const validPassport = isPasswordValide(req.body.password);
-  if (validLogin === null || validPassport === null) {
-    res.status(500).send({ errorMEssage: "Login or Passport is Invalid" });
+  const isLoginValid = isLoginValide(req.body.login);
+  const isPasswordValid = isPasswordValide(req.body.password);
+  if (!isLoginValid && !isPasswordValid) {
+    res.send({ status: 500, errorMEssage: "Login or Passport is Invalid" });
   }
   const data: string = (await readJsonFromFile("src/data/users.json")) as string;
   const users: Array<IUser> = JSON.parse(data) as Array<IUser>;
@@ -27,10 +27,10 @@ router.post("/auth/signIn", async (req: Request, res: Response) => {
 });
 
 router.post("/auth/signUp", async (req: Request, res: Response) => {
-  const validLogin = isLoginValide(req.body.login);
-  const validPassport = isPasswordValide(req.body.password);
-  if (validLogin === null || validPassport === null) {
-    res.status(201).send({ errorMEssage: "Login or Passport is Invalid" });
+  const isLoginValid = isLoginValide(req.body.login);
+  const isPasswordValid = isPasswordValide(req.body.password);
+  if (!isLoginValid && !isPasswordValid) {
+    res.send({ status: 500, errorMEssage: "Login or Passport is Invalid" });
   }
   const data: string = (await readJsonFromFile("src/data/users.json")) as string;
   const users: Array<IUser> = JSON.parse(data) as Array<IUser>;
