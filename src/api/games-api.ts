@@ -1,4 +1,4 @@
-import { GameType } from "@/types/types";
+import { GameType, UserProfileType } from "@/types/types";
 import axios from "axios";
 
 const instance = axios.create({
@@ -30,8 +30,8 @@ export const api = {
     return instance.post(`auth/signIn`, { login, password });
   },
 
-  getProfile() {
-    return instance.get<{ message: string }>(`profile`);
+  getProfile(loggedInUser: string) {
+    return instance.get<UserProfileType>(`profile/${loggedInUser}`);
   },
 };
 

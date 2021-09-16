@@ -10,7 +10,7 @@ export const path = {
   home: "/home",
   products: "/products/:category?",
   about: "/about",
-  profile: "/profile",
+  profile: "/profile/:loggedInUser",
 };
 
 interface IHome {
@@ -106,7 +106,7 @@ function Header(props: IHome): JSX.Element {
         {props.isSignedIn ? (
           <>
             <li className={headerStyle.navItem}>
-              <NavLink to={path.profile} activeClassName={headerStyle.activeLink}>
+              <NavLink to={`profile/${props.userName}`} activeClassName={headerStyle.activeLink}>
                 {props.userName}
               </NavLink>
             </li>

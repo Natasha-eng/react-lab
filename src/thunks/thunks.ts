@@ -83,8 +83,8 @@ export const signUpThunkCreator =
   };
 
 export const fetchProfileThunkCreator =
-  () =>
+  (loggedInUser: string) =>
   async (dispatch: ThunkDispatch<AppRootState, unknown, setUserProfileActonType>): Promise<void> => {
-    const response = await api.getProfile();
-    dispatch(setUserProfileAC(response.data.message));
+    const response = await api.getProfile(loggedInUser);
+    dispatch(setUserProfileAC(response.data));
   };
