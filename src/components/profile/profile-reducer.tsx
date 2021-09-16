@@ -1,16 +1,12 @@
 import { ActionsType } from "@/actions/actions";
+import { IProfile, UserProfileType } from "@/types/types";
 
 const SET_USER_NAME = "SET-USER-NAME";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 
-interface IProfile {
-  userName: string;
-  profile: string;
-}
-
 const initialState: IProfile = {
   userName: "",
-  profile: "",
+  profile: {} as UserProfileType,
 };
 
 export const profileReducer = (state = initialState, action: ActionsType): IProfile => {

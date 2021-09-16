@@ -14,3 +14,16 @@ export interface AuthInitialState {
   isSignedUp: boolean;
   error: string;
 }
+
+export interface UserProfileType {
+  id: number;
+  login: string;
+  email: string;
+  profileDescription: string;
+  password: string;
+}
+
+export interface IProfile {
+  userName: string;
+  profile: UserProfileType;
+}
