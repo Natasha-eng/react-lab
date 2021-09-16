@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import main from "../../styles/main.module.css";
-import { path } from "../header/header";
+import { path } from "../header/HeaderContainer";
 
 interface IProfile {
   isSignedIn: boolean;
