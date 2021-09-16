@@ -24,8 +24,6 @@ function Header(props: IHome): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  // const userName = useSelector<AppRootState, string>((state) => state.profile.userName);
-  // const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
   const slide = `${headerStyle.subMenu} ${dropdown ? headerStyle.SlideSideBar : headerStyle.CloseSlideSideBar}`;
 
