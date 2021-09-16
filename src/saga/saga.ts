@@ -10,7 +10,7 @@ function* signIn(action: signInSagaActionType) {
       action.payload.login,
       action.payload.password
     );
-    if (user.data.status === 201) {
+    if (user.status === 201) {
       yield put(setUserNameAC(user.data.name));
       yield put(setIsSignedInAC(true));
     } else {
