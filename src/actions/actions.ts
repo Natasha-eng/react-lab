@@ -1,4 +1,4 @@
-import { GameType } from "@/types/types";
+import { GameType, UserProfileType } from "@/types/types";
 
 // actions
 export const setGamesAC = (games: Array<GameType>) => ({ type: "SET-GAMES", games } as const);
@@ -20,7 +20,7 @@ export type setIsSignedInActionType = ReturnType<typeof setIsSignedInAC>;
 export const setUserNameAC = (userName: string) => ({ type: "SET-USER-NAME", userName } as const);
 export type setUserNameActionType = ReturnType<typeof setUserNameAC>;
 
-export const setUserProfileAC = (profile: string) => ({ type: "SET-USER-PROFILE", profile } as const);
+export const setUserProfileAC = (profile: UserProfileType) => ({ type: "SET-USER-PROFILE", profile } as const);
 export type setUserProfileActonType = ReturnType<typeof setUserProfileAC>;
 
 export const setErrorAC = (error: string) => ({ type: "SET-ERROR", error } as const);
