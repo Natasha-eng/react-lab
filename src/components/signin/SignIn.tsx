@@ -64,7 +64,7 @@ export default function SignIn(props: ISignIn): JSX.Element {
     setSignInPasswordValue(value);
   };
 
-  const logInHandler = async (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const logInHandler = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     if (signInLoginValue === "" && signInPasswordValue === "") {
