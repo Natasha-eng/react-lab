@@ -24,7 +24,7 @@ export default function SignIn(props: ISignIn): JSX.Element {
     "Your login is not valid. Only characters A-Z, a-z, numbers 0-9 are  acceptable. Login can be at least 2 charecters long and no more than 20 characters";
   const errorPassword =
     "Password must be a minimum of 5 characters including at least one number and at least one special character and not more than 10 characters";
-  const commonError = "Fields are required";
+  const commonError = "All the fields are required";
 
   const onBlurLoginHandler = (value: string) => {
     const validLoginName = isLoginValide(value);
