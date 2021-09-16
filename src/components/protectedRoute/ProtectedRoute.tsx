@@ -11,7 +11,7 @@ interface IProtectedRoute {
   path: string;
 }
 
-export default function ProtectedRoute(props: IProtectedRoute) {
+export default function ProtectedRoute(props: IProtectedRoute): JSX.Element {
   const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
   const [modal, setShowModal] = useState(true);
 
