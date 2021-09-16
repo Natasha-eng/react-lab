@@ -58,7 +58,7 @@ export const signInThunkCreator =
     dispatch: ThunkDispatch<AppRootState, unknown, setIsSignedInActionType | setUserNameActionType | setErrorActionType>
   ): Promise<void> => {
     const response = await api.signIn(login, password);
-    if (response.data.status === 201) {
+    if (response.status === 201) {
       dispatch(setUserNameAC(response.data.name));
       dispatch(setIsSignedInAC(true));
     } else {
@@ -73,7 +73,7 @@ export const signUpThunkCreator =
     dispatch: ThunkDispatch<AppRootState, unknown, setIsSignedInActionType | setUserNameActionType | setErrorActionType>
   ): Promise<void> => {
     const response = await api.signUp(login, password);
-    if (response.data.status === 202) {
+    if (response.status === 202) {
       dispatch(setUserNameAC(response.data.name));
       dispatch(setIsSignedInAC(true));
     } else {

@@ -1,10 +1,12 @@
-import { setErrorAC, signInSagaAC } from "@/actions/actions";
+import { setErrorAC } from "@/actions/actions";
+import { api } from "@/api/games-api";
 import { AppRootState } from "@/app/storetype";
 import InputText from "@/elements/input/InputText";
+import { SignInContext } from "@/signInContex/SignInContex";
 import { isLoginValide, isPasswordValide } from "@/utils/util";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import modalStyle from "../modal/modal.module.css";
 
@@ -12,13 +14,14 @@ interface ISignIn {
   toggleSignIn: () => void;
 }
 
-export default function SignIn(props: ISignIn): JSX.Element {
+export default function SignInWithContext(props: ISignIn): JSX.Element {
   const dispatch = useDispatch();
   const [signInLoginValue, setSignInLoginValue] = useState("");
   const [signInPasswordValue, setSignInPasswordValue] = useState("");
   const [error, setError] = useState({ loginError: "", passwordError: "", error: "" });
   const backError = useSelector<AppRootState, string>((state) => state.auth.error);
-  const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
+
+  const { signedIn, signInHandler } = useContext(SignInContext);
 
   const errorLogin =
     "Your login is not valid. Only characters A-Z, a-z, numbers 0-9 are  acceptable. Login can be at least 2 charecters long and no more than 20 characters";
@@ -72,14 +75,21 @@ export default function SignIn(props: ISignIn): JSX.Element {
       return;
     }
     setError({ ...error, error: "" });
-    dispatch(signInSagaAC(signInLoginValue, signInPasswordValue));
+
+    const response = await api.signIn(signInLoginValue, signInPasswordValue);
+    if (response.status === 201) {
+      signInHandler({ signedIn: true, loginName: response.data.name });
+    } else {
+      signInHandler({ signedIn: false, loginName: "" });
+      dispatch(setErrorAC(response.data.errorMessage));
+    }
     dispatch(setErrorAC(""));
   };
   useEffect(() => {
-    if (isSignedIn) {
+    if (signedIn) {
       props.toggleSignIn();
     }
-  }, [isSignedIn]);
+  }, [signedIn]);
 
   return (
     <>

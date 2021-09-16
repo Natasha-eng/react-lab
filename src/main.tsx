@@ -1,19 +1,19 @@
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
-import { Component, StrictMode } from "react";
+import { Component, StrictMode, useContext } from "react";
 import ReactDom from "react-dom";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { Provider, useSelector } from "react-redux";
+import { BrowserRouter, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
 import Home from "./components/home/Home";
 import Products from "./products/Products";
 import Footer from "./components/footer/footer";
 import { path } from "./components/header/header";
 import { store } from "./app/store";
-import { AppRootState } from "./app/storetype";
-import Profile from "./components/profile/Profile";
 import About from "./components/about/About";
-import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import mainStyle from "./styles/main.module.css";
 import HeaderContainer from "./components/header/HeaderContainer";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import Profile from "./components/profile/Profile";
+
 
 interface AppProps {
   nothing: boolean;
@@ -28,9 +28,10 @@ function App() {
   return (
     <div>
       <HeaderContainer />
+
       <div className={mainStyle.container}>
         <Switch>
-          <Route path={path.home} render={(routeProps) => <Home {...routeProps} />} />
+          <Route path={path.home} render={(routeProps: RouteComponentProps) => <Home {...routeProps} />} />
           <ProtectedRoute path={path.products} isSignedIn={isSignedIn}>
             <Products />
           </ProtectedRoute>
@@ -85,7 +86,7 @@ class AppContainer extends Component<AppProps, AppState> {
 
 ReactDom.render(
   <Provider store={store}>
-    <AppContainer nothing={false} />
+      <AppContainer nothing={false} />
   </Provider>,
   document.getElementById("app")
 );

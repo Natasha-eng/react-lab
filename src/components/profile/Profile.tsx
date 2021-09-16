@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import main from "../../styles/main.module.css";
 import { path } from "../header/HeaderContainer";
 
+
 interface IProfile {
   isSignedIn: boolean;
 }

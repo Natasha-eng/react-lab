@@ -1,8 +1,6 @@
-import { AppRootState } from "@/app/storetype";
 import { ReactNode, useState } from "react";
-import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
-import { path } from "../header/header";
+import { path } from "../header/headerWithContext";
 import SignInContainer from "../signin/SignInContainer";
 
 interface IProtectedRoute {
@@ -10,6 +8,7 @@ interface IProtectedRoute {
   isSignedIn: boolean;
   path: string;
 }
+
 
 export default function ProtectedRoute(props: IProtectedRoute): JSX.Element {
   const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
@@ -19,7 +18,7 @@ export default function ProtectedRoute(props: IProtectedRoute): JSX.Element {
     setShowModal(!modal);
   };
 
-  if (!isSignedIn && modal) {
+  if (!props.isSignedIn && modal) {
     return <SignInContainer toggleSignIn={toggleSignIn} />;
   }
   return (
@@ -34,3 +33,5 @@ export default function ProtectedRoute(props: IProtectedRoute): JSX.Element {
     />
   );
 }
+
+export default ProtectedRoute;
