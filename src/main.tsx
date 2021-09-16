@@ -1,8 +1,8 @@
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
-import { Component, StrictMode, useContext } from "react";
+import { Component, StrictMode } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import Home from "./components/home/Home";
 import Products from "./products/Products";
 import Footer from "./components/footer/footer";
@@ -13,7 +13,7 @@ import mainStyle from "./styles/main.module.css";
 import HeaderContainer from "./components/header/HeaderContainer";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Profile from "./components/profile/Profile";
-
+import { AppRootState } from "./app/storetype";
 
 interface AppProps {
   nothing: boolean;
@@ -32,14 +32,14 @@ function App() {
       <div className={mainStyle.container}>
         <Switch>
           <Route path={path.home} render={(routeProps: RouteComponentProps) => <Home {...routeProps} />} />
-          <ProtectedRoute path={path.products} isSignedIn={isSignedIn}>
+          <ProtectedRoute path={path.products}>
             <Products />
           </ProtectedRoute>
 
           {/* <Route path="/products" render={() => <Products />} /> */}
           {/* <Route path="/products/:category" render={() => <Products />} /> */}
           {/* <Route path={path.about} render={() => <About />} /> */}
-          <ProtectedRoute path={path.about} isSignedIn={isSignedIn}>
+          <ProtectedRoute path={path.about}>
             <About />
           </ProtectedRoute>
           <Route path={path.profile} render={() => <Profile isSignedIn={isSignedIn} />} />
@@ -86,7 +86,7 @@ class AppContainer extends Component<AppProps, AppState> {
 
 ReactDom.render(
   <Provider store={store}>
-      <AppContainer nothing={false} />
+    <AppContainer nothing={false} />
   </Provider>,
   document.getElementById("app")
 );
