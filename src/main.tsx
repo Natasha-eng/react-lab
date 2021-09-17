@@ -1,18 +1,19 @@
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
-import { Component, StrictMode, useContext } from "react";
+import { Component, StrictMode } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import Home from "./components/home/Home";
 import Products from "./products/Products";
 import Footer from "./components/footer/footer";
-import HeaderWithContext, { path } from "./components/header/headerWithContext";
+import { path } from "./components/header/header";
 import { store } from "./app/store";
 import About from "./components/about/About";
 import mainStyle from "./styles/main.module.css";
+import HeaderContainer from "./components/header/HeaderContainer";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Profile from "./components/profile/Profile";
-import Context, { SignInContext } from "./signInContex/SignInContex";
+import { AppRootState } from "./app/storetype";
 
 interface AppProps {
   nothing: boolean;
@@ -22,26 +23,26 @@ interface AppState {
 }
 
 function App() {
-  // const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
-  const { signedIn } = useContext(SignInContext);
+  const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
   return (
     <div>
-      <HeaderWithContext />
+      <HeaderContainer />
+
       <div className={mainStyle.container}>
         <Switch>
           <Route path={path.home} render={(routeProps: RouteComponentProps) => <Home {...routeProps} />} />
-          <ProtectedRoute path={path.products} isSignedIn={signedIn}>
+          <ProtectedRoute path={path.products}>
             <Products />
           </ProtectedRoute>
 
           {/* <Route path="/products" render={() => <Products />} /> */}
           {/* <Route path="/products/:category" render={() => <Products />} /> */}
           {/* <Route path={path.about} render={() => <About />} /> */}
-          <ProtectedRoute path={path.about} isSignedIn={signedIn}>
+          <ProtectedRoute path={path.about}>
             <About />
           </ProtectedRoute>
-          <Route path={path.profile} render={() => <Profile isSignedIn={signedIn} />} />
+          <Route path={path.profile} render={() => <Profile isSignedIn={isSignedIn} />} />
           <Redirect from="*" to={path.home} />
           <Redirect to={path.profile} />
         </Switch>
@@ -85,9 +86,7 @@ class AppContainer extends Component<AppProps, AppState> {
 
 ReactDom.render(
   <Provider store={store}>
-    <Context>
-      <AppContainer nothing={false} />
-    </Context>
+    <AppContainer nothing={false} />
   </Provider>,
   document.getElementById("app")
 );

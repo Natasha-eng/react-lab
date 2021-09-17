@@ -26,6 +26,11 @@ export type setUserProfileActonType = ReturnType<typeof setUserProfileAC>;
 export const setErrorAC = (error: string) => ({ type: "SET-ERROR", error } as const);
 export type setErrorActionType = ReturnType<typeof setErrorAC>;
 
+// saga action
+export const signInSagaAC = (login: string, password: string) =>
+  ({ type: "SIGN-IN", payload: { login, password } } as const);
+export type signInSagaActionType = ReturnType<typeof signInSagaAC>;
+
 export type ActionsType =
   | SetGamesActionType
   | SetFilteredGamesActionType
