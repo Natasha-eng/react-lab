@@ -1,4 +1,4 @@
-import { GameType, UserProfileType } from "@/types/types";
+import { GameType, IProfileData, UserProfileType } from "@/types/types";
 
 // actions
 export const setGamesAC = (games: Array<GameType>) => ({ type: "SET-GAMES", games } as const);
@@ -26,6 +26,12 @@ export type setUserProfileActonType = ReturnType<typeof setUserProfileAC>;
 export const setErrorAC = (error: string) => ({ type: "SET-ERROR", error } as const);
 export type setErrorActionType = ReturnType<typeof setErrorAC>;
 
+export const changePasswordAC = (message: string) => ({ type: "CHANGE-PASSWORD", message } as const);
+export type changePasswordActionType = ReturnType<typeof changePasswordAC>;
+
+export const saveProfileAC = (profile: IProfileData) => ({ type: "SAVE-PROFILE", profile } as const);
+export type saveProfileActionType = ReturnType<typeof saveProfileAC>;
+
 // saga action
 export const signInSagaAC = (login: string, password: string) =>
   ({ type: "SIGN-IN", payload: { login, password } } as const);
@@ -39,4 +45,6 @@ export type ActionsType =
   | setIsSignedInActionType
   | setUserNameActionType
   | setUserProfileActonType
-  | setErrorActionType;
+  | setErrorActionType
+  | changePasswordActionType
+  | saveProfileActionType;
