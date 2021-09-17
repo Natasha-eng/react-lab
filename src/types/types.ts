@@ -21,9 +21,16 @@ export interface UserProfileType {
   email: string;
   profileDescription: string;
   password: string;
+  photo: string;
 }
 
 export interface IProfile {
   userName: string;
+  changeDataMessage: string;
   profile: UserProfileType;
+}
+export interface IProfileData {
+  userName: string;
+  email: string;
+  profileDescription: string;
 }
