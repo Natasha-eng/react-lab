@@ -62,18 +62,34 @@ router.get("/profile/:loggedInUser", async (req: Request, res: Response) => {
   }
 });
 
-// router.post("/saveProfile", (req: Request, res: Response) => {
-//   const loggedInUser: string = req.params.loggedInUser as string;
-//   const data: string = (await readJsonFromFile("src/data/users.json")) as string;
-//   const users: IUser[] = JSON.parse(data) as IUser[];
-//   const user = users.find((u) => u.login === req.body.login && u.password === req.body.password);
+router.post("/saveProfile", async (req: Request, res: Response) => {
+  const data: string = (await readJsonFromFile("src/data/users.json")) as string;
+  const users: IUser[] = JSON.parse(data) as IUser[];
+  const user: IUser = users.find((u) => u.password === req.body.password) as IUser;
 
-//   if (!user) {
-//     res.status(500).send({ errorMessage: "Such user doesn't exist" });
-//   } else {
-//     res.status(201).send({ name: user.login });
-//   }
-// }
-// });
+  if (!user) {
+    res.status(500).send({ errorMessage: "Such user doesn't exist" });
+  } else {
+    user.login = req.body.userName;
+    user.email = req.body.email;
+    user.profileDescription = req.body.profileDescription;
+    await writeJsonToFile("./src/data/users.json", users);
+    res.status(201).send({ profile: user });
+  }
+});
+
+router.post("/changePassword", async (req: Request, res: Response) => {
+  const data: string = (await readJsonFromFile("src/data/users.json")) as string;
+  const users: IUser[] = JSON.parse(data) as IUser[];
+  const user: IUser = users.find((u) => u.password === req.body.oldPassword) as IUser;
+
+  if (user) {
+    user.password = req.body.newPassword;
+    await writeJsonToFile("./src/data/users.json", users);
+    res.status(201).send({ message: "Your password has been changed" });
+  } else {
+    res.status(500).send({ errorMessage: "Such user doesn't exist" });
+  }
+});
 
 export default router;
