@@ -1,19 +1,96 @@
 [
-  { "id": 1, "login": "Natasha", "email": "", "profileDescription": "Natasha's Profile", "password": "1$qwerty1" },
-  { "id": 2, "login": "Nick", "email": "", "profileDescription": "Nick's Profile", "password": "23.99" },
-  { "id": 3, "login": "Kate", "email": "", "profileDescription": "Kate's Profile", "password": "23.99" },
-  { "id": 4, "login": "Viktor", "email": "", "profileDescription": "Viktor's Profile", "password": "23.99" },
-  { "id": 5, "login": "John", "email": "", "profileDescription": "John's Profile", "password": "23.99" },
-  { "id": 6, "login": "Vladimir", "email": "", "profileDescription": "Vladimir's Profile", "password": "23.99" },
-  { "id": 7, "login": "Dmitri", "email": "", "profileDescription": "Dmitri's Profile", "password": "23.99" },
-  { "id": 8, "login": "Lena", "email": "", "profileDescription": "Lena's Profile", "password": "23.99" },
-  { "id": 9, "login": "Dasha", "email": "", "profileDescription": "Dasha's Profile", "password": "23.99" },
-  { "id": 10, "login": "Alex", "email": "", "profileDescription": "Alex's Profile", "password": "23.99" },
-  { "id": 11, "login": "Natasha2", "email": "", "profileDescription": "Natasha2's Profile", "password": "2$qwerty2" },
-  { "id": 11, "login": "Natasha3", "email": "", "profileDescription": "Natasha3's Profile", "password": "3$qwerty3" },
-  { "id": 11, "login": "Natasha4", "email": "", "profileDescription": "Natasha4's Profile", "password": "4$qwerty4" },
-  { "id": 11, "login": "Kate1", "email": "", "profileDescription": "Kate1's Profile", "password": "1@qwerty1" },
-  { "id": 11, "login": "Kate2", "email": "", "profileDescription": "Kate2's Profile", "password": "2@qwerty2" },
-  { "id": 11, "login": "Kate3", "email": "", "profileDescription": "Kate3's Profile", "password": "3@qwerty3" },
-  { "id": 11, "login": "Kate4", "email": "", "profileDescription": "Kate4's Profile", "password": "4#qwerty4" }
+  {
+    "id": 1,
+    "login": "Natallia",
+    "email": "natallia.shylava@oracle.com",
+    "profileDescription": "qqqqqqqqqqqqqqqqqqqqq",
+    "password": "1$qwerty1",
+    "photo": ""
+  },
+  { "id": 2, "login": "Nick", "email": "", "profileDescription": "Nick's Profile", "password": "23.99", "photo": "" },
+  { "id": 3, "login": "Kate", "email": "", "profileDescription": "Kate's Profile", "password": "23.99", "photo": "" },
+  {
+    "id": 4,
+    "login": "Viktor",
+    "email": "",
+    "profileDescription": "Viktor's Profile",
+    "password": "23.99",
+    "photo": ""
+  },
+  { "id": 5, "login": "John", "email": "", "profileDescription": "John's Profile", "password": "23.99", "photo": "" },
+  {
+    "id": 6,
+    "login": "Vladimir",
+    "email": "",
+    "profileDescription": "Vladimir's Profile",
+    "password": "23.99",
+    "photo": ""
+  },
+  {
+    "id": 7,
+    "login": "Dmitri",
+    "email": "",
+    "profileDescription": "Dmitri's Profile",
+    "password": "23.99",
+    "photo": ""
+  },
+  { "id": 8, "login": "Lena", "email": "", "profileDescription": "Lena's Profile", "password": "23.99", "photo": "" },
+  { "id": 9, "login": "Dasha", "email": "", "profileDescription": "Dasha's Profile", "password": "23.99", "photo": "" },
+  { "id": 10, "login": "Alex", "email": "", "profileDescription": "Alex's Profile", "password": "23.99", "photo": "" },
+  {
+    "id": 11,
+    "login": "Natasha2",
+    "email": "",
+    "profileDescription": "Natasha2's Profile",
+    "password": "2$qwerty2",
+    "photo": ""
+  },
+  {
+    "id": 11,
+    "login": "Natasha3",
+    "email": "",
+    "profileDescription": "Natasha3's Profile",
+    "password": "3$qwerty3",
+    "photo": ""
+  },
+  {
+    "id": 11,
+    "login": "Natasha4",
+    "email": "",
+    "profileDescription": "Natasha4's Profile",
+    "password": "4$qwerty4",
+    "photo": ""
+  },
+  {
+    "id": 11,
+    "login": "Kate1",
+    "email": "",
+    "profileDescription": "Kate1's Profile",
+    "password": "1@qwerty1",
+    "photo": ""
+  },
+  {
+    "id": 11,
+    "login": "Kate2",
+    "email": "",
+    "profileDescription": "Kate2's Profile",
+    "password": "2@qwerty2",
+    "photo": ""
+  },
+  {
+    "id": 11,
+    "login": "Kate3",
+    "email": "",
+    "profileDescription": "Kate3's Profile",
+    "password": "3@qwerty3",
+    "photo": ""
+  },
+  {
+    "id": 11,
+    "login": "Kate4",
+    "email": "",
+    "profileDescription": "Kate4's Profile",
+    "password": "4#qwerty4",
+    "photo": ""
+  }
 ]
