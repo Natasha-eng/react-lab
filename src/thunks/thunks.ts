@@ -1,6 +1,10 @@
 import {
+  changePasswordAC,
+  changePasswordActionType,
   isFetchingAC,
   isFetchingActionType,
+  saveProfileAC,
+  saveProfileActionType,
   setErrorAC,
   setErrorActionType,
   setFilteredGamesAC,
@@ -87,4 +91,24 @@ export const fetchProfileThunkCreator =
   async (dispatch: ThunkDispatch<AppRootState, unknown, setUserProfileActonType>): Promise<void> => {
     const response = await api.getProfile(loggedInUser);
     dispatch(setUserProfileAC(response.data));
+  };
+
+export const changePasswordThunkCreator =
+  (oldPassword: string, newPassword: string) =>
+  async (dispatch: ThunkDispatch<AppRootState, unknown, changePasswordActionType | setErrorActionType>) => {
+    const response = await api.changePassword(oldPassword, newPassword);
+    if (response.status === 201) {
+      dispatch(changePasswordAC(response.data.message));
+    } else {
+      dispatch(setErrorAC(response.data.errorMessage));
+    }
+  };
+export const saveProfileThunkCreator =
+  (password: string, userName: string, email: string, profileDescription: string) =>
+  async (
+    dispatch: ThunkDispatch<AppRootState, unknown, saveProfileActionType | setErrorActionType | setUserNameActionType>
+  ) => {
+    const response = await api.saveProfile(password, userName, email, profileDescription);
+    dispatch(saveProfileAC(response.data.profile));
+    dispatch(setUserNameAC(response.data.profile.login));
   };
