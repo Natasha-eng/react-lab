@@ -71,6 +71,8 @@ export default function SignIn(props: ISignIn): JSX.Element {
       setError({ ...error, error: commonError });
       return;
     }
+    localStorage.setItem("signInLoginValue", signInLoginValue);
+    localStorage.setItem("signInPasswordValue", signInPasswordValue);
     setError({ ...error, error: "" });
     dispatch(signInSagaAC(signInLoginValue, signInPasswordValue));
     dispatch(setErrorAC(""));
