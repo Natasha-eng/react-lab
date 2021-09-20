@@ -6,6 +6,7 @@ export interface IUser {
   email: string;
   profileDescription: string;
   password: string;
+  photo: string;
 }
 
 const readJsonFromFile = (filePath: string): Promise<unknown> => fs.readFile(filePath, "utf8");

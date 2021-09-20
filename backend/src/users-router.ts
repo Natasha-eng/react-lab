@@ -1,9 +1,11 @@
 import express, { NextFunction, Request, Response } from "express";
+import multer from "multer";
 import readJsonFromFile, { IUser } from "./readJsonFromFile";
 import writeJsonToFile from "./writeJsonToFile";
-import { isLoginValide, isPasswordValide } from "./utils/util";
+import { isEmailValid, isLoginValide, isPasswordValide, lengthRange } from "./utils/util";
 
 const router = express.Router();
+export const upload = multer();
 
 router.use((req: Request, res: Response, next: NextFunction) => {
   console.log("Time: ", Date.now());
@@ -13,7 +15,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 router.post("/auth/signIn", async (req: Request, res: Response) => {
   const isLoginValid = isLoginValide(req.body.login);
   const isPasswordValid = isPasswordValide(req.body.password);
-  if (!isLoginValid && !isPasswordValid) {
+  if (!isLoginValid || !isPasswordValid) {
     res.status(500).send({ errorMEssage: "Login or Passport is Invalid" });
   }
   const data: string = (await readJsonFromFile("src/data/users.json")) as string;
@@ -29,7 +31,7 @@ router.post("/auth/signIn", async (req: Request, res: Response) => {
 router.post("/auth/signUp", async (req: Request, res: Response) => {
   const isLoginValid = isLoginValide(req.body.login);
   const isPasswordValid = isPasswordValide(req.body.password);
-  if (!isLoginValid && !isPasswordValid) {
+  if (!isLoginValid || !isPasswordValid) {
     res.status(500).send({ errorMEssage: "Login or Passwort is Invalid" });
   }
   const data: string = (await readJsonFromFile("src/data/users.json")) as string;
@@ -42,6 +44,7 @@ router.post("/auth/signUp", async (req: Request, res: Response) => {
       password: req.body.password,
       email: "",
       profileDescription: "Write something about yourself",
+      photo: "",
     });
     await writeJsonToFile("./src/data/users.json", users);
     res.status(202).send({ name: req.body.login });
@@ -63,6 +66,13 @@ router.get("/profile/:loggedInUser", async (req: Request, res: Response) => {
 });
 
 router.post("/saveProfile", async (req: Request, res: Response) => {
+  const isLoginValid = isLoginValide(req.body.login);
+  const isPasswordValid = isPasswordValide(req.body.password);
+  const isValidEmail = isEmailValid(req.body.email);
+  const isProfileDescriptionValid = lengthRange(req.body.profileDescription);
+  if (!isLoginValid || !isPasswordValid || !isValidEmail || !isProfileDescriptionValid) {
+    res.status(500).send({ errorMEssage: "Login, Passwort, email or Profile Description is Invalid" });
+  }
   const data: string = (await readJsonFromFile("src/data/users.json")) as string;
   const users: IUser[] = JSON.parse(data) as IUser[];
   const user: IUser = users.find((u) => u.password === req.body.password) as IUser;
@@ -70,6 +80,7 @@ router.post("/saveProfile", async (req: Request, res: Response) => {
   if (!user) {
     res.status(500).send({ errorMessage: "Such user doesn't exist" });
   } else {
+    user.photo = req.body.photoFile;
     user.login = req.body.userName;
     user.email = req.body.email;
     user.profileDescription = req.body.profileDescription;
@@ -79,6 +90,10 @@ router.post("/saveProfile", async (req: Request, res: Response) => {
 });
 
 router.post("/changePassword", async (req: Request, res: Response) => {
+  const isPasswordValid = isPasswordValide(req.body.password);
+  if (!isPasswordValid) {
+    res.status(500).send({ errorMEssage: "Login or Passwort is Invalid" });
+  }
   const data: string = (await readJsonFromFile("src/data/users.json")) as string;
   const users: IUser[] = JSON.parse(data) as IUser[];
   const user: IUser = users.find((u) => u.password === req.body.oldPassword) as IUser;
