@@ -9,6 +9,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import modalStyle from "../modal/modal.module.css";
+import main from "../../styles/main.module.css";
 
 interface ISignUp {
   toggleSignUp: () => void;
@@ -156,7 +157,7 @@ export default function SignUp(props: ISignUp): JSX.Element {
               onChangeValueHandler={changeRepeatPasswordHandler}
             />
 
-            {backError && <div>{backError}</div>}
+            {backError && <div className={main.error}>{backError}</div>}
             <button type="submit" onClick={signUpHandler}>
               Submit
             </button>
