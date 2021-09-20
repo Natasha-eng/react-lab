@@ -19,7 +19,7 @@ function Home(props: RouteComponentProps): JSX.Element {
   }, []);
 
   return (
-    <div className={main.container}>
+    <div className={main.content}>
       <div>Home page</div>
 
       <SearchInput />
