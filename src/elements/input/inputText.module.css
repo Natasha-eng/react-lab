@@ -1,3 +1,26 @@
+/* .inputsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 90%;
+  box-sizing: border-box;
+} */
+
+input {
+  padding: 10px;
+  outline: none;
+  border-radius: 5px;
+  width: 70%;
+}
+
+button {
+  align-self: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+}
+
 .inputWrapper {
   display: flex;
   flex-direction: column;
@@ -6,4 +29,5 @@
 .input {
   display: flex;
   justify-content: space-between;
+  margin: 10px;
 }
