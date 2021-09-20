@@ -104,11 +104,11 @@ export const changePasswordThunkCreator =
     }
   };
 export const saveProfileThunkCreator =
-  (password: string, userName: string, email: string, profileDescription: string) =>
+  (photoPath: string | undefined, password: string, userName: string, email: string, profileDescription: string) =>
   async (
     dispatch: ThunkDispatch<AppRootState, unknown, saveProfileActionType | setErrorActionType | setUserNameActionType>
   ) => {
-    const response = await api.saveProfile(password, userName, email, profileDescription);
+    const response = await api.saveProfile(photoPath, password, userName, email, profileDescription);
     dispatch(saveProfileAC(response.data.profile));
     dispatch(setUserNameAC(response.data.profile.login));
   };
