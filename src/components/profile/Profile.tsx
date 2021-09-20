@@ -10,6 +10,7 @@ import main from "../../styles/main.module.css";
 import { path } from "../header/HeaderContainer";
 import PasswordModalContainer from "../password/PasswordModaContainerl";
 import userPhoto from "../../assets/images/avatar_square_blue_120dp.png";
+import profileStyle from "./profile.module.css";
 
 interface IProfile {
   isSignedIn: boolean;
@@ -20,7 +21,6 @@ type CategoryParams = {
 };
 
 export default function Profile(props: IProfile): JSX.Element {
-  const [photoPath, setPhotoPath] = useState("");
   const [passwordModal, setPasswordModal] = useState(false);
   const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -29,12 +29,13 @@ export default function Profile(props: IProfile): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch();
   const profile = useSelector<AppRootState, UserProfileType>((state) => state.profile.profile);
+  const [photoFile, setPhotoFile] = useState<string | undefined>(profile.photo);
   const { loggedInUser } = useParams<CategoryParams>();
 
   const userNameError =
     "Your login is not valid. Only characters A-Z, a-z, numbers 0-9 are  acceptable. Login can be at least 2 charecters long and no more than 20 characters";
   const emailError = "Valid email formats are: mysite@ourearth.com / my.ownsite@ourearth.org / mysite@you.me.net";
-  const textareaError = `Please input between 10 and 100} characters`;
+  const textareaError = `Please input between 10 and 100 characters`;
   const commonError = "All the fields are required";
 
   const togglePasswordModal = () => {
@@ -69,12 +70,12 @@ export default function Profile(props: IProfile): JSX.Element {
     if (isValidEmail === null) {
       setError({
         ...error,
-        profileDescriptionError: textareaError,
+        emailError,
       });
     } else {
       setError({
         ...error,
-        profileDescriptionError: "",
+        emailError: "",
       });
     }
   };
@@ -88,15 +89,16 @@ export default function Profile(props: IProfile): JSX.Element {
     if (!isValidProfileDescription) {
       setError({
         ...error,
-        emailError,
+        profileDescriptionError: textareaError,
       });
     } else {
       setError({
         ...error,
-        emailError: "",
+        profileDescriptionError: "",
       });
     }
   };
+
   const saveProfileHandler = () => {
     if (!userName && !email && !profileDescription) {
       setError({ ...error, error: commonError });
@@ -107,11 +109,28 @@ export default function Profile(props: IProfile): JSX.Element {
     setEmail("");
     setProfileDescription("");
     const password = localStorage.getItem("signInPasswordValue");
-    password && dispatch(saveProfileThunkCreator(password, userName, email, profileDescription));
+    photoFile &&
+      password &&
+      dispatch(saveProfileThunkCreator(photoFile, password, userName, email, profileDescription));
   };
-  const onPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+  const convertToBase64 = (file: File) =>
+    new Promise((res, rej) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        res(reader.result);
+      };
+      reader.onerror = () => {
+        rej(console.log("file loading error "));
+      };
+    });
+
+  const onPhotoSelected = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      // setPhotoPath(e.target.files[0]);
+      const file = e.target.files[0];
+      const base64: string = (await convertToBase64(file)) as string;
+
+      setPhotoFile(base64);
     }
   };
 
@@ -122,54 +141,76 @@ export default function Profile(props: IProfile): JSX.Element {
   useEffect(() => {
     dispatch(fetchProfileThunkCreator(loggedInUser));
   }, []);
+
   return (
-    <div className={main.container}>
-      <div>
-        <img src={profile.photo || userPhoto} alt="MainPhoto" />
-        <input type="file" name="Change Profile Image" onChange={onPhotoSelected} />
+    <div className={main.contentProfile}>
+      <div className={profileStyle.mainPhotoWrapper}>
+        <img src={photoFile || userPhoto} alt="MainPhoto" />
+
+        <label htmlFor="profileImg" className={profileStyle.changePhotoButton}>
+          Change Profile Image
+          <input type="file" name="profileImg" id="profileImg" onChange={onPhotoSelected} />
+        </label>
       </div>
-      <InputText
-        name="username"
-        type="text"
-        label="Username"
-        value={userName}
-        onChangeValueHandler={onChangeUserNameHandler}
-        onBlurHander={onBlurUserNameHandler}
-        error={error.userNameError}
-      />
-      <InputText
-        name="email"
-        type="text"
-        label="Email"
-        value={email}
-        onChangeValueHandler={onChangeEmailHandler}
-        onBlurHander={onBlurEmailHandler}
-        error={error.emailError}
-      />
-      <div>
-        <label htmlFor="profileDescription">Profile Description:</label>
-        <textarea
-          name="profileDescription"
-          id="profileDescription"
-          rows={4}
-          cols={50}
-          value={profileDescription}
-          onChange={onChangeProfileDescriptionHandler}
-          onBlur={onBlurProfileDescriptionHandler}
-        />
-        {error.profileDescriptionError}
+      <div className={profileStyle.profileDataContainer}>
+        <div className={profileStyle.profileData}>
+          <div className={profileStyle.profileInputWrapper}>
+            <InputText
+              name="username"
+              type="text"
+              label="Username"
+              value={userName}
+              onChangeValueHandler={onChangeUserNameHandler}
+              onBlurHander={onBlurUserNameHandler}
+              error={error.userNameError}
+            />
+          </div>
+          <div className={profileStyle.profileContent}>{profile.login}</div>
+        </div>
+        <div className={profileStyle.profileData}>
+          <div className={profileStyle.profileInputWrapper}>
+            <InputText
+              name="email"
+              type="text"
+              label="Email"
+              value={email}
+              onChangeValueHandler={onChangeEmailHandler}
+              onBlurHander={onBlurEmailHandler}
+              error={error.emailError}
+            />
+          </div>
+          <div className={profileStyle.profileContent}>{profile.email}</div>
+        </div>
+        <div className={profileStyle.profileData}>
+          <div className={profileStyle.profileTextareaWrapper}>
+            <div>
+              <label htmlFor="profileDescription">Profile Description:</label>
+              <textarea
+                name="profileDescription"
+                id="profileDescription"
+                rows={4}
+                cols={70}
+                value={profileDescription}
+                onChange={onChangeProfileDescriptionHandler}
+                onBlur={onBlurProfileDescriptionHandler}
+              />
+            </div>
+            <div className={main.error}>{error.profileDescriptionError}</div>
+          </div>
+          <div className={profileStyle.profileContent}>{profile.profileDescription}</div>
+        </div>
+        <div className={profileStyle.profileButtonsWrapper}>
+          <button type="button" onClick={saveProfileHandler}>
+            Save Profile
+          </button>
+          <button type="button" onClick={togglePasswordModal}>
+            Change Password
+          </button>
+        </div>
       </div>
-      <button type="button" onClick={saveProfileHandler}>
-        Save Profile
-      </button>
-      <button type="button" onClick={togglePasswordModal}>
-        Change Password
-      </button>
-      {error.error}
+      <div className={main.error}> {error.error}</div>
+
       {passwordModal && <PasswordModalContainer togglePasswordModal={togglePasswordModal} />}
-      <div>{profile.email}</div>
-      <div>{profile.login}</div>
-      <div>{profile.profileDescription}</div>
     </div>
   );
 }
