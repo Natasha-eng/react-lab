@@ -4,6 +4,17 @@
   box-sizing: border-box;
 }
 
+.content {
+  padding: 20px;
+}
+
+.contentProfile {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  height: 80vh;
+}
+
 .mainTitle {
   background: beige;
 }
@@ -49,4 +60,8 @@
   padding: 10px;
   border: 1px solid black;
   width: 200px;
+}
+
+.error {
+  color: red;
 }
