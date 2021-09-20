@@ -37,8 +37,14 @@ export const api = {
   changePassword(oldPassword: string, newPassword: string) {
     return instance.post(`changePassword`, { oldPassword, newPassword });
   },
-  saveProfile(password: string, userName: string, email: string, profileDescription: string) {
-    return instance.post(`saveProfile`, { password, userName, email, profileDescription });
+  saveProfile(
+    photoFile: string | undefined,
+    password: string,
+    userName: string,
+    email: string,
+    profileDescription: string
+  ) {
+    return instance.post(`saveProfile`, { photoFile, password, userName, email, profileDescription });
   },
 };
 
