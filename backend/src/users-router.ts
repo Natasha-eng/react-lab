@@ -1,11 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
-import multer from "multer";
 import readJsonFromFile, { IUser } from "./readJsonFromFile";
 import writeJsonToFile from "./writeJsonToFile";
 import { isEmailValid, isLoginValide, isPasswordValide, lengthRange } from "./utils/util";
 
 const router = express.Router();
-export const upload = multer();
 
 router.use((req: Request, res: Response, next: NextFunction) => {
   console.log("Time: ", Date.now());
@@ -67,15 +65,14 @@ router.get("/profile/:loggedInUser", async (req: Request, res: Response) => {
 
 router.post("/saveProfile", async (req: Request, res: Response) => {
   const isLoginValid = isLoginValide(req.body.login);
-  const isPasswordValid = isPasswordValide(req.body.password);
   const isValidEmail = isEmailValid(req.body.email);
   const isProfileDescriptionValid = lengthRange(req.body.profileDescription);
-  if (!isLoginValid || !isPasswordValid || !isValidEmail || !isProfileDescriptionValid) {
-    res.status(500).send({ errorMEssage: "Login, Passwort, email or Profile Description is Invalid" });
+  if (!isLoginValid || !isValidEmail || !isProfileDescriptionValid) {
+    res.status(500).send({ errorMEssage: "Login, Email or Profile Description is Invalid" });
   }
   const data: string = (await readJsonFromFile("src/data/users.json")) as string;
   const users: IUser[] = JSON.parse(data) as IUser[];
-  const user: IUser = users.find((u) => u.password === req.body.password) as IUser;
+  const user: IUser = users.find((u) => u.login === req.body.login) as IUser;
 
   if (!user) {
     res.status(500).send({ errorMessage: "Such user doesn't exist" });
@@ -90,14 +87,13 @@ router.post("/saveProfile", async (req: Request, res: Response) => {
 });
 
 router.post("/changePassword", async (req: Request, res: Response) => {
-  const isPasswordValid = isPasswordValide(req.body.password);
-  if (!isPasswordValid) {
+  const isNewPasswordValid = isPasswordValide(req.body.newPassword);
+  if (!isNewPasswordValid) {
     res.status(500).send({ errorMEssage: "Login or Passwort is Invalid" });
   }
   const data: string = (await readJsonFromFile("src/data/users.json")) as string;
   const users: IUser[] = JSON.parse(data) as IUser[];
-  const user: IUser = users.find((u) => u.password === req.body.oldPassword) as IUser;
-
+  const user: IUser = users.find((u) => u.login === req.body.login) as IUser;
   if (user) {
     user.password = req.body.newPassword;
     await writeJsonToFile("./src/data/users.json", users);
