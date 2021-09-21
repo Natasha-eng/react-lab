@@ -2,6 +2,9 @@ import { setIsSignedInAC } from "@/actions/actions";
 import { KeyboardEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
+import { FaHome, FaInfoCircle, FaSignOutAlt } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
+import { CgGames } from "react-icons/cg";
 import SignInContainer from "../signin/SignInContainer";
 import SignUpContainer from "../signup/SignUpContainer";
 import headerStyle from "./header.module.css";
@@ -63,7 +66,8 @@ function Header(props: IHome): JSX.Element {
       <ul className={headerStyle.navBar}>
         <li className={headerStyle.navItem}>
           <NavLink to={path.home} activeClassName={headerStyle.activeLink}>
-            Home
+            <FaHome />
+            <span> Home</span>
           </NavLink>
         </li>
 
@@ -77,7 +81,7 @@ function Header(props: IHome): JSX.Element {
           tabIndex={0}
         >
           <NavLink to="/products" activeClassName={headerStyle.activeLink} onClick={toggleDropdown}>
-            Products
+            <CgGames /> Products
           </NavLink>
           <ul className={slide}>
             <li>
@@ -100,17 +104,19 @@ function Header(props: IHome): JSX.Element {
 
         <li className={headerStyle.navItem}>
           <NavLink to={path.about} activeClassName={headerStyle.activeLink}>
-            About
+            <FaInfoCircle /> About
           </NavLink>
         </li>
         {props.isSignedIn ? (
           <>
             <li className={headerStyle.navItem}>
               <NavLink to={`profile/${props.userName}`} activeClassName={headerStyle.activeLink}>
+                <ImProfile />
                 {props.userName}
               </NavLink>
             </li>
             <button type="submit" onClick={signOutHandler}>
+              <FaSignOutAlt />
               Sign Out
             </button>
           </>
