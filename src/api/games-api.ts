@@ -34,17 +34,17 @@ export const api = {
     return instance.get<UserProfileType>(`profile/${loggedInUser}`);
   },
 
-  changePassword(oldPassword: string, newPassword: string) {
-    return instance.post(`changePassword`, { oldPassword, newPassword });
+  changePassword(login: string, newPassword: string) {
+    return instance.post(`changePassword`, { login, newPassword });
   },
   saveProfile(
     photoFile: string | undefined,
-    password: string,
+    login: string,
     userName: string,
     email: string,
     profileDescription: string
   ) {
-    return instance.post(`saveProfile`, { photoFile, password, userName, email, profileDescription });
+    return instance.post(`saveProfile`, { photoFile, login, userName, email, profileDescription });
   },
 };
 

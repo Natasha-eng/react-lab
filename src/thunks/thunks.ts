@@ -94,9 +94,9 @@ export const fetchProfileThunkCreator =
   };
 
 export const changePasswordThunkCreator =
-  (oldPassword: string, newPassword: string) =>
+  (login: string, newPassword: string) =>
   async (dispatch: ThunkDispatch<AppRootState, unknown, changePasswordActionType | setErrorActionType>) => {
-    const response = await api.changePassword(oldPassword, newPassword);
+    const response = await api.changePassword(login, newPassword);
     if (response.status === 201) {
       dispatch(changePasswordAC(response.data.message));
     } else {
@@ -104,11 +104,16 @@ export const changePasswordThunkCreator =
     }
   };
 export const saveProfileThunkCreator =
-  (photoPath: string | undefined, password: string, userName: string, email: string, profileDescription: string) =>
+  (photoPath: string | undefined, login: string, userName: string, email: string, profileDescription: string) =>
   async (
     dispatch: ThunkDispatch<AppRootState, unknown, saveProfileActionType | setErrorActionType | setUserNameActionType>
   ) => {
-    const response = await api.saveProfile(photoPath, password, userName, email, profileDescription);
-    dispatch(saveProfileAC(response.data.profile));
-    dispatch(setUserNameAC(response.data.profile.login));
+    const response = await api.saveProfile(photoPath, login, userName, email, profileDescription);
+    if (response.status === 201) {
+      localStorage.setItem("signInLoginValue", response.data.profile.login);
+      dispatch(saveProfileAC(response.data.profile));
+      dispatch(setUserNameAC(response.data.profile.login));
+    } else {
+      dispatch(setErrorAC(response.data.errorMessage));
+    }
   };
