@@ -6,11 +6,13 @@ import { isEmailValid, isLoginValide, lengthRange } from "backend/src/utils/util
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { setErrorAC } from "@/actions/actions";
 import main from "../../styles/main.module.css";
 import { path } from "../header/HeaderContainer";
 import PasswordModalContainer from "../password/PasswordModaContainerl";
 import userPhoto from "../../assets/images/avatar_square_blue_120dp.png";
 import profileStyle from "./profile.module.css";
+import { userNameError, emailError, textareaError, commonError } from "../../constants/constants";
 
 interface IProfile {
   isSignedIn: boolean;
@@ -31,12 +33,7 @@ export default function Profile(props: IProfile): JSX.Element {
   const profile = useSelector<AppRootState, UserProfileType>((state) => state.profile.profile);
   const [photoFile, setPhotoFile] = useState<string | undefined>(profile.photo);
   const { loggedInUser } = useParams<CategoryParams>();
-
-  const userNameError =
-    "Your login is not valid. Only characters A-Z, a-z, numbers 0-9 are  acceptable. Login can be at least 2 charecters long and no more than 20 characters";
-  const emailError = "Valid email formats are: mysite@ourearth.com / my.ownsite@ourearth.org / mysite@you.me.net";
-  const textareaError = `Please input between 10 and 100 characters`;
-  const commonError = "All the fields are required";
+  const backError = useSelector<AppRootState, string>((state) => state.auth.error);
 
   const togglePasswordModal = () => {
     setPasswordModal(!passwordModal);
@@ -108,11 +105,11 @@ export default function Profile(props: IProfile): JSX.Element {
     setUsername("");
     setEmail("");
     setProfileDescription("");
-    const password = localStorage.getItem("signInPasswordValue");
-    photoFile &&
-      password &&
-      dispatch(saveProfileThunkCreator(photoFile, password, userName, email, profileDescription));
+    const login = localStorage.getItem("signInLoginValue");
+    photoFile && login && dispatch(saveProfileThunkCreator(photoFile, login, userName, email, profileDescription));
+    dispatch(setErrorAC(""));
   };
+
   const convertToBase64 = (file: File) =>
     new Promise((res, rej) => {
       const reader = new FileReader();
@@ -133,6 +130,10 @@ export default function Profile(props: IProfile): JSX.Element {
       setPhotoFile(base64);
     }
   };
+
+  useEffect(() => {
+    setPhotoFile(profile.photo);
+  }, [profile.photo]);
 
   if (!props.isSignedIn) {
     history.push(path.home);
@@ -209,7 +210,7 @@ export default function Profile(props: IProfile): JSX.Element {
         </div>
       </div>
       <div className={main.error}> {error.error}</div>
-
+      {backError && <div className={main.error}>{backError}</div>}
       {passwordModal && <PasswordModalContainer togglePasswordModal={togglePasswordModal} />}
     </div>
   );

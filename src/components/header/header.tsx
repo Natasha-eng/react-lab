@@ -5,16 +5,10 @@ import { NavLink, useHistory } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaSignOutAlt } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { CgGames } from "react-icons/cg";
+import { path } from "@/constants/constants";
 import SignInContainer from "../signin/SignInContainer";
 import SignUpContainer from "../signup/SignUpContainer";
 import headerStyle from "./header.module.css";
-
-export const path = {
-  home: "/home",
-  products: "/products/:category?",
-  about: "/about",
-  profile: "/profile/:loggedInUser",
-};
 
 interface IHome {
   isSignedIn: boolean;

@@ -1,9 +1,6 @@
 import { ActionsType } from "@/actions/actions";
+import { Types } from "@/constants/constants";
 import { GameType } from "@/types/types";
-
-const SET_FILTERED_GAMES = "SET-FILTERED-GAMES";
-const CLEAR_GAMES = "CLEAR-GAMES";
-const IS_FETCHING_GAMES = "IS-FETCHING-GAMES";
 
 interface IInitialGames {
   games: GameType[];
@@ -17,11 +14,11 @@ const initialState: IInitialGames = {
 
 export const filteredGamesReducer = (state = initialState, action: ActionsType): IInitialGames => {
   switch (action.type) {
-    case SET_FILTERED_GAMES:
-      return { ...state, games: action.filteredGames.map((g) => ({ ...g })) };
-    case CLEAR_GAMES:
+    case Types.SET_FILTERED_GAMES:
+      return { ...state, games: action.filteredGames.map((g: GameType) => ({ ...g })) };
+    case Types.CLEAR_GAMES:
       return initialState;
-    case IS_FETCHING_GAMES:
+    case Types.IS_FETCHING_GAMES:
       return { ...state, isFetching: action.isFetching };
 
     default:

@@ -1,5 +1,6 @@
 import { setErrorAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
+import { commonError, errorPassword, errorRepeatPassword } from "@/constants/constants";
 import InputText from "@/elements/input/InputText";
 import { changePasswordThunkCreator } from "@/thunks/thunks";
 import { isPasswordValide } from "@/utils/util";
@@ -20,11 +21,6 @@ export default function PasswordModal(props: PasswordModal): JSX.Element {
   const message = useSelector<AppRootState, string>((state) => state.profile.changeDataMessage);
   const backError = useSelector<AppRootState, string>((state) => state.auth.error);
   const dispatch = useDispatch();
-
-  const errorPassword =
-    "Password must be a minimum of 5 characters including at least one number and at least one special character and not more than 10 characters";
-  const errorRepeatPassword = "Passwords don't match";
-  const commonError = "All the fields are required";
 
   const changePasswordHandler = (value: string) => {
     setNewPasswordValue(value);
@@ -72,16 +68,17 @@ export default function PasswordModal(props: PasswordModal): JSX.Element {
   };
 
   const changePasswordаHandler = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (newPasswordValue === "" && repeatNewPasswordValue === "") {
+    if (!newPasswordValue && !repeatNewPasswordValue) {
       setError({ ...error, error: commonError });
       return;
     }
     e.preventDefault();
     setError({ ...error, error: "" });
     dispatch(setErrorAC(""));
-    const oldPassword = localStorage.getItem("signInPasswordValue");
-    oldPassword && dispatch(changePasswordThunkCreator(oldPassword, newPasswordValue));
+    const login = localStorage.getItem("signInLoginValue");
+    login && dispatch(changePasswordThunkCreator(login, newPasswordValue));
   };
+
   return (
     <form className={modalStyle.modalBackground} onClick={props.togglePasswordModal}>
       <div className={modalStyle.modalContent} onClick={(e) => e.stopPropagation()}>
