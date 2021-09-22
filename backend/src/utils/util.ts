@@ -9,3 +9,17 @@ export const isPasswordValide = (value: string) => {
   const validPassword = value.match(regularExpression);
   return validPassword;
 };
+
+export const isEmailValid = (email: string) => {
+  const regularExpression = /^\w+([.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+  const validEmail = email.match(regularExpression);
+  return validEmail;
+};
+
+export const lengthRange = (value: string) => {
+  const userInput = value;
+  if (userInput.length >= 10 && userInput.length <= 100) {
+    return true;
+  }
+  return false;
+};

@@ -8,7 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { commonError, errorLogin, errorPassword, errorRepeatPassword } from "@/constants/constants";
 import modalStyle from "../modal/modal.module.css";
+import main from "../../styles/main.module.css";
 
 interface ISignUp {
   toggleSignUp: () => void;
@@ -23,12 +25,6 @@ export default function SignUp(props: ISignUp): JSX.Element {
   const [error, setError] = useState({ loginError: "", passwordError: "", repeatPasswordError: "", error: "" });
   const backError = useSelector<AppRootState, string>((state) => state.auth.error);
   const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
-
-  const errorLogin =
-    "Your login is not valid. Only characters A-Z, a-z, numbers 0-9 are  acceptable. Login can be at least 2 charecters long and no more than 20 characters";
-  const errorPassword =
-    "Password must be a minimum of 5 characters including at least one number and at least one special character and not more than 10 characters";
-  const errorRepeatPassword = "Passwords don't match";
 
   const onBlurLoginHandler = (value: string) => {
     const validLoginName = isLoginValide(value);
@@ -97,7 +93,7 @@ export default function SignUp(props: ISignUp): JSX.Element {
   const signUpHandler = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (signUpLoginValue === "" && signUpPasswordValue === "") {
-      setError({ ...error, error: "Fields are required" });
+      setError({ ...error, error: commonError });
       return;
     }
 
@@ -156,7 +152,7 @@ export default function SignUp(props: ISignUp): JSX.Element {
               onChangeValueHandler={changeRepeatPasswordHandler}
             />
 
-            {backError && <div>{backError}</div>}
+            {backError && <div className={main.error}>{backError}</div>}
             <button type="submit" onClick={signUpHandler}>
               Submit
             </button>

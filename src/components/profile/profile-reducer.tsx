@@ -1,25 +1,34 @@
 import { ActionsType } from "@/actions/actions";
-
-const SET_USER_NAME = "SET-USER-NAME";
-const SET_USER_PROFILE = "SET-USER-PROFILE";
-
-interface IProfile {
-  userName: string;
-  profile: string;
-}
+import { Types } from "@/constants/constants";
+import { IProfile, UserProfileType } from "@/types/types";
 
 const initialState: IProfile = {
   userName: "",
-  profile: "",
+  changeDataMessage: "",
+  profile: {} as UserProfileType,
 };
 
 export const profileReducer = (state = initialState, action: ActionsType): IProfile => {
   switch (action.type) {
-    case SET_USER_NAME:
+    case Types.SET_USER_NAME:
       return { ...state, userName: action.userName };
 
-    case SET_USER_PROFILE:
+    case Types.SET_USER_PROFILE:
       return { ...state, profile: action.profile };
+    case Types.CHANGE_PASSWORD:
+      return { ...state, changeDataMessage: action.message };
+
+    case Types.SAVE_PROFILE:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          photo: action.profile.photo,
+          email: action.profile.email,
+          login: action.profile.login,
+          profileDescription: action.profile.profileDescription,
+        },
+      };
 
     default:
       return state;

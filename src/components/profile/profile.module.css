@@ -1,0 +1,77 @@
+.mainPhotoWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.mainPhotoWrapper img {
+  width: 370px;
+  height: auto;
+  border-radius: 34px;
+}
+
+.changePhotoButton {
+  min-width: 100px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  width: 370px;
+  padding: 10px 20px;
+  border: 1px solid gray;
+  text-align: center;
+  margin-top: 20px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.profileDataContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  width: 70%;
+}
+
+.profileData {
+  display: flex;
+  justify-content: space-between;
+  padding: 35px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.profileInputWrapper {
+  width: 70%;
+}
+
+.profileTextareaWrapper {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profileTextareaWrapper > div {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.profileButtonsWrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.profileContent {
+  width: 25%;
+  justify-self: flex-start;
+}
+
+textarea {
+  border-radius: 5px;
+  width: 70%;
+  outline: none;
+  padding: 10px;
+}

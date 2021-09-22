@@ -1,5 +1,6 @@
 import { setErrorAC, signInSagaAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
+import { commonError, errorLogin, errorPassword } from "@/constants/constants";
 import InputText from "@/elements/input/InputText";
 import { isLoginValide, isPasswordValide } from "@/utils/util";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
@@ -19,12 +20,6 @@ export default function SignIn(props: ISignIn): JSX.Element {
   const [error, setError] = useState({ loginError: "", passwordError: "", error: "" });
   const backError = useSelector<AppRootState, string>((state) => state.auth.error);
   const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
-
-  const errorLogin =
-    "Your login is not valid. Only characters A-Z, a-z, numbers 0-9 are  acceptable. Login can be at least 2 charecters long and no more than 20 characters";
-  const errorPassword =
-    "Password must be a minimum of 5 characters including at least one number and at least one special character and not more than 10 characters";
-  const commonError = "Fields are required";
 
   const onBlurLoginHandler = (value: string) => {
     const validLoginName = isLoginValide(value);
@@ -71,6 +66,8 @@ export default function SignIn(props: ISignIn): JSX.Element {
       setError({ ...error, error: commonError });
       return;
     }
+    localStorage.setItem("signInLoginValue", signInLoginValue);
+    localStorage.setItem("signInPasswordValue", signInPasswordValue);
     setError({ ...error, error: "" });
     dispatch(signInSagaAC(signInLoginValue, signInPasswordValue));
     dispatch(setErrorAC(""));

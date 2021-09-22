@@ -27,6 +27,7 @@
 }
 
 .closeButton {
+  position: relative;
   background-color: transparent;
   outline: none;
   border: none;
@@ -35,6 +36,9 @@
 .closeButton i {
   font-size: 35px;
   transition: all 0.2s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .closeButton i:hover {
@@ -47,19 +51,4 @@
   justify-content: space-around;
   height: 90%;
   box-sizing: border-box;
-}
-
-.inputsContainer input {
-  padding: 10px;
-  outline: none;
-  border-radius: 5px;
-  width: 70%;
-}
-
-.inputsContainer button {
-  align-self: center;
-  padding: 10px 20px;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
 }

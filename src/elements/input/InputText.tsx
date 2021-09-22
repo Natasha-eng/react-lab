@@ -1,5 +1,6 @@
 import { ChangeEvent, FocusEvent } from "react";
 import inputStyles from "./inputText.module.css";
+import main from "../../styles/main.module.css";
 
 interface IInputText {
   name: string;
@@ -31,7 +32,7 @@ export default function InputText(props: IInputText): JSX.Element {
           onBlur={onBLurInputHandler}
         />
       </div>
-      {props.error && <div className={inputStyles.error}>{props.error}</div>}
+      {props.error && <div className={main.error}>{props.error}</div>}
     </div>
   );
 }

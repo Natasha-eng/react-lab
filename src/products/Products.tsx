@@ -27,7 +27,7 @@ function Products(): JSX.Element {
   }, [category]);
 
   return (
-    <div className={main.container}>
+    <div className={main.content}>
       <div>Products page</div>
       <div className={homeStyles.gamesContainer}>
         {games.map((g) => (

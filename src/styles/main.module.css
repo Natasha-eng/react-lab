@@ -4,14 +4,23 @@
   box-sizing: border-box;
 }
 
+.content {
+  padding: 20px;
+}
+
+.contentProfile {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  height: 80vh;
+}
+
 .mainTitle {
   background: beige;
 }
 
 .background {
   background: url(~images/testBig.jpeg) no-repeat;
-  /* or background: url(../images/testBig.jpeg) no-repeat; */
-  /*!!!For background images there are only relative pathes { url(../images/testBig.jpeg) } and aliases from webpack { url(~images/testBig.jpeg) }*/
   background-size: contain;
   background-position: center;
   height: 300px;
@@ -49,4 +58,8 @@
   padding: 10px;
   border: 1px solid black;
   width: 200px;
+}
+
+.error {
+  color: red;
 }

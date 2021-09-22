@@ -6,7 +6,6 @@ import { Provider, useSelector } from "react-redux";
 import Home from "./components/home/Home";
 import Products from "./products/Products";
 import Footer from "./components/footer/footer";
-import { path } from "./components/header/header";
 import { store } from "./app/store";
 import About from "./components/about/About";
 import mainStyle from "./styles/main.module.css";
@@ -14,6 +13,7 @@ import HeaderContainer from "./components/header/HeaderContainer";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Profile from "./components/profile/Profile";
 import { AppRootState } from "./app/storetype";
+import { path } from "./constants/constants";
 
 interface AppProps {
   nothing: boolean;
@@ -72,7 +72,7 @@ class AppContainer extends Component<AppProps, AppState> {
 
   render() {
     if (this.state.hasError) {
-      <Redirect to="/home" />;
+      <Redirect to={path.home} />;
     }
     return (
       <StrictMode>

@@ -12,12 +12,4 @@ app.use(bodyParser.json());
 app.use("/", games);
 app.use("/", users);
 
-// https.createServer(
-//   {
-//     key: fs.readFileSync("server.key"),
-//     cert: fs.readFileSync("server.cert"),
-//   },
-//   app
-// );
-
 app.listen(5000, () => console.log("Server running "));

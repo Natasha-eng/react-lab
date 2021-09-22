@@ -4,7 +4,6 @@
   align-items: center;
   color: white;
   background-color: black;
-  padding: 22px 0 22px 0;
 }
 
 .title {
@@ -26,23 +25,32 @@
 }
 
 .navItem a {
+  display: flex;
+  justify-content: space-between;
   text-decoration: none;
   padding: 31px;
   color: white;
 }
 
+.navItem a svg {
+  font-size: 20px;
+}
+
+.navItem a span {
+  align-self: flex-end;
+}
+
 .navItem a.activeLink {
-  background-color: grey;
-  border-bottom: 4px solid hotpink;
+  background-color: slateblue;
 }
 
 .navItem a:hover {
-  background-color: lightsteelblue;
+  background-color: rgb(68, 55, 143);
 }
 
 .subMenu {
   position: absolute;
-  top: 49px;
+  top: 83px;
   background-color: black;
   width: 118px;
   list-style: none;
@@ -62,13 +70,12 @@
 }
 
 .SlideSideBar {
-  /* height: 114px; */
+  width: 139px;
   display: block;
   z-index: 2;
 }
 
 .CloseSlideSideBar {
-  /* height: 0; */
   display: none;
 }
 
