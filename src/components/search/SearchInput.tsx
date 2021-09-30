@@ -17,10 +17,6 @@ function SearchInput(): JSX.Element {
   const [search, setSearch] = useState(false);
 
   const searchByNameHandler = debounce((e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") {
-      setSearch(false);
-    }
-    setSearch(true);
     setName(e.target.value);
   }, 1000);
 
@@ -41,8 +37,10 @@ function SearchInput(): JSX.Element {
   useEffect(() => {
     if (name) {
       dispatch(fetchGamesByNameThunkCreator(name));
+      setSearch(true);
     } else {
       dispatch(clearGamesAC());
+      setSearch(false);
     }
   }, [name, dispatch]);
 
@@ -53,7 +51,6 @@ function SearchInput(): JSX.Element {
         className={searchInputStyles.filterInput}
         placeholder="Search game..."
         onChange={searchByNameHandler}
-        onBlur={() => setSearch(false)}
       />
       {isFetching ? (
         <Preloader />

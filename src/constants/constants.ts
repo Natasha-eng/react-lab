@@ -30,4 +30,28 @@ export const Types = {
   IS_SIGNED_IN: "IS-SIGNED-IN",
   SET_ERROR: "SET-ERROR",
   SIGN_IN: "SIGN-IN",
+  SET_GAMES_BY_AGE: "SET-GAMES-BY-AGE",
+  SET_GAMES_BY_GENRE: "SET-GAMES-BY-GENRE",
+  SET_GAMES_BY_AGE_AND_GENRE: "SET-GAMES-BY-AGE-AND-GENRE",
+  SET_GAMES_BY_SORT: "SET-GAMES-BY-SORT",
+  SET_GAMES_BY_NAME_ASCENDING: "SET-GAMES-BY-NAME-ASCENDING",
+  SET_GAMES_BY_NAME_DESCENDING: "SET-GAMES-BY-NAME-DESCENDING",
+  SET_GAMES_BY_PRICE_ASCENDING: "SET-GAMES-BY-PRICE-ASCENDING",
+  SET_GAMES_BY_PRICE_DESCENDING: "SET-GAMES-BY-PRICE-DESCENDING",
+};
+
+export const values = {
+  all: "all",
+  allGenres: "allGenres",
+  shooter: "Shooter",
+  arcade: "Arcade",
+  survive: "Survive",
+  age3: "3+",
+  age6: "6+",
+  age12: "12+",
+  age18: "18+",
+  name: "name",
+  price: "price",
+  ascending: "ascending",
+  descending: "descending",
 };
