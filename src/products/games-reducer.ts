@@ -7,7 +7,8 @@ const initialState: GameType[] = [];
 export const gamesReducer = (state = initialState, action: ActionsType): GameType[] => {
   switch (action.type) {
     case Types.SET_GAMES:
-      return action.games.map((g) => ({ ...g }));
+      return action.games.map((g: GameType) => ({ ...g }));
+
     default:
       return state;
   }
