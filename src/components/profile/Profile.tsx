@@ -9,7 +9,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { setErrorAC } from "@/actions/actions";
 import main from "../../styles/main.module.css";
 import { path } from "../header/HeaderContainer";
-import PasswordModalContainer from "../password/PasswordModaContainerl";
+import PasswordModalContainer from "../password/PasswordModalContainer";
 import userPhoto from "../../assets/images/avatar_square_blue_120dp.png";
 import profileStyle from "./profile.module.css";
 import { userNameError, emailError, textareaError, commonError } from "../../constants/constants";
