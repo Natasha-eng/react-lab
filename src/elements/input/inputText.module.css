@@ -1,8 +1,12 @@
-input {
+input[type="text"],
+[type="password"] {
   padding: 10px;
   outline: none;
   border-radius: 5px;
   width: 70%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: 1px solid white;
 }
 
 button {
