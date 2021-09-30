@@ -38,6 +38,27 @@ export const fetchGamesByCategoryThunkCreator =
     dispatch(setGamesAC(response.data));
   };
 
+export const fetchSortedGamesByCategoryThunkCreator =
+  (
+    selectedAge: string,
+    selectedGenre: string,
+    sortCriteria: string,
+    sortType: string,
+    category: string,
+    setLoaderHandler: (value: boolean) => void
+  ) =>
+  async (dispatch: ThunkDispatch<AppRootState, unknown, SetGamesActionType | setErrorActionType>): Promise<void> => {
+    setLoaderHandler(true);
+    const response = await api.getSortedGamesByCategory(selectedAge, selectedGenre, sortCriteria, sortType, category);
+    if (response.status === 200) {
+      dispatch(setGamesAC(response.data.games));
+      setLoaderHandler(false);
+    }
+    if (response.status === 500) {
+      dispatch(setErrorAC(response.data.errorMessage));
+    }
+  };
+
 export const fetchGamesByNameThunkCreator =
   (name: string) =>
   async (
@@ -47,6 +68,26 @@ export const fetchGamesByNameThunkCreator =
     const response = await api.getGamesByName(name);
     dispatch(isFetchingAC(false));
     dispatch(setFilteredGamesAC(response.data));
+  };
+
+export const fetchSortedGamesThunkCreator =
+  (
+    selectedAge: string,
+    selectedGenre: string,
+    sortCriteria: string,
+    sortType: string,
+    setLoaderHandler: (value: boolean) => void
+  ) =>
+  async (dispatch: ThunkDispatch<AppRootState, unknown, SetGamesActionType | setErrorActionType>): Promise<void> => {
+    setLoaderHandler(true);
+    const response = await api.getSortedGames(selectedAge, selectedGenre, sortCriteria, sortType);
+    if (response.status === 200) {
+      dispatch(setGamesAC(response.data.games));
+      setLoaderHandler(false);
+    }
+    if (response.status === 500) {
+      dispatch(setErrorAC(response.data.errorMessage));
+    }
   };
 
 export const fetchGamesByDateThunkCreator =
