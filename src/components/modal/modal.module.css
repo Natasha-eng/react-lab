@@ -33,6 +33,10 @@
   border: none;
 }
 
+.closeButton:hover {
+  background-color: transparent;
+}
+
 .closeButton i {
   font-size: 35px;
   transition: all 0.2s ease;
