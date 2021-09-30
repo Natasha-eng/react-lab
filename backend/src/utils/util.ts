@@ -1,4 +1,5 @@
 import { Response } from "express";
+import { age, criteria, genre } from "../constants/constants";
 import { IGame } from "../writeJsonToFile";
 
 export const isLoginValide = (login: string) => {
@@ -37,9 +38,9 @@ export const sortedGames = (
 ) => {
   let filteredGames: IGame[] = [] as IGame[];
 
-  if (selectedAge === "all" && selectedGenre === "all") {
-    if (sortCriteria === "name") {
-      if (sortType === "ascending") {
+  if (selectedAge === age.all && selectedGenre === genre.all) {
+    if (sortCriteria === criteria.name) {
+      if (sortType === criteria.ascending) {
         games.sort((a: IGame, b: IGame) => {
           if (a.name < b.name) return -1;
           if (a.name > b.name) return 1;
@@ -54,8 +55,8 @@ export const sortedGames = (
       }
     }
 
-    if (sortCriteria === "price") {
-      if (sortType === "ascending") {
+    if (sortCriteria === criteria.price) {
+      if (sortType === criteria.ascending) {
         games.sort((a: IGame, b: IGame) => a.price - b.price);
       } else {
         games.sort((a: IGame, b: IGame) => b.price - a.price);
@@ -66,10 +67,10 @@ export const sortedGames = (
       res.status(500).send({ errorMessage: "There are no games with such parameters" });
     }
   }
-  if (selectedAge !== "all" && selectedGenre !== "all") {
+  if (selectedAge !== age.all && selectedGenre !== genre.all) {
     filteredGames = games.filter((g: IGame) => g.allowedAge === selectedAge && g.genre === selectedGenre);
-    if (sortCriteria === "name") {
-      if (sortType === "ascending") {
+    if (sortCriteria === criteria.name) {
+      if (sortType === criteria.ascending) {
         filteredGames.sort((a: IGame, b: IGame) => {
           if (a.name < b.name) return -1;
           if (a.name > b.name) return 1;
@@ -83,8 +84,8 @@ export const sortedGames = (
         });
       }
     }
-    if (sortCriteria === "price") {
-      if (sortType === "ascending") {
+    if (sortCriteria === criteria.price) {
+      if (sortType === criteria.ascending) {
         filteredGames.sort((a: IGame, b: IGame) => a.price - b.price);
       } else {
         filteredGames.sort((a: IGame, b: IGame) => b.price - a.price);
@@ -95,10 +96,10 @@ export const sortedGames = (
       res.status(500).send({ errorMessage: "There are no games with such parameters" });
     }
   }
-  if (selectedAge !== "all" && selectedGenre === "all") {
+  if (selectedAge !== age.all && selectedGenre === genre.all) {
     filteredGames = games.filter((g: IGame) => g.allowedAge === selectedAge);
-    if (sortCriteria === "name") {
-      if (sortType === "ascending") {
+    if (sortCriteria === criteria.name) {
+      if (sortType === criteria.ascending) {
         filteredGames.sort((a: IGame, b: IGame) => {
           if (a.name < b.name) return -1;
           if (a.name > b.name) return 1;
@@ -112,8 +113,8 @@ export const sortedGames = (
         });
       }
     }
-    if (sortCriteria === "price") {
-      if (sortType === "ascending") {
+    if (sortCriteria === criteria.price) {
+      if (sortType === criteria.ascending) {
         filteredGames.sort((a: IGame, b: IGame) => a.price - b.price);
       } else {
         filteredGames.sort((a: IGame, b: IGame) => b.price - a.price);
@@ -124,11 +125,11 @@ export const sortedGames = (
       res.status(500).send({ errorMessage: "There are no games with such parameters" });
     }
   }
-  if (selectedGenre !== "all" && selectedAge === "all") {
+  if (selectedGenre !== genre.all && selectedAge === age.all) {
     filteredGames = games.filter((g: IGame) => g.genre === selectedGenre);
 
-    if (sortCriteria === "name") {
-      if (sortType === "ascending") {
+    if (sortCriteria === criteria.name) {
+      if (sortType === criteria.ascending) {
         filteredGames.sort((a: IGame, b: IGame) => {
           if (a.name < b.name) return -1;
           if (a.name > b.name) return 1;
@@ -142,8 +143,8 @@ export const sortedGames = (
         });
       }
     }
-    if (sortCriteria === "price") {
-      if (sortType === "ascending") {
+    if (sortCriteria === criteria.price) {
+      if (sortType === criteria.ascending) {
         filteredGames.sort((a: IGame, b: IGame) => a.price - b.price);
       } else {
         filteredGames.sort((a: IGame, b: IGame) => b.price - a.price);

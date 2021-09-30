@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { fetchSortedGamesByCategoryThunkCreator, fetchSortedGamesThunkCreator } from "@/thunks/thunks";
 import SearchInput from "@/components/search/SearchInput";
 import useLoader from "@/useLoader/useLoader";
-import { values } from "@/constants/constants";
+import { age, criteria, genre } from "@/constants/constants";
 import main from "../styles/main.module.css";
 import productsStyle from "./products.module.css";
 import Games from "./Games";
@@ -15,10 +15,10 @@ type CategoryParams = {
 
 function Products(): JSX.Element {
   const dispatch = useDispatch();
-  const [selectedAge, setSelectedAge] = useState(values.all);
-  const [selectedGenre, setSelectedGenre] = useState(values.all);
-  const [sortCriteria, setSortCriteria] = useState(values.name);
-  const [sortType, setSortType] = useState(values.ascending);
+  const [selectedAge, setSelectedAge] = useState(age.all);
+  const [selectedGenre, setSelectedGenre] = useState(genre.all);
+  const [sortCriteria, setSortCriteria] = useState(criteria.name);
+  const [sortType, setSortType] = useState(criteria.ascending);
 
   const { category } = useParams<CategoryParams>();
 
@@ -72,68 +72,68 @@ function Products(): JSX.Element {
             <label htmlFor="gamesCriteria" className={productsStyle.sortForm}>
               Criteria
               <select id="gamesCriteria" name="gamesCriteria" value={sortCriteria} onChange={changeSortCriteriaHandler}>
-                <option value={values.name}>Name</option>
-                <option value={values.price}>Price</option>
+                <option value={criteria.name}>Name</option>
+                <option value={criteria.price}>Price</option>
               </select>
             </label>
 
             <label htmlFor="gamesType" className={productsStyle.sortForm}>
               Type
               <select id="gamesType" name="gamesType" value={sortType} onChange={changeSortTypeHandler}>
-                <option value={values.ascending}>Ascending</option>
-                <option value={values.descending}>Descending</option>
+                <option value={criteria.ascending}>Ascending</option>
+                <option value={criteria.descending}>Descending</option>
               </select>
             </label>
 
             <h3>Genres</h3>
 
             <div className={productsStyle.formItem}>
-              <label htmlFor={values.allGenres}>
+              <label htmlFor={genre.allGenres}>
                 <input
                   type="radio"
-                  id={values.allGenres}
-                  name={values.allGenres}
-                  value={values.all}
-                  checked={selectedGenre === values.all}
+                  id={genre.allGenres}
+                  name={genre.allGenres}
+                  value={genre.all}
+                  checked={selectedGenre === genre.all}
                   onChange={getGamesByGenreHandler}
                 />
                 All Genres
               </label>
             </div>
             <div className={productsStyle.formItem}>
-              <label htmlFor={values.shooter}>
+              <label htmlFor={genre.shooter}>
                 <input
                   type="radio"
-                  id={values.shooter}
-                  name={values.shooter}
-                  value={values.shooter}
-                  checked={selectedGenre === values.shooter}
+                  id={genre.shooter}
+                  name={genre.shooter}
+                  value={genre.shooter}
+                  checked={selectedGenre === genre.shooter}
                   onChange={getGamesByGenreHandler}
                 />
                 Shooter
               </label>
             </div>
             <div className={productsStyle.formItem}>
-              <label htmlFor={values.arcade}>
+              <label htmlFor={genre.arcade}>
                 <input
                   type="radio"
-                  id={values.arcade}
-                  name={values.arcade}
-                  value={values.arcade}
-                  checked={selectedGenre === values.arcade}
+                  id={genre.arcade}
+                  name={genre.arcade}
+                  value={genre.arcade}
+                  checked={selectedGenre === genre.arcade}
                   onChange={getGamesByGenreHandler}
                 />
                 Arcade
               </label>
             </div>
             <div className={productsStyle.formItem}>
-              <label htmlFor={values.survive}>
+              <label htmlFor={genre.survive}>
                 <input
                   type="radio"
-                  id={values.survive}
-                  name={values.survive}
-                  value={values.survive}
-                  checked={selectedGenre === values.survive}
+                  id={genre.survive}
+                  name={genre.survive}
+                  value={genre.survive}
+                  checked={selectedGenre === genre.survive}
                   onChange={getGamesByGenreHandler}
                 />
                 Survive
@@ -143,65 +143,65 @@ function Products(): JSX.Element {
             <h3>Age</h3>
 
             <div className={productsStyle.formItem}>
-              <label htmlFor={values.all}>
+              <label htmlFor={age.all}>
                 <input
                   type="radio"
-                  id={values.all}
-                  name={values.all}
-                  value={values.all}
-                  checked={selectedAge === values.all}
+                  id={age.all}
+                  name={age.all}
+                  value={age.all}
+                  checked={selectedAge === age.all}
                   onChange={getGamesByAgeHandler}
                 />
                 All Ages
               </label>
             </div>
             <div className={productsStyle.formItem}>
-              <label htmlFor={values.age3}>
+              <label htmlFor={age.age3}>
                 <input
                   type="radio"
-                  id={values.age3}
-                  name={values.age3}
-                  value={values.age3}
-                  checked={selectedAge === values.age3}
+                  id={age.age3}
+                  name={age.age3}
+                  value={age.age3}
+                  checked={selectedAge === age.age3}
                   onChange={getGamesByAgeHandler}
                 />
                 3+
               </label>
             </div>
             <div className={productsStyle.formItem}>
-              <label htmlFor={values.age6}>
+              <label htmlFor={age.age6}>
                 <input
                   type="radio"
-                  id={values.age6}
-                  name={values.age6}
-                  value={values.age6}
-                  checked={selectedAge === values.age6}
+                  id={age.age6}
+                  name={age.age6}
+                  value={age.age6}
+                  checked={selectedAge === age.age6}
                   onChange={getGamesByAgeHandler}
                 />
                 6+
               </label>
             </div>
             <div className={productsStyle.formItem}>
-              <label htmlFor={values.age12}>
+              <label htmlFor={age.age12}>
                 <input
                   type="radio"
-                  id={values.age12}
-                  name={values.age12}
-                  value={values.age12}
-                  checked={selectedAge === values.age12}
+                  id={age.age12}
+                  name={age.age12}
+                  value={age.age12}
+                  checked={selectedAge === age.age12}
                   onChange={getGamesByAgeHandler}
                 />
                 12+
               </label>
             </div>
             <div className={productsStyle.formItem}>
-              <label htmlFor={values.age18}>
+              <label htmlFor={age.age18}>
                 <input
                   type="radio"
-                  id={values.age18}
-                  name={values.age18}
-                  value={values.age18}
-                  checked={selectedAge === values.age18}
+                  id={age.age18}
+                  name={age.age18}
+                  value={age.age18}
+                  checked={selectedAge === age.age18}
                   onChange={getGamesByAgeHandler}
                 />
                 18+
