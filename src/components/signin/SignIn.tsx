@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import modalStyle from "../modal/modal.module.css";
+import main from "../../styles/main.module.css";
 
 interface ISignIn {
   toggleSignIn: () => void;
@@ -110,7 +111,7 @@ export default function SignIn(props: ISignIn): JSX.Element {
               error={error.passwordError}
             />
 
-            {backError && <div>{backError}</div>}
+            {backError && <div className={main.error}>{backError}</div>}
 
             <button type="submit" onClick={logInHandler}>
               Submit

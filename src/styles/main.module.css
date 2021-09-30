@@ -63,3 +63,27 @@
 .error {
   color: red;
 }
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.loader {
+  position: relative;
+  width: 100%;
+}
+
+.loader img {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 50;
+}

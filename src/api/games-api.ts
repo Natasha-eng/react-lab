@@ -10,8 +10,30 @@ export const api = {
   getGames() {
     return instance.get<GameType[]>(`products`);
   },
+  getSortedGames(selectedAge: string, selectedGenre: string, sortCriteria: string, sortType: string) {
+    return instance.post<{ games: GameType[]; errorMessage: string }>(`products`, {
+      selectedAge,
+      selectedGenre,
+      sortCriteria,
+      sortType,
+    });
+  },
   getGamesByCategory(category: string) {
     return instance.get<GameType[]>(`products/${category}`);
+  },
+  getSortedGamesByCategory(
+    selectedAge: string,
+    selectedGenre: string,
+    sortCriteria: string,
+    sortType: string,
+    category: string
+  ) {
+    return instance.post<{ games: GameType[]; errorMessage: string }>(`products/${category}`, {
+      selectedAge,
+      selectedGenre,
+      sortCriteria,
+      sortType,
+    });
   },
   getGamesByDate() {
     return instance.get<GameType[]>(`home/getTopProducts`);
@@ -23,6 +45,7 @@ export const api = {
       },
     });
   },
+
   signUp(login: string, password: string) {
     return instance.post(`auth/signUp`, { login, password });
   },

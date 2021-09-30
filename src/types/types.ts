@@ -7,6 +7,7 @@ export interface GameType {
   data: string;
   img: string;
   category: string;
+  genre: string;
 }
 
 export interface AuthInitialState {

@@ -15,6 +15,7 @@ function Game(props: GamePropsType): JSX.Element {
           <h3>{props.game.name}</h3>
           <div>{props.game.price}</div>
           <div>{props.game.category}</div>
+          <div>{props.game.genre}</div>
         </div>
       </div>
 

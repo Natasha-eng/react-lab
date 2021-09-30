@@ -72,7 +72,7 @@
 .SlideSideBar {
   width: 139px;
   display: block;
-  z-index: 2;
+  z-index: 5;
 }
 
 .CloseSlideSideBar {

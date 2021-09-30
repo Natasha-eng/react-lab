@@ -4,7 +4,7 @@ import { GameType } from "@/types/types";
 
 const initialState: GameType[] = [];
 
-export const gamesReducer = (state = initialState, action: ActionsType): GameType[] => {
+export const sortedGamesReducer = (state = initialState, action: ActionsType): GameType[] => {
   switch (action.type) {
     case Types.SET_GAMES:
       return action.games.map((g: GameType) => ({ ...g }));
@@ -14,4 +14,4 @@ export const gamesReducer = (state = initialState, action: ActionsType): GameTyp
   }
 };
 
-export default gamesReducer;
+export default sortedGamesReducer;

@@ -1,0 +1,45 @@
+.contentWrapper {
+  display: flex;
+  margin-top: 20px;
+}
+
+.sortWrapper {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 50%;
+  padding: 20px;
+  color: white;
+  border-radius: 5px;
+}
+
+.sortWrapper h3 {
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid white;
+}
+
+.sortForm {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.sortForm select {
+  padding: 10px;
+  border-radius: 5px;
+  width: 150px;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.formItem {
+  padding: 10px 10px 10px 0;
+}
+
+.sortItems {
+  width: 300px;
+}
+
+.sortItems input[type="radio"] {
+  margin-right: 10px;
+}

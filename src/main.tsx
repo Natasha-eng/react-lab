@@ -4,7 +4,6 @@ import ReactDom from "react-dom";
 import { BrowserRouter, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { Provider, useSelector } from "react-redux";
 import Home from "./components/home/Home";
-import Products from "./products/Products";
 import Footer from "./components/footer/footer";
 import { store } from "./app/store";
 import About from "./components/about/About";
@@ -14,6 +13,7 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Profile from "./components/profile/Profile";
 import { AppRootState } from "./app/storetype";
 import { path } from "./constants/constants";
+import Products from "./products/Products";
 
 interface AppProps {
   nothing: boolean;

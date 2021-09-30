@@ -8,6 +8,9 @@ export interface IGame {
   date: string;
   img: string;
   category: string;
+  allowedAge: string;
+  genre: string;
+  description: string;
 }
 
 const writeJsonToFile = (filePath: string, data: Array<IUser>): Promise<unknown> =>
