@@ -16,6 +16,7 @@ export const path = {
   products: "/products/:category?",
   about: "/about",
   profile: "/profile/:loggedInUser",
+  cart: "/cart",
 };
 
 export const Types = {
@@ -38,6 +39,11 @@ export const Types = {
   SET_GAMES_BY_NAME_DESCENDING: "SET-GAMES-BY-NAME-DESCENDING",
   SET_GAMES_BY_PRICE_ASCENDING: "SET-GAMES-BY-PRICE-ASCENDING",
   SET_GAMES_BY_PRICE_DESCENDING: "SET-GAMES-BY-PRICE-DESCENDING",
+  ADD_GAME: "ADD-GAME",
+  REMOVE_GAME: "REMOVE-GAME",
+  CHANGE_GAME_STATUS: "CHANGE-GAME-STATUS",
+  CHANGE_GAME_AMOUNT: "CHANGE-GAME-AMOUNT",
+  CHANGE_GAME_PRICE: "CHANGE-GAME-PRICE",
 };
 
 export const genre = {
