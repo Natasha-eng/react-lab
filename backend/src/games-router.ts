@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
-import readJsonFromFile from "./readJsonFromFile";
+import readJsonFromFile, { IUser } from "./readJsonFromFile";
 import { sortedGames } from "./utils/util";
-import { IGame } from "./writeJsonToFile";
+import writeJsonToFile, { IGame } from "./writeJsonToFile";
 
 const router = express.Router();
 
@@ -89,6 +89,24 @@ router.get("/home/getTopProducts", async (req: Request, res: Response) => {
     res.send(500).send("We can't give you games");
   } else {
     res.status(200).send(firstThreeeGames);
+  }
+});
+
+router.post("/addGame", async (req: Request, res: Response) => {
+  const data: string = (await readJsonFromFile("src/data/games.json")) as string;
+  const userData: string = (await readJsonFromFile("src/data/users.json")) as string;
+  const games: IGame[] = JSON.parse(data) as IGame[];
+  const users: IUser[] = JSON.parse(userData) as IUser[];
+  const { userName } = req.body;
+  const user: IUser = users.find((u) => u.login === userName) as IUser;
+  const { gameId } = req.body.cart;
+  const game = games.find((g: IGame) => g.id === gameId);
+  if (!game) {
+    res.status(500).send("Some error occured");
+  } else {
+    user.cart = req.body.cart;
+    await writeJsonToFile("./src/data/users.json", users);
+    res.status(200).send({ game, orderDate: new Date().toLocaleDateString() });
   }
 });
 
