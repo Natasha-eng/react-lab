@@ -1,4 +1,6 @@
 import {
+  addGameAC,
+  addGameActionType,
   changePasswordAC,
   changePasswordActionType,
   isFetchingAC,
@@ -20,6 +22,7 @@ import {
 } from "@/actions/actions";
 import { api } from "@/api/games-api";
 import { AppRootState } from "@/app/storetype";
+import { ICart } from "@/types/types";
 import { ThunkDispatch } from "redux-thunk";
 
 // thunks
@@ -156,5 +159,16 @@ export const saveProfileThunkCreator =
       dispatch(setUserNameAC(response.data.profile.login));
     } else {
       dispatch(setErrorAC(response.data.errorMessage));
+    }
+  };
+
+export const addGameThunkCreator =
+  (userName: string, cart: ICart[]) =>
+  async (dispatch: ThunkDispatch<AppRootState, unknown, addGameActionType | setErrorActionType>) => {
+    const response = await api.addGame(userName, cart);
+    if (response.status === 200) {
+      dispatch(addGameAC(response.data));
+    } else {
+      dispatch(setErrorAC(response.data));
     }
   };
