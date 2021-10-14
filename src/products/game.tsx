@@ -1,4 +1,6 @@
+import { addGameThunkCreator } from "@/thunks/thunks";
 import { GameType } from "@/types/types";
+import { useDispatch } from "react-redux";
 import gameStyle from "./game.module.css";
 
 interface GamePropsType {
@@ -6,6 +8,19 @@ interface GamePropsType {
 }
 
 function Game(props: GamePropsType): JSX.Element {
+  const dispatch = useDispatch();
+
+  const addGameHandler = () => {
+    const login = localStorage.getItem("signInLoginValue");
+    const cart = {
+      gameId: props.game.id,
+      count: null,
+      orderDate: "",
+      price: props.game.price,
+    };
+    login && dispatch(addGameThunkCreator(login, [cart]));
+  };
+
   return (
     <div className={gameStyle.gameContainer} key={props.game.id}>
       <div className={gameStyle.flipCardFront}>
@@ -23,7 +38,9 @@ function Game(props: GamePropsType): JSX.Element {
         <div className={gameStyle.inner}>
           <p>{props.game.description}</p>
           <p>{props.game.allowedAge}</p>
-          <button type="button">Add to cart</button>
+          <button type="button" onClick={addGameHandler}>
+            Add to cart
+          </button>
         </div>
       </div>
     </div>
