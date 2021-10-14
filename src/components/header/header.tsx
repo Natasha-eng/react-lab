@@ -1,11 +1,13 @@
 import { setIsSignedInAC } from "@/actions/actions";
 import { KeyboardEvent, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaSignOutAlt } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { CgGames } from "react-icons/cg";
 import { path } from "@/constants/constants";
+import { AppRootState } from "@/app/storetype";
+import { CartGameType } from "@/types/types";
 import SignInContainer from "../signin/SignInContainer";
 import SignUpContainer from "../signup/SignUpContainer";
 import headerStyle from "./header.module.css";
@@ -21,6 +23,8 @@ function Header(props: IHome): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const cartGames = useSelector<AppRootState, CartGameType[]>((state) => state.cartGames);
 
   const slide = `${headerStyle.subMenu} ${dropdown ? headerStyle.SlideSideBar : headerStyle.CloseSlideSideBar}`;
 
@@ -95,6 +99,14 @@ function Header(props: IHome): JSX.Element {
             </li>
           </ul>
         </li>
+
+        {props.isSignedIn ? (
+          <li className={headerStyle.navItem}>
+            <NavLink to={path.cart} activeClassName={headerStyle.activeLink}>
+              {cartGames.length} Cart
+            </NavLink>
+          </li>
+        ) : null}
 
         <li className={headerStyle.navItem}>
           <NavLink to={path.about} activeClassName={headerStyle.activeLink}>
