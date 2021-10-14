@@ -35,3 +35,25 @@ export interface IProfileData {
   email: string;
   profileDescription: string;
 }
+
+export interface CartGameType {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  allowedAge: string;
+  data: string;
+  img: string;
+  category: string;
+  genre: string;
+  checked: boolean;
+  orderDate: string;
+  amount: string;
+}
+
+export interface ICart {
+  gameId: number;
+  count: number | null;
+  orderDate: string;
+  price: number;
+}
