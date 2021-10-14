@@ -42,6 +42,7 @@ router.post("/auth/signUp", async (req: Request, res: Response) => {
       password: req.body.password,
       email: "",
       profileDescription: "Write something about yourself",
+      cart: [],
       photo: "",
     });
     await writeJsonToFile("./src/data/users.json", users);
