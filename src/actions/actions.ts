@@ -33,6 +33,25 @@ export type changePasswordActionType = ReturnType<typeof changePasswordAC>;
 export const saveProfileAC = (profile: IProfileData) => ({ type: Types.SAVE_PROFILE, profile } as const);
 export type saveProfileActionType = ReturnType<typeof saveProfileAC>;
 
+export const addGameAC = (gameData: { game: GameType; orderDate: string }) =>
+  ({ type: Types.ADD_GAME, gameData } as const);
+export type addGameActionType = ReturnType<typeof addGameAC>;
+
+export const removeGameAC = (checked: boolean) => ({ type: Types.REMOVE_GAME, checked } as const);
+export type removeGameActionType = ReturnType<typeof removeGameAC>;
+
+export const changeGameStatusAC = (name: string, checked: boolean) =>
+  ({ type: Types.CHANGE_GAME_STATUS, name, checked } as const);
+export type changeGameStatusActionType = ReturnType<typeof changeGameStatusAC>;
+
+export const changeGameAmountAC = (name: string, amount: string) =>
+  ({ type: Types.CHANGE_GAME_AMOUNT, name, amount } as const);
+export type changeGameAmountActionType = ReturnType<typeof changeGameAmountAC>;
+
+export const changeGamePriceAC = (name: string, price: string) =>
+  ({ type: Types.CHANGE_GAME_PRICE, name, price } as const);
+export type changeGamepPriceActionType = ReturnType<typeof changeGamePriceAC>;
+
 // saga action
 export const signInSagaAC = (login: string, password: string) =>
   ({ type: Types.SIGN_IN, payload: { login, password } } as const);
@@ -48,4 +67,6 @@ export type ActionsType =
   | setUserProfileActonType
   | setErrorActionType
   | changePasswordActionType
-  | saveProfileActionType;
+  | saveProfileActionType
+  | addGameActionType
+  | removeGameActionType;
