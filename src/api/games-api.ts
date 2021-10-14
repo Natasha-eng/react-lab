@@ -1,4 +1,4 @@
-import { GameType, UserProfileType } from "@/types/types";
+import { GameType, ICart, UserProfileType } from "@/types/types";
 import axios from "axios";
 
 const instance = axios.create({
@@ -68,6 +68,10 @@ export const api = {
     profileDescription: string
   ) {
     return instance.post(`saveProfile`, { photoFile, login, userName, email, profileDescription });
+  },
+
+  addGame(userName: string, cart: ICart[]) {
+    return instance.post(`addGame`, { userName, cart });
   },
 };
 
