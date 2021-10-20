@@ -12,13 +12,7 @@ function Game(props: GamePropsType): JSX.Element {
 
   const addGameHandler = () => {
     const login = localStorage.getItem("signInLoginValue");
-    const cart = {
-      gameId: props.game.id,
-      count: null,
-      orderDate: "",
-      price: props.game.price,
-    };
-    login && dispatch(addGameThunkCreator(login, [cart]));
+    login && dispatch(addGameThunkCreator(login, props.game.id));
   };
 
   return (
