@@ -14,6 +14,7 @@ import Profile from "./components/profile/Profile";
 import { AppRootState } from "./app/storetype";
 import { path } from "./constants/constants";
 import Products from "./products/Products";
+import Cart from "./components/cart/Cart";
 
 interface AppProps {
   nothing: boolean;
@@ -43,6 +44,9 @@ function App() {
             <About />
           </ProtectedRoute>
           <Route path={path.profile} render={() => <Profile isSignedIn={isSignedIn} />} />
+          <ProtectedRoute path={path.cart}>
+            <Cart />
+          </ProtectedRoute>
           <Redirect from="*" to={path.home} />
           <Redirect to={path.profile} />
         </Switch>

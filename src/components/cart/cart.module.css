@@ -1,0 +1,62 @@
+.cartGameContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.cartGameContainer h2 {
+  border-bottom: 1px solid white;
+  padding-bottom: 5px;
+  margin-bottom: 35px;
+}
+
+.cartItems {
+  font-size: 21px;
+  display: flex;
+  border-bottom: 1px solid slategray;
+  padding: 22px;
+}
+
+.cartInputWrapper {
+  display: flex;
+  justify-content: center;
+  width: 19%;
+}
+
+.cartHeaderItems {
+  font-size: 21px;
+  display: flex;
+  border-bottom: 1px solid white;
+  padding: 22px;
+}
+
+.cartItem {
+  width: 19%;
+  text-align: center;
+}
+
+.cartItems .cartInput {
+  width: 25%;
+}
+
+.cartCheckbox {
+  width: 5%;
+}
+
+.deleteButton {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid slategray;
+}
+
+.total {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
+  font-size: 21px;
+}

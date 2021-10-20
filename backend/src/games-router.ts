@@ -1,7 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
 import readJsonFromFile from "./readJsonFromFile";
+import { ICart, IGame, IUser } from "./types/types";
 import { sortedGames } from "./utils/util";
-import { IGame } from "./writeJsonToFile";
+import writeJsonToFile from "./writeJsonToFile";
 
 const router = express.Router();
 
@@ -39,7 +40,6 @@ router.get("/home/search", async (req: Request, res: Response) => {
   const games: IGame[] = JSON.parse(data) as IGame[];
   const name: string = req.query.name as string;
 
-  // const filteredGames = games.filter((g: IGame) => g.name.toLowerCase().indexOf(name.toLowerCase()) > -1);
   const filteredGames = games.filter((g: IGame) => g.name.toLowerCase().includes(name.toLocaleLowerCase()));
 
   if (!filteredGames) {
@@ -89,6 +89,70 @@ router.get("/home/getTopProducts", async (req: Request, res: Response) => {
     res.send(500).send("We can't give you games");
   } else {
     res.status(200).send(firstThreeeGames);
+  }
+});
+
+router.post("/addGame", async (req: Request, res: Response) => {
+  const data: string = (await readJsonFromFile("src/data/games.json")) as string;
+  const userData: string = (await readJsonFromFile("src/data/users.json")) as string;
+  const games: IGame[] = JSON.parse(data) as IGame[];
+  const users: IUser[] = JSON.parse(userData) as IUser[];
+  const { userName } = req.body;
+  const user: IUser = users.find((u) => u.login === userName) as IUser;
+  const gameId: number = req.body.id;
+  const cartGame = user.cart.find((c) => c.id === gameId);
+  const game = games.find((g: IGame) => g.id === gameId);
+  if (!game) {
+    res.status(500).send("Some error occured");
+  }
+  if (cartGame) {
+    cartGame.amount = ++cartGame.amount;
+    await writeJsonToFile("./src/data/users.json", users);
+    const updatedCart = user.cart;
+    res.status(200).send({ updatedCart });
+  } else if (game) {
+    const cart: ICart = {
+      id: game.id,
+      name: game.name,
+      category: game.category,
+      amount: 1,
+      orderDate: new Date().toLocaleDateString(),
+      price: game.price,
+      checked: false,
+    };
+    user.cart.push(cart);
+    const updatedCart = user.cart;
+    await writeJsonToFile("./src/data/users.json", users);
+    res.status(200).send({ updatedCart });
+  }
+});
+
+router.get("/fetchCart", async (req: Request, res: Response) => {
+  const userData: string = (await readJsonFromFile("src/data/users.json")) as string;
+  const users: IUser[] = JSON.parse(userData) as IUser[];
+  const userName: string = req.query.userName as string;
+  const user: IUser = users.find((u) => u.login === userName) as IUser;
+  const updatedCart = user.cart;
+  if (updatedCart === []) {
+    res.status(201).send({ answere: "Your cart is empty." });
+  } else {
+    res.status(200).send({ updatedCart, balance: user.balance });
+  }
+});
+
+router.post("/updateCart", async (req: Request, res: Response) => {
+  const userData: string = (await readJsonFromFile("src/data/users.json")) as string;
+  const users: IUser[] = JSON.parse(userData) as IUser[];
+  const newCarts: ICart[] = req.body.updatedCarts as ICart[];
+  const userName: string = req.body.userName as string;
+  const user: IUser = users.find((u) => u.login === userName) as IUser;
+  const { cart } = user;
+  if (cart === []) {
+    res.status(201).send({ answere: "Your cart is empty." });
+  } else {
+    user.cart = newCarts;
+    await writeJsonToFile("./src/data/users.json", users);
+    res.status(200).send();
   }
 });
 

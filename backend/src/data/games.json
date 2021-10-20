@@ -8,7 +8,8 @@
     "date": "2021-08-29T12:00:00Z",
     "img": "https://images.indianexpress.com/2020/05/Minecraft-1200-1.jpg",
     "category": "playstation",
-    "genre": "Shooter"
+    "genre": "Shooter",
+    "amount": "1"
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "date": "2021-08-30T12:00:00Z",
     "img": "https://i.pinimg.com/originals/51/87/b2/5187b24c6cd144076d7a45fb301d54fc.jpg",
     "category": "pc",
-    "genre": "Arcade"
+    "genre": "Arcade",
+    "amount": "1"
   },
   {
     "id": 3,
@@ -30,7 +32,8 @@
     "date": "2021-08-30T11:10:00Z",
     "img": "https://dmarket.com/blog/best-csgo-wallpapers/CS-GO-wallpaper-HD-art_hue3ed7aeab8fceb3ccf3a35de14fc82fb_1114369_1920x1080_resize_q75_lanczos.jpg",
     "category": "playstation",
-    "genre": "Survive"
+    "genre": "Survive",
+    "amount": "1"
   },
   {
     "id": 4,
@@ -41,7 +44,8 @@
     "date": "2021-08-29T10:00:00Z",
     "img": "https://sm.ign.com/ign_ru/screenshot/default/gta-v-283maxresdefault_er1c.jpg",
     "category": "xbox",
-    "genre": "Shooter"
+    "genre": "Shooter",
+    "amount": "1"
   },
   {
     "id": 5,
@@ -52,7 +56,8 @@
     "date": "2021-08-29T10:15:00Z",
     "img": "https://images.livemint.com/img/2020/06/03/1600x900/Valorant_1591218052835_1591218061187.jpg",
     "category": "pc",
-    "genre": "Arcade"
+    "genre": "Arcade",
+    "amount": "1"
   },
   {
     "id": 6,
@@ -63,7 +68,8 @@
     "date": "2021-08-29T13:20:00Z",
     "img": "https://www.callofduty.com/content/dam/atvi/callofduty/cod-touchui/warzone/social/wz-social-share.jpg",
     "category": "playstation",
-    "genre": "Survive"
+    "genre": "Survive",
+    "amount": "1"
   },
   {
     "id": 7,
@@ -74,7 +80,8 @@
     "date": "2021-08-30T11:15:00Z",
     "img": "https://d2e111jq13me73.cloudfront.net/sites/default/files/styles/amp_blog_image_large/public/blog/csm-blog/parents-ultimate-guide-to-roblox-blog.jpeg?itok=o20H9csm",
     "category": "pc",
-    "genre": "Arcade"
+    "genre": "Arcade",
+    "amount": "1"
   },
   {
     "id": 8,
@@ -85,7 +92,8 @@
     "date": "2021-08-30T11:20:00Z",
     "img": "https://cdn2.unrealengine.com/metaimage1-1920x1080-abb60090deaf.png",
     "category": "xbox",
-    "genre": "Shooter"
+    "genre": "Shooter",
+    "amount": "1"
   },
   {
     "id": 9,
@@ -96,7 +104,8 @@
     "date": "2021-08-29T10:20:00Z",
     "img": "https://cdn.earlygame.com/uploads/images/_headerImage/rocket-league-update-1.96.jpg",
     "category": "playstation",
-    "genre": "Arcade"
+    "genre": "Arcade",
+    "amount": "1"
   },
   {
     "id": 10,
@@ -107,6 +116,7 @@
     "date": "2021-08-29T14:20:00Z",
     "img": "https://svirtus.cdnvideo.ru/-wTFAlq3rD2PvercVsK1N9O_OJI=/fit-in/670x377/middle/https://img.youtube.com/vi/ZAE21AV4utI/maxresdefault.jpg",
     "category": "pc",
-    "genre": "Shooter"
+    "genre": "Shooter",
+    "amount": "1"
   }
 ]

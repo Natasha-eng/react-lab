@@ -1,5 +1,5 @@
 import { ActionsType } from "@/actions/actions";
-import { Types } from "@/constants/constants";
+import Types from "@/thunks/actiontTypes";
 import { IProfile, UserProfileType } from "@/types/types";
 
 const initialState: IProfile = {
@@ -12,6 +12,12 @@ export const profileReducer = (state = initialState, action: ActionsType): IProf
   switch (action.type) {
     case Types.SET_USER_NAME:
       return { ...state, userName: action.userName };
+
+    case Types.SET_TOTAL_GAME_COST:
+      return { ...state, profile: { ...state.profile, totalGameCost: action.total } };
+
+    case Types.SET_USER_BALANCE:
+      return { ...state, profile: { ...state.profile, balance: action.balance } };
 
     case Types.SET_USER_PROFILE:
       return { ...state, profile: action.profile };

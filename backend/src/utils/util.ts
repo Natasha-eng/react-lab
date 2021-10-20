@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { age, criteria, genre } from "../constants/constants";
-import { IGame } from "../writeJsonToFile";
+import { IGame } from "../types/types";
 
 export const isLoginValide = (login: string) => {
   const nameRegex = /^[a-zA-Z0-9!@#$%^&*]{5,10}$/;
