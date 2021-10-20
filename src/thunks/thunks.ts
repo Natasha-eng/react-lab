@@ -1,12 +1,13 @@
 import {
-  addGameAC,
-  addGameActionType,
   changePasswordAC,
   changePasswordActionType,
   isFetchingAC,
   isFetchingActionType,
+  removeGameActionType,
   saveProfileAC,
   saveProfileActionType,
+  setCartsAC,
+  setCartsActionType,
   setErrorAC,
   setErrorActionType,
   setFilteredGamesAC,
@@ -15,6 +16,11 @@ import {
   SetGamesActionType,
   setIsSignedInAC,
   setIsSignedInActionType,
+  setMessageActionType,
+  setTotalGameCostAC,
+  setTotalGameCostActionType,
+  setUserBalanceAC,
+  setUserBalanceActionType,
   setUserNameAC,
   setUserNameActionType,
   setUserProfileAC,
@@ -103,11 +109,16 @@ export const fetchGamesByDateThunkCreator =
 export const signInThunkCreator =
   (login: string, password: string) =>
   async (
-    dispatch: ThunkDispatch<AppRootState, unknown, setIsSignedInActionType | setUserNameActionType | setErrorActionType>
+    dispatch: ThunkDispatch<
+      AppRootState,
+      unknown,
+      setIsSignedInActionType | setUserNameActionType | setUserBalanceActionType | setErrorActionType
+    >
   ): Promise<void> => {
     const response = await api.signIn(login, password);
     if (response.status === 201) {
       dispatch(setUserNameAC(response.data.name));
+      dispatch(setUserBalanceAC(response.data.balance));
       dispatch(setIsSignedInAC(true));
     } else {
       dispatch(setErrorAC(response.data.errorMessage));
@@ -118,11 +129,16 @@ export const signInThunkCreator =
 export const signUpThunkCreator =
   (login: string, password: string) =>
   async (
-    dispatch: ThunkDispatch<AppRootState, unknown, setIsSignedInActionType | setUserNameActionType | setErrorActionType>
+    dispatch: ThunkDispatch<
+      AppRootState,
+      unknown,
+      setIsSignedInActionType | setUserNameActionType | setUserBalanceActionType | setErrorActionType
+    >
   ): Promise<void> => {
     const response = await api.signUp(login, password);
     if (response.status === 202) {
       dispatch(setUserNameAC(response.data.name));
+      dispatch(setUserBalanceAC(response.data.balance));
       dispatch(setIsSignedInAC(true));
     } else {
       dispatch(setErrorAC(response.data.errorMessage));
@@ -163,11 +179,47 @@ export const saveProfileThunkCreator =
   };
 
 export const addGameThunkCreator =
-  (userName: string, cart: ICart[]) =>
-  async (dispatch: ThunkDispatch<AppRootState, unknown, addGameActionType | setErrorActionType>) => {
-    const response = await api.addGame(userName, cart);
+  (userName: string, id: number) =>
+  async (dispatch: ThunkDispatch<AppRootState, unknown, setCartsActionType | setErrorActionType>) => {
+    const response = await api.addGame(userName, id);
     if (response.status === 200) {
-      dispatch(addGameAC(response.data));
+      dispatch(setCartsAC(response.data.updatedCart));
+    } else {
+      dispatch(setErrorAC(response.data));
+    }
+  };
+
+export const fetchCartThunkCreator =
+  (userName: string, total: number) =>
+  async (
+    dispatch: ThunkDispatch<
+      AppRootState,
+      unknown,
+      setCartsActionType | setUserBalanceActionType | setTotalGameCostActionType | setErrorActionType
+    >
+  ) => {
+    const response = await api.fetchCart(userName);
+    if (response.status === 200) {
+      dispatch(setCartsAC(response.data.updatedCart));
+      dispatch(setUserBalanceAC(response.data.balance));
+      dispatch(setTotalGameCostAC(total));
+    } else {
+      dispatch(setErrorAC(response.data));
+    }
+  };
+
+export const updateCartsThunkCreator =
+  (userName: string, cartGames: ICart[]) =>
+  async (
+    dispatch: ThunkDispatch<
+      AppRootState,
+      unknown,
+      setCartsActionType | removeGameActionType | setMessageActionType | setErrorActionType
+    >
+  ) => {
+    const response = await api.updateCart(userName, cartGames);
+    if (response.status === 200) {
+      dispatch(setCartsAC(cartGames));
     } else {
       dispatch(setErrorAC(response.data));
     }
