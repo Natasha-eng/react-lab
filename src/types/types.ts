@@ -14,6 +14,17 @@ export interface AuthInitialState {
   isSignedIn: boolean;
   isSignedUp: boolean;
   error: string;
+  message: string;
+}
+
+export interface ICart {
+  id: number;
+  name: string;
+  category: string;
+  amount: number;
+  orderDate: string;
+  price: number;
+  checked: boolean;
 }
 
 export interface UserProfileType {
@@ -22,7 +33,10 @@ export interface UserProfileType {
   email: string;
   profileDescription: string;
   password: string;
+  cart: ICart[];
+  balance: number;
   photo: string;
+  totalGameCost: number;
 }
 
 export interface IProfile {
@@ -49,11 +63,4 @@ export interface CartGameType {
   checked: boolean;
   orderDate: string;
   amount: string;
-}
-
-export interface ICart {
-  gameId: number;
-  count: number | null;
-  orderDate: string;
-  price: number;
 }
