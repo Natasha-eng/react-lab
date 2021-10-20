@@ -1,4 +1,4 @@
-import { Types } from "@/constants/constants";
+import Types from "@/thunks/actiontTypes";
 import { GameType, ICart, IProfileData, UserProfileType } from "@/types/types";
 
 // actions
