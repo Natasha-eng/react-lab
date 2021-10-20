@@ -70,8 +70,23 @@ export const api = {
     return instance.post(`saveProfile`, { photoFile, login, userName, email, profileDescription });
   },
 
-  addGame(userName: string, cart: ICart[]) {
-    return instance.post(`addGame`, { userName, cart });
+  addGame(userName: string, id: number) {
+    return instance.post(`addGame`, { userName, id });
+  },
+
+  fetchCart(userName: string) {
+    return instance.get(`fetchCart`, {
+      params: {
+        userName,
+      },
+    });
+  },
+
+  updateCart(userName: string, updatedCarts: ICart[]) {
+    return instance.post(`updateCart`, {
+      userName,
+      updatedCarts,
+    });
   },
 };
 
