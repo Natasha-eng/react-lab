@@ -10,7 +10,7 @@
         "id": 2,
         "name": "League of Legends",
         "category": "pc",
-        "amount": 1,
+        "amount": 4,
         "orderDate": "20.10.2021",
         "price": 20,
         "checked": false
