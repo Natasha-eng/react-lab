@@ -1,7 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
-import readJsonFromFile, { IUser } from "./readJsonFromFile";
+import readJsonFromFile from "./readJsonFromFile";
 import writeJsonToFile from "./writeJsonToFile";
 import { isEmailValid, isLoginValide, isPasswordValide, lengthRange } from "./utils/util";
+import { IUser } from "./types/types";
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.post("/auth/signIn", async (req: Request, res: Response) => {
   if (!user) {
     res.status(500).send({ errorMessage: "Such user doesn't exist" });
   } else {
-    res.status(201).send({ name: user.login });
+    res.status(201).send({ name: user.login, balance: user.balance });
   }
 });
 
@@ -43,10 +44,11 @@ router.post("/auth/signUp", async (req: Request, res: Response) => {
       email: "",
       profileDescription: "Write something about yourself",
       cart: [],
+      balance: 0,
       photo: "",
     });
     await writeJsonToFile("./src/data/users.json", users);
-    res.status(202).send({ name: req.body.login });
+    res.status(202).send({ name: req.body.login, balance: 0 });
   } else {
     res.status(400).send({ errorMessage: "This name is already in use" });
   }
