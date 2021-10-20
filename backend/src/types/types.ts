@@ -14,6 +14,7 @@ export interface IGame {
   allowedAge: string;
   genre: string;
   description: string;
+  amount: number;
 }
 
 export interface ICart {
