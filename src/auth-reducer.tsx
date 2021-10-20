@@ -6,6 +6,7 @@ const initialState: AuthInitialState = {
   isSignedIn: false,
   isSignedUp: false,
   error: "",
+  message: "",
 };
 
 export const authReducer = (state = initialState, action: ActionsType): AuthInitialState => {
@@ -14,6 +15,8 @@ export const authReducer = (state = initialState, action: ActionsType): AuthInit
       return { ...state, isSignedIn: action.isSignedIn };
     case Types.SET_ERROR:
       return { ...state, error: action.error };
+    case Types.SET_MESSAGE:
+      return { ...state, message: action.message };
     default:
       return state;
   }
