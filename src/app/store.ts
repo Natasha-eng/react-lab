@@ -8,6 +8,7 @@ import createSagaMiddleware from "redux-saga";
 import mySaga from "@/saga/saga";
 import { sortedGamesReducer } from "@/products/sortedGames-reducer";
 import { cartReducer } from "@/components/cart/cart-reducer";
+import { systemMessagesReducer } from "@/systemMessages/systemMessages-reducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -18,6 +19,7 @@ export const rootReducer = combineReducers({
   profile: profileReducer,
   sortedGames: sortedGamesReducer,
   cartGames: cartReducer,
+  systemMessages: systemMessagesReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware));

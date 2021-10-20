@@ -6,7 +6,7 @@ import modalStyle from "./confirmationModal.module.css";
 
 export default function ConfirmationModal({ closeModal, total }: { closeModal: () => void; total: number }) {
   const balance = useSelector<AppRootState, number>((state) => state.profile.profile.balance);
-  const message = useSelector<AppRootState, string>((state) => state.auth.message);
+  const message = useSelector<AppRootState, string>((state) => state.systemMessages.message);
   const dispatch = useDispatch();
 
   const buyGames = () => {

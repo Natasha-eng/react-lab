@@ -11,7 +11,7 @@ import ConfirmationModal from "../confirmationModal/confirmationModal";
 export default function Cart(): JSX.Element {
   const cartGames = useSelector<AppRootState, ICart[]>((state) => state.cartGames);
   const balance = useSelector<AppRootState, number>((state) => state.profile.profile.balance);
-  const message = useSelector<AppRootState, string>((state) => state.auth.message);
+  const message = useSelector<AppRootState, string>((state) => state.systemMessages.message);
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   const [isModal, setIsModal] = useState(false);
@@ -37,7 +37,9 @@ export default function Cart(): JSX.Element {
     dispatch(changeGameAmountAC(e.target.name, e.target.value));
     if (e.target.value) {
       const login = localStorage.getItem("signInLoginValue");
-      const updatedCarts = cartGames.map((c) => (c.id === +e.target.id ? { ...c, amount: +e.target.value } : c));
+      const updatedCarts = cartGames.map((c) =>
+        e.target.dataset.gameid && c.id === +e.target.dataset.gameid ? { ...c, amount: +e.target.value } : c
+      );
       login && dispatch(updateCartsThunkCreator(login, updatedCarts));
     }
   };
@@ -86,7 +88,8 @@ export default function Cart(): JSX.Element {
                   value={g.amount}
                   name={g.name}
                   onChange={changeAmount}
-                  id={`${g.id}`}
+                  data-gameid={g.id}
+                  // id={`${g.id}`}
                 />
               </div>
 
