@@ -1,26 +1,51 @@
 import { AppRootState } from "@/app/storetype";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeEvent, useEffect, useState } from "react";
-import { changeGameAmountAC, changeGameStatusAC, removeGameAC } from "@/actions/actions";
-import { CartGameType } from "@/types/types";
+import { changeGameAmountAC, changeGameStatusAC, setMessageAC } from "@/actions/actions";
+import { ICart } from "@/types/types";
+import { fetchCartThunkCreator, updateCartsThunkCreator } from "@/thunks/thunks";
 import cartStyle from "./cart.module.css";
 import main from "../../styles/main.module.css";
 import ConfirmationModal from "../confirmationModal/confirmationModal";
 
 export default function Cart(): JSX.Element {
-  const cartGames = useSelector<AppRootState, CartGameType[]>((state) => state.cartGames);
-  const [checkedGame, setCheckedGame] = useState(false);
+  const cartGames = useSelector<AppRootState, ICart[]>((state) => state.cartGames);
+  const balance = useSelector<AppRootState, number>((state) => state.profile.profile.balance);
+  const message = useSelector<AppRootState, string>((state) => state.auth.message);
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   const [isModal, setIsModal] = useState(false);
 
-  useEffect(() => setTotal(cartGames.reduce((acc, curr) => acc + curr.price * Number(curr.amount), 0)), [cartGames]);
+  useEffect(() => {
+    setTotal(cartGames.reduce((acc, curr) => acc + curr.price * Number(curr.amount), 0));
+  }, [cartGames]);
+
+  useEffect(() => {
+    const login = localStorage.getItem("signInLoginValue");
+    login && dispatch(fetchCartThunkCreator(login, total));
+  }, []);
+
+  useEffect(() => {
+    if (cartGames === []) {
+      dispatch(setMessageAC("Your cart is empty"));
+    } else {
+      dispatch(setMessageAC(""));
+    }
+  }, [cartGames]);
+
   const changeAmount = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(changeGameAmountAC(e.target.name, e.target.value));
+    if (e.target.value) {
+      const login = localStorage.getItem("signInLoginValue");
+      const updatedCarts = cartGames.map((c) => (c.id === +e.target.id ? { ...c, amount: +e.target.value } : c));
+      login && dispatch(updateCartsThunkCreator(login, updatedCarts));
+    }
   };
 
-  const removeItem = () => {
-    dispatch(removeGameAC(checkedGame));
+  const removeCartItem = () => {
+    const login = localStorage.getItem("signInLoginValue");
+    const updatedcarts = cartGames.filter((g) => !g.checked);
+    login && dispatch(updateCartsThunkCreator(login, updatedcarts));
   };
 
   const buyProduct = () => {
@@ -42,47 +67,49 @@ export default function Cart(): JSX.Element {
           <div className={cartStyle.cartItem}>Amount</div>
           <div className={cartStyle.cartItem}>Price</div>
         </div>
+        {!cartGames && <div>{message}</div>}
         {cartGames.map((g) => {
           const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(changeGameStatusAC(e.target.value, e.target.checked));
-            setCheckedGame(g.checked);
+            const login = localStorage.getItem("signInLoginValue");
+            login && dispatch(changeGameStatusAC(g.id, e.target.checked));
           };
 
           return (
-            <div key={g.game.id} className={cartStyle.cartItems}>
-              <div className={cartStyle.cartItem}>{g.game.name}</div>
-              <div className={cartStyle.cartItem}>{g.game.category}</div>
+            <div key={g.id} className={cartStyle.cartItems}>
+              <div className={cartStyle.cartItem}>{g.name}</div>
+              <div className={cartStyle.cartItem}>{g.category}</div>
               <div className={cartStyle.cartItem}>{g.orderDate}</div>
               <div className={cartStyle.cartInputWrapper}>
                 <input
                   className={cartStyle.cartInput}
                   type="text"
-                  value={g.game.amount}
-                  name={g.game.name}
+                  value={g.amount}
+                  name={g.name}
                   onChange={changeAmount}
+                  id={`${g.id}`}
                 />
               </div>
 
-              <div className={cartStyle.cartItem}>{g.game.price}</div>
+              <div className={cartStyle.cartItem}>{g.price}</div>
               <input
                 className={cartStyle.cartCheckbox}
                 type="checkbox"
                 checked={g.checked}
                 onChange={changeStatus}
-                value={g.game.name}
-                name={g.game.name}
+                value={g.name}
+                name={g.name}
               />
             </div>
           );
         })}
         <div className={cartStyle.deleteButton}>
-          <button type="button" onClick={removeItem}>
+          <button type="button" onClick={removeCartItem}>
             Remove
           </button>
         </div>
         <div className={cartStyle.total}>
           <div>Games cost: {total} $ </div>
-          <div>Your balance: 32.98 $</div>
+          <div>Your balance: {balance} $</div>
           <div className={cartStyle.buyButton}>
             <button type="button" onClick={buyProduct}>
               Buy
@@ -90,7 +117,7 @@ export default function Cart(): JSX.Element {
           </div>
         </div>
       </div>
-      {isModal && <ConfirmationModal closeModal={closeModal} />}
+      {isModal && <ConfirmationModal closeModal={closeModal} total={total} />}
     </div>
   );
 }
