@@ -7,12 +7,30 @@
     "password": "1$qwerty1",
     "cart": [
       {
+        "id": 2,
+        "name": "League of Legends",
+        "category": "pc",
+        "amount": 1,
+        "orderDate": "20.10.2021",
+        "price": 20,
+        "checked": false
+      },
+      {
         "id": 8,
         "name": "Fortnite",
         "category": "xbox",
         "amount": 1,
         "orderDate": "20.10.2021",
         "price": 10,
+        "checked": false
+      },
+      {
+        "id": 7,
+        "name": "ROBLOX",
+        "category": "pc",
+        "amount": 1,
+        "orderDate": "20.10.2021",
+        "price": 25,
         "checked": false
       }
     ],
