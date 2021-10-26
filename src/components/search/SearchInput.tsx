@@ -52,6 +52,7 @@ function SearchInput(): JSX.Element {
         placeholder="Search game..."
         onChange={searchByNameHandler}
       />
+
       {isFetching ? (
         <Preloader />
       ) : (
