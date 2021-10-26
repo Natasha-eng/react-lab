@@ -61,6 +61,18 @@ router.get("/products/:category", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/game/:id", async (req: Request, res: Response) => {
+  const gameId: number = +req.params.id as number;
+  const data: string = (await readJsonFromFile("src/data/games.json")) as string;
+  const games: IGame[] = JSON.parse(data) as IGame[];
+  const fetchedGame = games.find((g: IGame) => g.id === gameId);
+  if (!games) {
+    res.status(500).send("We can't give you games");
+  } else {
+    res.status(200).send(fetchedGame);
+  }
+});
+
 router.post("/products/:category", async (req: Request, res: Response) => {
   const category: string = req.params.category as string;
   const data: string = (await readJsonFromFile("src/data/games.json")) as string;
@@ -153,6 +165,62 @@ router.post("/updateCart", async (req: Request, res: Response) => {
     user.cart = newCarts;
     await writeJsonToFile("./src/data/users.json", users);
     res.status(200).send();
+  }
+});
+
+router.post("/updateGame", async (req: Request, res: Response) => {
+  const newGame: IGame = req.body.updatedGame as IGame;
+  const data: string = (await readJsonFromFile("src/data/games.json")) as string;
+  const games: IGame[] = JSON.parse(data) as IGame[];
+
+  if (!newGame) {
+    res.status(500).send({ errorMessage: "This game can't be updated.Try later." });
+  } else {
+    const updatedGames = games.map((g) => (g.id === newGame.id ? { ...newGame } : g));
+    await writeJsonToFile("./src/data/games.json", updatedGames);
+    res.status(200).send({ updatedGames });
+  }
+});
+
+router.post("/createGame", async (req: Request, res: Response) => {
+  const newGame: IGame = req.body.newGame as IGame;
+  const data: string = (await readJsonFromFile("src/data/games.json")) as string;
+  const games: IGame[] = JSON.parse(data) as IGame[];
+
+  if (!newGame) {
+    res.status(500).send({ errorMessage: "New game is not created. Try later." });
+  } else {
+    const lastGameId = games[games.length - 1].id;
+    const createdGame = {
+      id: lastGameId + 1,
+      name: newGame.name,
+      price: newGame.price,
+      date: new Date().toLocaleDateString(),
+      img: newGame.img,
+      category: newGame.category,
+      allowedAge: newGame.allowedAge,
+      genre: newGame.genre,
+      description: newGame.description,
+      amount: 1,
+    };
+    games.push(createdGame);
+    await writeJsonToFile("./src/data/games.json", games);
+    res.status(200).send({ games });
+  }
+});
+
+router.delete("/deleteGame", async (req: Request, res: Response) => {
+  const data: string = (await readJsonFromFile("src/data/games.json")) as string;
+  const games: IGame[] = JSON.parse(data) as IGame[];
+  const { gameId } = req.query;
+
+  if (!gameId) {
+    res.status(500).send({ errorMessage: "This game can't be deleted.Try later." });
+  } else {
+    const updatedGames = games.filter((g) => g.id !== +gameId);
+
+    await writeJsonToFile("./src/data/games.json", updatedGames);
+    res.status(200).send({ updatedGames });
   }
 });
 
