@@ -89,7 +89,6 @@ export default function Cart(): JSX.Element {
                   name={g.name}
                   onChange={changeAmount}
                   data-gameid={g.id}
-                  // id={`${g.id}`}
                 />
               </div>
 
