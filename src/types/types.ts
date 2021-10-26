@@ -32,6 +32,7 @@ export interface ICart {
 
 export interface UserProfileType {
   id: number;
+  isAdmin: boolean;
   login: string;
   email: string;
   profileDescription: string;
