@@ -29,6 +29,7 @@ export interface ICart {
 
 export interface IUser {
   id: number;
+  isAdmin: boolean;
   login: string;
   email: string;
   profileDescription: string;
