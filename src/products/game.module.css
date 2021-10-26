@@ -79,4 +79,5 @@
 .inner img {
   width: 300px;
   height: auto;
+  max-height: 300px;
 }
