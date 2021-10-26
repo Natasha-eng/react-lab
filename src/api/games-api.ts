@@ -46,6 +46,10 @@ export const api = {
     });
   },
 
+  getGame(id: number) {
+    return instance.get<GameType>(`game/${id}`);
+  },
+
   signUp(login: string, password: string) {
     return instance.post(`auth/signUp`, { login, password });
   },
@@ -86,6 +90,26 @@ export const api = {
     return instance.post(`updateCart`, {
       userName,
       updatedCarts,
+    });
+  },
+
+  updateGame(updatedGame: GameType) {
+    return instance.post(`updateGame`, {
+      updatedGame,
+    });
+  },
+
+  createGame(newGame: GameType) {
+    return instance.post(`createGame`, {
+      newGame,
+    });
+  },
+
+  deleteGame(gameId: number) {
+    return instance.delete(`deleteGame`, {
+      params: {
+        gameId,
+      },
     });
   },
 };
