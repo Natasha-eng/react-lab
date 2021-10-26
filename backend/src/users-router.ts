@@ -23,7 +23,7 @@ router.post("/auth/signIn", async (req: Request, res: Response) => {
   if (!user) {
     res.status(500).send({ errorMessage: "Such user doesn't exist" });
   } else {
-    res.status(201).send({ name: user.login, balance: user.balance });
+    res.status(201).send({ name: user.login, balance: user.balance, isAdmin: user.isAdmin });
   }
 });
 
@@ -39,6 +39,7 @@ router.post("/auth/signUp", async (req: Request, res: Response) => {
   if (!user) {
     users.push({
       id: 11,
+      isAdmin: false,
       login: req.body.login,
       password: req.body.password,
       email: "",
