@@ -55,7 +55,7 @@ router.get("/products/:category", async (req: Request, res: Response) => {
   const games: IGame[] = JSON.parse(data) as IGame[];
   const filteredByCategoryGames = games.filter((g: IGame) => g.category === category);
   if (!games) {
-    res.status(500).send("We can't give you games");
+    res.status(500).send("No games with such category.");
   } else {
     res.status(200).send(filteredByCategoryGames);
   }
@@ -67,7 +67,7 @@ router.get("/game/:id", async (req: Request, res: Response) => {
   const games: IGame[] = JSON.parse(data) as IGame[];
   const fetchedGame = games.find((g: IGame) => g.id === gameId);
   if (!games) {
-    res.status(500).send("We can't give you games");
+    res.status(500).send("Some error occured.");
   } else {
     res.status(200).send(fetchedGame);
   }
@@ -98,7 +98,7 @@ router.get("/home/getTopProducts", async (req: Request, res: Response) => {
   const sortGames: IGame[] = games.sort(byDate);
   const firstThreeeGames = sortGames.slice(0, 3);
   if (!games) {
-    res.send(500).send("We can't give you games");
+    res.send(500).send("Some error occured.Try later.");
   } else {
     res.status(200).send(firstThreeeGames);
   }
@@ -115,7 +115,7 @@ router.post("/addGame", async (req: Request, res: Response) => {
   const cartGame = user.cart.find((c) => c.id === gameId);
   const game = games.find((g: IGame) => g.id === gameId);
   if (!game) {
-    res.status(500).send("Some error occured");
+    res.status(500).send("Some error occured.Try later.");
   }
   if (cartGame) {
     cartGame.amount = ++cartGame.amount;
@@ -170,12 +170,12 @@ router.post("/updateCart", async (req: Request, res: Response) => {
 
 router.post("/updateGame", async (req: Request, res: Response) => {
   const newGame: IGame = req.body.updatedGame as IGame;
-  const data: string = (await readJsonFromFile("src/data/games.json")) as string;
-  const games: IGame[] = JSON.parse(data) as IGame[];
 
   if (!newGame) {
     res.status(500).send({ errorMessage: "This game can't be updated.Try later." });
   } else {
+    const data: string = (await readJsonFromFile("src/data/games.json")) as string;
+    const games: IGame[] = JSON.parse(data) as IGame[];
     const updatedGames = games.map((g) => (g.id === newGame.id ? { ...newGame } : g));
     await writeJsonToFile("./src/data/games.json", updatedGames);
     res.status(200).send({ updatedGames });
@@ -184,12 +184,12 @@ router.post("/updateGame", async (req: Request, res: Response) => {
 
 router.post("/createGame", async (req: Request, res: Response) => {
   const newGame: IGame = req.body.newGame as IGame;
-  const data: string = (await readJsonFromFile("src/data/games.json")) as string;
-  const games: IGame[] = JSON.parse(data) as IGame[];
 
   if (!newGame) {
     res.status(500).send({ errorMessage: "New game is not created. Try later." });
   } else {
+    const data: string = (await readJsonFromFile("src/data/games.json")) as string;
+    const games: IGame[] = JSON.parse(data) as IGame[];
     const lastGameId = games[games.length - 1].id;
     const createdGame = {
       id: lastGameId + 1,
@@ -210,13 +210,13 @@ router.post("/createGame", async (req: Request, res: Response) => {
 });
 
 router.delete("/deleteGame", async (req: Request, res: Response) => {
-  const data: string = (await readJsonFromFile("src/data/games.json")) as string;
-  const games: IGame[] = JSON.parse(data) as IGame[];
   const { gameId } = req.query;
 
   if (!gameId) {
     res.status(500).send({ errorMessage: "This game can't be deleted.Try later." });
   } else {
+    const data: string = (await readJsonFromFile("src/data/games.json")) as string;
+    const games: IGame[] = JSON.parse(data) as IGame[];
     const updatedGames = games.filter((g) => g.id !== +gameId);
 
     await writeJsonToFile("./src/data/games.json", updatedGames);
