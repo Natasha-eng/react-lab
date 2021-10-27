@@ -1,4 +1,4 @@
-import modalStyle from "./../../confirmationModal/confirmationModal.module.css";
+import modalStyle from "../../confirmationModal/confirmationModal.module.css";
 
 interface IDeleteGameModal {
   closeModal: () => void;
@@ -6,7 +6,7 @@ interface IDeleteGameModal {
   gameName: string;
 }
 
-export default function DeleteGameModal(props: IDeleteGameModal) {
+export default function DeleteGameModal(props: IDeleteGameModal): JSX.Element {
   const deleteGame = () => {
     props.deleteGameHandler();
   };

@@ -3,27 +3,27 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import modalStyle from "../../modal/modal.module.css";
-import main from "../../../styles/main.module.css";
 import InputText from "@/elements/input/InputText";
-import profileStyle from "./../profile.module.css";
-import productsStyle from "./../../../products/products.module.css";
 import { age } from "backend/src/constants/constants";
-import userPhoto from "../../../assets/images/avatar_square_blue_120dp.png";
 import { GameType } from "@/types/types";
-import gameModalStyle from "./createGameModal.module.css";
 import { convertToBase64 } from "@/utils/util";
 import { deleteGameThunkCreator, updateGameThunkCreator } from "@/thunks/thunks";
-import DeleteGameModal from "../deleteGaemModal/DeleteGameModal";
 import { setMessageAC } from "@/actions/actions";
 import { commonError, gameGenre, gamePlatform, gameUpdatedMessage } from "@/constants/constants";
+import modalStyle from "../../modal/modal.module.css";
+import main from "../../../styles/main.module.css";
+import profileStyle from "../profile.module.css";
+import productsStyle from "../../../products/products.module.css";
+import userPhoto from "../../../assets/images/avatar_square_blue_120dp.png";
+import gameModalStyle from "./createGameModal.module.css";
+import DeleteGameModal from "../deleteGaemModal/DeleteGameModal";
 
 interface ICreateGameModal {
   toggleModal: () => void;
   updateGameHandler: (updatedGame: GameType) => void;
 }
 
-export default function UpdateGameModal(props: ICreateGameModal) {
+export default function UpdateGameModal(props: ICreateGameModal): JSX.Element {
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const game = useSelector<AppRootState, GameType>((state) => state.game);
@@ -35,7 +35,7 @@ export default function UpdateGameModal(props: ICreateGameModal) {
   const [genre, setGenre] = useState(game.genre);
   const [gamePrice, setGamePrice] = useState(game.price.toString());
   const [gameDescription, setGameDescription] = useState(game.description);
-  const backError = useSelector<AppRootState, string>((state) => state.auth.error);
+  const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
   const [isModal, setIsModal] = useState(false);
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function UpdateGameModal(props: ICreateGameModal) {
 
   const updateGameHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!gameName && !platform && !genre && !gamePrice && !gameDescription) {
+    if (!gameName || !platform || !genre || !gamePrice || !gameDescription) {
       setError(commonError);
     } else {
       const updatedGame = {
@@ -104,11 +104,11 @@ export default function UpdateGameModal(props: ICreateGameModal) {
         name: gameName,
         price: +gamePrice,
         description: gameDescription,
-        allowedAge: allowedAge,
+        allowedAge,
         data: "",
         img: photoFile,
         category: platform,
-        genre: genre,
+        genre,
       };
       props.updateGameHandler(updatedGame);
       dispatch(updateGameThunkCreator(updatedGame));
@@ -123,11 +123,11 @@ export default function UpdateGameModal(props: ICreateGameModal) {
       name: gameName,
       price: +gamePrice,
       description: gameDescription,
-      allowedAge: allowedAge,
+      allowedAge,
       data: "",
       img: photoFile,
       category: platform,
-      genre: genre,
+      genre,
     };
     props.updateGameHandler(updatedGame);
     dispatch(deleteGameThunkCreator(updatedGame.id));
@@ -206,7 +206,7 @@ export default function UpdateGameModal(props: ICreateGameModal) {
                     onChange={changeGameDescription}
                   />
                 </div>
-                <div className={main.error}></div>
+                <div className={main.error} />
               </div>
               <label htmlFor="gamesCriteria" className={productsStyle.sortForm}>
                 Genre

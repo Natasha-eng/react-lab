@@ -7,7 +7,7 @@ interface ICreateGameModalr {
   updateGameHandler: (updatedGame: GameType) => void;
 }
 
-export default function UpdateGameModalContainer(props: ICreateGameModalr) {
+export default function UpdateGameModalContainer(props: ICreateGameModalr): JSX.Element {
   return (
     <Modal>
       <UpdateGameModal toggleModal={props.toggleModal} updateGameHandler={props.updateGameHandler} />

@@ -5,13 +5,14 @@ import { fetchSortedGamesByCategoryThunkCreator, fetchSortedGamesThunkCreator } 
 import SearchInput from "@/components/search/SearchInput";
 import useLoader from "@/useLoader/useLoader";
 import { age, criteria, genre } from "@/constants/constants";
-import main from "./../styles/main.module.css";
-import productsStyle from "./products.module.css";
-import Games from "./Games";
 import { AppRootState } from "@/app/storetype";
-import searchInputStyles from "./../components/search/searchInput.module.css";
 import { GameType } from "@/types/types";
 import CreateGameModalContainer from "@/components/profile/createGame/CreateGameModalContainer";
+import main from "../styles/main.module.css";
+import productsStyle from "./products.module.css";
+import Games from "./Games";
+
+import searchInputStyles from "../components/search/searchInput.module.css";
 
 type CategoryParams = {
   category: string;

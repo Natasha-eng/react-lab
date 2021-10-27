@@ -21,7 +21,7 @@ interface ICreateGameModal {
   createGameHandler: (updatedGame: GameType) => void;
 }
 
-export default function CreateGameModal(props: ICreateGameModal) {
+export default function CreateGameModal(props: ICreateGameModal): JSX.Element {
   const dispatch = useDispatch();
   const [error, setError] = useState({ error: "" });
   const [message, setMessage] = useState("");
@@ -32,7 +32,7 @@ export default function CreateGameModal(props: ICreateGameModal) {
   const [genre, setGenre] = useState("");
   const [gamePrice, setGamePrice] = useState("");
   const [gameDescription, setGameDescription] = useState("");
-  const backError = useSelector<AppRootState, string>((state) => state.auth.error);
+  const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
 
   const changeAllowedAgeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ export default function CreateGameModal(props: ICreateGameModal) {
   };
 
   const onBlurHandler = () => {
-    if (!gameName && !platform && !genre && !gamePrice && !gameDescription) {
+    if (!gameName || !platform || !genre || !gamePrice || !gameDescription) {
       setError({ error: commonError });
     } else {
       setError({ error: "" });

@@ -11,7 +11,7 @@ interface GamesPropsType {
 
 export default function Games(props: GamesPropsType): JSX.Element {
   const games = useSelector<AppRootState, Array<GameType>>((state) => state.sortedGames);
-  const backError = useSelector<AppRootState, string>((state) => state.auth.error);
+  const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
 
   const updateGame = (updatedGame: GameType) => {
     props.updateGame(updatedGame);

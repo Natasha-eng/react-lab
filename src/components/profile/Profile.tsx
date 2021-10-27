@@ -33,7 +33,7 @@ export default function Profile(props: IProfile): JSX.Element {
   const profile = useSelector<AppRootState, UserProfileType>((state) => state.profile.profile);
   const [photoFile, setPhotoFile] = useState<string | undefined>(profile.photo);
   const { loggedInUser } = useParams<CategoryParams>();
-  const backError = useSelector<AppRootState, string>((state) => state.auth.error);
+  const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
 
   const togglePasswordModal = () => {
     setPasswordModal(!passwordModal);
