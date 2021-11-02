@@ -83,7 +83,7 @@ export default function CreateGameModal(props: ICreateGameModal): JSX.Element {
 
   const createGameHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!gameName && !platform && !genre && !gamePrice && !gameDescription) {
+    if (!gameName || !platform || !genre || !gamePrice || !gameDescription) {
       setError({ error: commonError });
     } else {
       const updatedGame = {
