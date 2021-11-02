@@ -19,7 +19,7 @@ export default function PasswordModal(props: PasswordModal): JSX.Element {
   const [repeatNewPasswordValue, setRepeatNewPasswordValue] = useState("");
   const [error, setError] = useState({ passwordError: "", repeatPasswordError: "", error: "" });
   const message = useSelector<AppRootState, string>((state) => state.profile.changeDataMessage);
-  const backError = useSelector<AppRootState, string>((state) => state.auth.error);
+  const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
   const dispatch = useDispatch();
 
   const changePasswordHandler = (value: string) => {

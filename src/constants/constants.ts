@@ -3,6 +3,9 @@ export const errorLogin =
 export const errorPassword =
   "Password must be a minimum of 5 characters including at least one number and at least one special character and not more than 10 characters";
 export const commonError = "All the fields are required";
+export const gameUpdatedMessage = "Game is successfully updated!";
+export const gameCreatedMessge = "Game is successfully created!";
+export const balanceMessage = "Not enough money for this purchase. You should recharge your balance.";
 
 export const errorRepeatPassword = "Passwords don't match";
 
@@ -27,6 +30,12 @@ export const genre = {
   survive: "Survive",
 };
 
+export const gameGenre = {
+  shooter: "Shooter",
+  arcade: "Arcade",
+  survive: "Survive",
+};
+
 export const age = {
   all: "all",
   age3: "3+",
@@ -40,4 +49,10 @@ export const criteria = {
   price: "price",
   ascending: "ascending",
   descending: "descending",
+};
+
+export const gamePlatform = {
+  pc: "pc",
+  playstation: "playstation",
+  xbox: "xbox",
 };

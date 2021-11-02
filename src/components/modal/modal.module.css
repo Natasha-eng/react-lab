@@ -1,5 +1,6 @@
 .modalBackground {
   position: fixed;
+  z-index: 5;
   top: 0;
   bottom: 0;
   width: 100%;
@@ -10,8 +11,8 @@
 }
 
 .modalContent {
-  width: 500px;
-  height: 500px;
+  min-width: 500px;
+  min-height: 280px;
   padding: 20px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.3);
@@ -24,6 +25,7 @@
 .modalTitle {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .closeButton {
@@ -49,10 +51,19 @@
   font-size: 40px;
 }
 
+.modalInfoContainer {
+  display: flex;
+}
+
 .inputsContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 90%;
   box-sizing: border-box;
+}
+
+.message {
+  color: rgb(81, 238, 20);
+  font-size: 18px;
 }

@@ -12,6 +12,8 @@ import {
   setErrorActionType,
   setFilteredGamesAC,
   SetFilteredGamesActionType,
+  setGameAC,
+  SetGameActionType,
   setGamesAC,
   SetGamesActionType,
   setIsSignedInAC,
@@ -25,10 +27,12 @@ import {
   setUserNameActionType,
   setUserProfileAC,
   setUserProfileActonType,
+  setUserStatusAC,
+  setUserStatusActionType,
 } from "@/actions/actions";
 import { api } from "@/api/games-api";
 import { AppRootState } from "@/app/storetype";
-import { ICart } from "@/types/types";
+import { GameType, ICart } from "@/types/types";
 import { ThunkDispatch } from "redux-thunk";
 
 // thunks
@@ -106,19 +110,38 @@ export const fetchGamesByDateThunkCreator =
     dispatch(setGamesAC(response.data));
   };
 
+export const fetchGameThunkCreator =
+  (gameId: number, setLoaderHandler: (value: boolean) => void) =>
+  async (dispatch: ThunkDispatch<AppRootState, unknown, SetGameActionType | setErrorActionType>): Promise<void> => {
+    setLoaderHandler(true);
+    const response = await api.getGame(gameId);
+    if (response.status === 200) {
+      dispatch(setGameAC(response.data));
+      setLoaderHandler(false);
+    }
+    if (response.status === 500) {
+      dispatch(setErrorAC(response.data.errorMessage));
+    }
+  };
+
 export const signInThunkCreator =
   (login: string, password: string) =>
   async (
     dispatch: ThunkDispatch<
       AppRootState,
       unknown,
-      setIsSignedInActionType | setUserNameActionType | setUserBalanceActionType | setErrorActionType
+      | setIsSignedInActionType
+      | setUserNameActionType
+      | setUserStatusActionType
+      | setUserBalanceActionType
+      | setErrorActionType
     >
   ): Promise<void> => {
     const response = await api.signIn(login, password);
     if (response.status === 201) {
       dispatch(setUserNameAC(response.data.name));
       dispatch(setUserBalanceAC(response.data.balance));
+      dispatch(setUserStatusAC(response.data.isAdmin));
       dispatch(setIsSignedInAC(true));
     } else {
       dispatch(setErrorAC(response.data.errorMessage));
@@ -222,5 +245,55 @@ export const updateCartsThunkCreator =
       dispatch(setCartsAC(cartGames));
     } else {
       dispatch(setErrorAC(response.data));
+    }
+  };
+
+export const updateGameThunkCreator =
+  (updatedGame: GameType) =>
+  async (
+    dispatch: ThunkDispatch<
+      AppRootState,
+      unknown,
+      SetGamesActionType | SetGameActionType | setCartsActionType | setErrorActionType
+    >,
+    getState: () => AppRootState
+  ) => {
+    const state = getState();
+    const cart = state.cartGames.find((c) => c.id === updatedGame.id);
+    const response = await api.updateGame(updatedGame);
+    if (response.status === 200) {
+      dispatch(setGamesAC(response.data.updatedGames));
+      dispatch(setGameAC(updatedGame));
+    }
+    if (response.status === 500) {
+      dispatch(setErrorAC(response.data.errorMessage));
+    }
+  };
+
+export const createGameThunkCreator =
+  (newGame: GameType) =>
+  async (
+    dispatch: ThunkDispatch<AppRootState, unknown, SetGamesActionType | SetGameActionType | setErrorActionType>
+  ) => {
+    const response = await api.createGame(newGame);
+    if (response.status === 200) {
+      dispatch(setGamesAC(response.data.newGames));
+    }
+    if (response.status === 500) {
+      dispatch(setErrorAC(response.data.errorMessage));
+    }
+  };
+
+export const deleteGameThunkCreator =
+  (gameId: number) =>
+  async (
+    dispatch: ThunkDispatch<AppRootState, unknown, SetGamesActionType | SetGameActionType | setErrorActionType>
+  ) => {
+    const response = await api.deleteGame(gameId);
+    if (response.status === 200) {
+      dispatch(setGamesAC(response.data.updatedGames));
+    }
+    if (response.status === 500) {
+      dispatch(setErrorAC(response.data.errorMessage));
     }
   };

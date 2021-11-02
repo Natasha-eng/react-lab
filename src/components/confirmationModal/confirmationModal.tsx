@@ -1,5 +1,6 @@
 import { setMessageAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
+import { balanceMessage } from "@/constants/constants";
 import { updateCartsThunkCreator } from "@/thunks/thunks";
 import { useDispatch, useSelector } from "react-redux";
 import modalStyle from "./confirmationModal.module.css";
@@ -11,7 +12,7 @@ export default function ConfirmationModal({ closeModal, total }: { closeModal: (
 
   const buyGames = () => {
     if (total > balance) {
-      dispatch(setMessageAC("Not enough money for this purchase. You should recharge your balance."));
+      dispatch(setMessageAC(balanceMessage));
     } else {
       const login = localStorage.getItem("signInLoginValue");
       login && dispatch(updateCartsThunkCreator(login, []));
@@ -30,7 +31,7 @@ export default function ConfirmationModal({ closeModal, total }: { closeModal: (
           X
         </button>
         <div className={modalStyle.title}>
-          <h1> Are You sure you want to buy this game?</h1>
+          <h1> Are You sure you want to make a purchase?</h1>
           <p className={modalStyle.message}>{message}</p>
         </div>
         <div className={modalStyle.modalFooter}>

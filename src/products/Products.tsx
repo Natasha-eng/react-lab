@@ -1,13 +1,18 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, withRouter } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 import { fetchSortedGamesByCategoryThunkCreator, fetchSortedGamesThunkCreator } from "@/thunks/thunks";
 import SearchInput from "@/components/search/SearchInput";
 import useLoader from "@/useLoader/useLoader";
 import { age, criteria, genre } from "@/constants/constants";
+import { AppRootState } from "@/app/storetype";
+import { GameType } from "@/types/types";
+import CreateGameModalContainer from "@/components/profile/createGame/CreateGameModalContainer";
 import main from "../styles/main.module.css";
 import productsStyle from "./products.module.css";
 import Games from "./Games";
+
+import searchInputStyles from "../components/search/searchInput.module.css";
 
 type CategoryParams = {
   category: string;
@@ -15,14 +20,35 @@ type CategoryParams = {
 
 function Products(): JSX.Element {
   const dispatch = useDispatch();
+  const isAdmin = useSelector<AppRootState, boolean>((state) => state.profile.profile.isAdmin);
   const [selectedAge, setSelectedAge] = useState(age.all);
   const [selectedGenre, setSelectedGenre] = useState(genre.all);
   const [sortCriteria, setSortCriteria] = useState(criteria.name);
   const [sortType, setSortType] = useState(criteria.ascending);
+  const [isModal, setIsModal] = useState(false);
+  const [updatedGame, setUpdatedGame] = useState({
+    id: 0,
+    name: "",
+    price: 0,
+    description: "",
+    allowedAge: "",
+    data: "",
+    img: "",
+    category: "",
+    genre: "",
+  });
 
   const { category } = useParams<CategoryParams>();
 
-  const { setLoaderHandler, ComponentWithLoader } = useLoader(<Games />);
+  const updateGame = (updatedGame: GameType) => {
+    setUpdatedGame(updatedGame);
+  };
+
+  const { setLoaderHandler, ComponentWithLoader } = useLoader(<Games updateGame={updateGame} />);
+
+  const toggleModal = () => {
+    setIsModal(!isModal);
+  };
 
   const getGamesByAgeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -59,12 +85,25 @@ function Products(): JSX.Element {
     } else {
       dispatch(fetchSortedGamesThunkCreator(selectedAge, selectedGenre, sortCriteria, sortType, setLoaderHandler));
     }
-  }, [category, selectedAge, selectedGenre, sortCriteria, sortType]);
+  }, [category, selectedAge, selectedGenre, sortCriteria, sortType, updatedGame]);
 
   return (
     <div className={main.content}>
       <div>Products page</div>
-      <SearchInput />
+      <div className={searchInputStyles.inputContainer}>
+        <SearchInput />
+        {isAdmin && (
+          <button
+            className={searchInputStyles.createGameButton}
+            type="button"
+            onClick={() => {
+              setIsModal(true);
+            }}
+          >
+            Create Game
+          </button>
+        )}
+      </div>
       <div className={productsStyle.contentWrapper}>
         <div className={productsStyle.sortWrapper}>
           <h3> Sort</h3>
@@ -211,6 +250,7 @@ function Products(): JSX.Element {
         </div>
         {ComponentWithLoader}
       </div>
+      {isModal && <CreateGameModalContainer toggleModal={toggleModal} createGameHandler={updateGame} />}
     </div>
   );
 }

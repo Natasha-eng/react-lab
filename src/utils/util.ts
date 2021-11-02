@@ -24,3 +24,15 @@ export const lengthRange = (value: string) => {
   }
   return false;
 };
+
+export const convertToBase64 = (file: File) =>
+  new Promise((res, rej) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      res(reader.result);
+    };
+    reader.onerror = () => {
+      rej(console.log("file loading error "));
+    };
+  });

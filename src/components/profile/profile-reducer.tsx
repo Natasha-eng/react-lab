@@ -19,8 +19,12 @@ export const profileReducer = (state = initialState, action: ActionsType): IProf
     case Types.SET_USER_BALANCE:
       return { ...state, profile: { ...state.profile, balance: action.balance } };
 
+    case Types.SET_USER_STATUS:
+      return { ...state, profile: { ...state.profile, isAdmin: action.isAdmin } };
+
     case Types.SET_USER_PROFILE:
       return { ...state, profile: action.profile };
+
     case Types.CHANGE_PASSWORD:
       return { ...state, changeDataMessage: action.message };
 

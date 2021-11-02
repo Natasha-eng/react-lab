@@ -1,26 +1,18 @@
 [
   {
     "id": 1,
+    "isAdmin": true,
     "login": "Natasha",
     "email": "natallia.shylava@oracle.com",
     "profileDescription": "eeeeeeeeeeeeeeeee",
     "password": "1$qwerty1",
     "cart": [
       {
-        "id": 2,
-        "name": "League of Legends",
-        "category": "pc",
-        "amount": 4,
-        "orderDate": "20.10.2021",
-        "price": 20,
-        "checked": false
-      },
-      {
         "id": 8,
         "name": "Fortnite",
         "category": "xbox",
         "amount": 1,
-        "orderDate": "20.10.2021",
+        "orderDate": "10/19/2021",
         "price": 10,
         "checked": false
       },
@@ -29,7 +21,7 @@
         "name": "ROBLOX",
         "category": "pc",
         "amount": 1,
-        "orderDate": "20.10.2021",
+        "orderDate": "10/19/2021",
         "price": 25,
         "checked": false
       }
@@ -39,6 +31,7 @@
   },
   {
     "id": 2,
+    "isAdmin": false,
     "login": "Nick",
     "email": "",
     "profileDescription": "Nick's Profile",
@@ -47,9 +40,18 @@
     "balance": 32.98,
     "photo": ""
   },
-  { "id": 3, "login": "Kate", "email": "", "profileDescription": "Kate's Profile", "password": "23.99", "photo": "" },
+  {
+    "id": 3,
+    "isAdmin": false,
+    "login": "Kate",
+    "email": "",
+    "profileDescription": "Kate's Profile",
+    "password": "23.99",
+    "photo": ""
+  },
   {
     "id": 4,
+    "isAdmin": false,
     "login": "Viktor",
     "email": "",
     "profileDescription": "Viktor's Profile",
@@ -58,9 +60,18 @@
     "balance": 32.98,
     "photo": ""
   },
-  { "id": 5, "login": "John", "email": "", "profileDescription": "John's Profile", "password": "23.99", "photo": "" },
+  {
+    "id": 5,
+    "isAdmin": false,
+    "login": "John",
+    "email": "",
+    "profileDescription": "John's Profile",
+    "password": "23.99",
+    "photo": ""
+  },
   {
     "id": 6,
+    "isAdmin": false,
     "login": "Vladimir",
     "email": "",
     "profileDescription": "Vladimir's Profile",
@@ -71,6 +82,7 @@
   },
   {
     "id": 7,
+    "isAdmin": false,
     "login": "Dmitri",
     "email": "",
     "profileDescription": "Dmitri's Profile",
@@ -78,11 +90,20 @@
     "balance": 32.98,
     "photo": ""
   },
-  { "id": 8, "login": "Lena", "email": "", "profileDescription": "Lena's Profile", "password": "23.99", "photo": "" },
+  {
+    "id": 8,
+    "isAdmin": false,
+    "login": "Lena",
+    "email": "",
+    "profileDescription": "Lena's Profile",
+    "password": "23.99",
+    "photo": ""
+  },
   { "id": 9, "login": "Dasha", "email": "", "profileDescription": "Dasha's Profile", "password": "23.99", "photo": "" },
   { "id": 10, "login": "Alex", "email": "", "profileDescription": "Alex's Profile", "password": "23.99", "photo": "" },
   {
     "id": 11,
+    "isAdmin": false,
     "login": "Natasha2",
     "email": "",
     "profileDescription": "Natasha2's Profile",
@@ -91,6 +112,7 @@
   },
   {
     "id": 11,
+    "isAdmin": false,
     "login": "Natasha3",
     "email": "",
     "profileDescription": "Natasha3's Profile",
@@ -99,6 +121,7 @@
   },
   {
     "id": 11,
+    "isAdmin": false,
     "login": "Natasha4",
     "email": "",
     "profileDescription": "Natasha4's Profile",
@@ -107,6 +130,7 @@
   },
   {
     "id": 11,
+    "isAdmin": false,
     "login": "Kate1",
     "email": "",
     "profileDescription": "Kate1's Profile",
@@ -115,6 +139,7 @@
   },
   {
     "id": 11,
+    "isAdmin": false,
     "login": "Kate2",
     "email": "",
     "profileDescription": "Kate2's Profile",
@@ -123,6 +148,7 @@
   },
   {
     "id": 11,
+    "isAdmin": false,
     "login": "Kate3",
     "email": "",
     "profileDescription": "Kate3's Profile",
@@ -131,6 +157,7 @@
   },
   {
     "id": 11,
+    "isAdmin": false,
     "login": "Kate4",
     "email": "",
     "profileDescription": "Kate4's Profile",

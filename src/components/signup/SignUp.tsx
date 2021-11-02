@@ -23,7 +23,7 @@ export default function SignUp(props: ISignUp): JSX.Element {
   const [signUnRepeatPasswordValue, setSignUpRepeatPasswordValue] = useState("");
   const history = useHistory();
   const [error, setError] = useState({ loginError: "", passwordError: "", repeatPasswordError: "", error: "" });
-  const backError = useSelector<AppRootState, string>((state) => state.auth.error);
+  const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
   const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
   const onBlurLoginHandler = (value: string) => {

@@ -9,6 +9,7 @@ import mySaga from "@/saga/saga";
 import { sortedGamesReducer } from "@/products/sortedGames-reducer";
 import { cartReducer } from "@/components/cart/cart-reducer";
 import { systemMessagesReducer } from "@/systemMessages/systemMessages-reducer";
+import { gameReducer } from "@/products/game-reducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -20,6 +21,7 @@ export const rootReducer = combineReducers({
   sortedGames: sortedGamesReducer,
   cartGames: cartReducer,
   systemMessages: systemMessagesReducer,
+  game: gameReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware));

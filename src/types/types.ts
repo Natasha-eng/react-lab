@@ -13,11 +13,11 @@ export interface GameType {
 export interface AuthInitialState {
   isSignedIn: boolean;
   isSignedUp: boolean;
-  error: string;
 }
 
 export interface SystemMessagesState {
   message: string;
+  error: string;
 }
 
 export interface ICart {
@@ -32,6 +32,7 @@ export interface ICart {
 
 export interface UserProfileType {
   id: number;
+  isAdmin: boolean;
   login: string;
   email: string;
   profileDescription: string;

@@ -5,6 +5,12 @@ import { GameType, ICart, IProfileData, UserProfileType } from "@/types/types";
 export const setGamesAC = (games: Array<GameType>) => ({ type: Types.SET_GAMES, games } as const);
 export type SetGamesActionType = ReturnType<typeof setGamesAC>;
 
+export const setGameAC = (game: GameType) => ({ type: Types.SET_GAME, game } as const);
+export type SetGameActionType = ReturnType<typeof setGameAC>;
+
+export const updateGameAC = (game: GameType) => ({ type: Types.UPDATE_GAME, game } as const);
+export type updateGameACActionType = ReturnType<typeof updateGameAC>;
+
 export const setFilteredGamesAC = (filteredGames: Array<GameType>) =>
   ({ type: Types.SET_FILTERED_GAMES, filteredGames } as const);
 export type SetFilteredGamesActionType = ReturnType<typeof setFilteredGamesAC>;
@@ -26,6 +32,9 @@ export type setUserNameActionType = ReturnType<typeof setUserNameAC>;
 
 export const setUserBalanceAC = (balance: number) => ({ type: Types.SET_USER_BALANCE, balance } as const);
 export type setUserBalanceActionType = ReturnType<typeof setUserBalanceAC>;
+
+export const setUserStatusAC = (isAdmin: boolean) => ({ type: Types.SET_USER_STATUS, isAdmin } as const);
+export type setUserStatusActionType = ReturnType<typeof setUserStatusAC>;
 
 export const setTotalGameCostAC = (total: number) => ({ type: Types.SET_TOTAL_GAME_COST, total } as const);
 export type setTotalGameCostActionType = ReturnType<typeof setTotalGameCostAC>;
@@ -70,6 +79,7 @@ export type signInSagaActionType = ReturnType<typeof signInSagaAC>;
 
 export type ActionsType =
   | SetGamesActionType
+  | SetGameActionType
   | SetFilteredGamesActionType
   | clearGamesActionType
   | isFetchingActionType
@@ -82,4 +92,5 @@ export type ActionsType =
   | changePasswordActionType
   | saveProfileActionType
   | setCartsActionType
+  | setUserStatusActionType
   | removeGameActionType;

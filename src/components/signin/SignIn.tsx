@@ -19,7 +19,7 @@ export default function SignIn(props: ISignIn): JSX.Element {
   const [signInLoginValue, setSignInLoginValue] = useState("");
   const [signInPasswordValue, setSignInPasswordValue] = useState("");
   const [error, setError] = useState({ loginError: "", passwordError: "", error: "" });
-  const backError = useSelector<AppRootState, string>((state) => state.auth.error);
+  const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
   const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
   const onBlurLoginHandler = (value: string) => {
