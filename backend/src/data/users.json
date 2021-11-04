@@ -8,21 +8,21 @@
     "password": "1$qwerty1",
     "cart": [
       {
-        "id": 8,
-        "name": "Fortnite",
-        "category": "xbox",
+        "id": 6,
+        "name": "Call of Duty: Modern Warfare/Warzone",
+        "category": "playstation",
         "amount": 1,
-        "orderDate": "10/19/2021",
-        "price": 10,
+        "orderDate": "11/4/2021",
+        "price": 20,
         "checked": false
       },
       {
-        "id": 7,
-        "name": "ROBLOX",
+        "id": 10,
+        "name": "Apex Legends",
         "category": "pc",
         "amount": 1,
-        "orderDate": "10/19/2021",
-        "price": 25,
+        "orderDate": "11/4/2021",
+        "price": 24.99,
         "checked": false
       }
     ],
