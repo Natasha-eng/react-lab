@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-use-before-define
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, withRouter } from "react-router-dom";
-import { ChangeEvent, useEffect, useState } from "react";
 import { fetchSortedGamesByCategoryThunkCreator, fetchSortedGamesThunkCreator } from "@/thunks/thunks";
 import SearchInput from "@/components/search/SearchInput";
 import useLoader from "@/useLoader/useLoader";
@@ -18,7 +19,7 @@ type CategoryParams = {
   category: string;
 };
 
-function Products(): JSX.Element {
+const Products = React.memo((): JSX.Element => {
   const dispatch = useDispatch();
   const isAdmin = useSelector<AppRootState, boolean>((state) => state.profile.profile.isAdmin);
   const [selectedAge, setSelectedAge] = useState(age.all);
@@ -40,35 +41,35 @@ function Products(): JSX.Element {
 
   const { category } = useParams<CategoryParams>();
 
-  const updateGame = (updatedGame: GameType) => {
+  const updateGame = useCallback((updatedGame: GameType) => {
     setUpdatedGame(updatedGame);
-  };
+  }, []);
 
   const { setLoaderHandler, ComponentWithLoader } = useLoader(<Games updateGame={updateGame} />);
 
-  const toggleModal = () => {
+  const toggleModal = useCallback(() => {
     setIsModal(!isModal);
-  };
+  }, [isModal]);
 
-  const getGamesByAgeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const getGamesByAgeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setSelectedAge(e.target.value);
-  };
+  }, []);
 
-  const getGamesByGenreHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const getGamesByGenreHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setSelectedGenre(e.target.value);
-  };
+  }, []);
 
-  const changeSortCriteriaHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+  const changeSortCriteriaHandler = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setSortCriteria(e.target.value);
-  };
+  }, []);
 
-  const changeSortTypeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+  const changeSortTypeHandler = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setSortType(e.target.value);
-  };
+  }, []);
 
   useEffect(() => {
     if (category) {
@@ -253,6 +254,6 @@ function Products(): JSX.Element {
       {isModal && <CreateGameModalContainer toggleModal={toggleModal} createGameHandler={updateGame} />}
     </div>
   );
-}
+});
 
 export default withRouter(Products);

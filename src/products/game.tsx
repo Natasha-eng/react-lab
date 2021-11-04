@@ -1,10 +1,11 @@
+// eslint-disable-next-line no-use-before-define
+import React, { useCallback, useState } from "react";
 import { setMessageAC, updateGameAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
 import UpdateGameModalContainer from "@/components/profile/updateGame/UpdateGameModalContainer";
 import { addGameThunkCreator, fetchGameThunkCreator } from "@/thunks/thunks";
 import { GameType } from "@/types/types";
 import useLoader from "@/useLoader/useLoader";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import gameStyle from "./game.module.css";
 
@@ -13,26 +14,29 @@ interface GamePropsType {
   updateGame: (updatedGame: GameType) => void;
 }
 
-function Game(props: GamePropsType): JSX.Element {
+const Game = React.memo((props: GamePropsType): JSX.Element => {
   const isAdmin = useSelector<AppRootState, boolean>((state) => state.profile.profile.isAdmin);
   const dispatch = useDispatch();
   const [isModal, setIsModal] = useState(false);
 
-  const addGameHandler = () => {
+  const addGameHandler = useCallback(() => {
     const login = localStorage.getItem("signInLoginValue");
     login && dispatch(addGameThunkCreator(login, props.game.id));
-  };
+  }, [dispatch, props.game.id]);
 
-  const toggleModal = () => {
+  const toggleModal = useCallback(() => {
     setIsModal(!isModal);
     dispatch(fetchGameThunkCreator(props.game.id, setLoaderHandler));
     dispatch(setMessageAC(""));
-  };
+  }, [dispatch, props.game.id, isModal]);
 
-  const updateGameHandler = (updatedGame: GameType) => {
-    dispatch(updateGameAC(updatedGame));
-    props.updateGame(updatedGame);
-  };
+  const updateGameHandler = useCallback(
+    (updatedGame: GameType) => {
+      dispatch(updateGameAC(updatedGame));
+      props.updateGame(updatedGame);
+    },
+    [dispatch, props.updateGame]
+  );
 
   const { setLoaderHandler, ComponentWithLoader } = useLoader(
     <UpdateGameModalContainer toggleModal={toggleModal} updateGameHandler={updateGameHandler} />
@@ -69,6 +73,6 @@ function Game(props: GamePropsType): JSX.Element {
       {isModal && ComponentWithLoader}
     </div>
   );
-}
+});
 
 export default Game;

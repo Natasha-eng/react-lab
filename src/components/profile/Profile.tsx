@@ -1,9 +1,10 @@
+// eslint-disable-next-line no-use-before-define
+import React, { ChangeEvent, FocusEvent, useCallback, useEffect, useState } from "react";
 import { AppRootState } from "@/app/storetype";
 import InputText from "@/elements/input/InputText";
 import { fetchProfileThunkCreator, saveProfileThunkCreator } from "@/thunks/thunks";
 import { UserProfileType } from "@/types/types";
 import { isEmailValid, isLoginValide, lengthRange } from "backend/src/utils/util";
-import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { setErrorAC } from "@/actions/actions";
@@ -22,7 +23,7 @@ type CategoryParams = {
   loggedInUser: string;
 };
 
-export default function Profile(props: IProfile): JSX.Element {
+const Profile = React.memo((props: IProfile): JSX.Element => {
   const [passwordModal, setPasswordModal] = useState(false);
   const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -35,15 +36,15 @@ export default function Profile(props: IProfile): JSX.Element {
   const { loggedInUser } = useParams<CategoryParams>();
   const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
 
-  const togglePasswordModal = () => {
+  const togglePasswordModal = useCallback(() => {
     setPasswordModal(!passwordModal);
-  };
+  }, [passwordModal]);
 
-  const onChangeUserNameHandler = (value: string) => {
+  const onChangeUserNameHandler = useCallback((value: string) => {
     setUsername(value);
-  };
+  }, []);
 
-  const onBlurUserNameHandler = (value: string) => {
+  const onBlurUserNameHandler = useCallback((value: string) => {
     const validUserName = isLoginValide(value);
     if (validUserName === null) {
       setError({
@@ -56,13 +57,13 @@ export default function Profile(props: IProfile): JSX.Element {
         userNameError: "",
       });
     }
-  };
+  }, []);
 
-  const onChangeEmailHandler = (value: string) => {
+  const onChangeEmailHandler = useCallback((value: string) => {
     setEmail(value);
-  };
+  }, []);
 
-  const onBlurEmailHandler = (value: string) => {
+  const onBlurEmailHandler = useCallback((value: string) => {
     const isValidEmail = isEmailValid(value);
     if (isValidEmail === null) {
       setError({
@@ -75,11 +76,11 @@ export default function Profile(props: IProfile): JSX.Element {
         emailError: "",
       });
     }
-  };
+  }, []);
 
-  const onChangeProfileDescriptionHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeProfileDescriptionHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     setProfileDescription(e.target.value);
-  };
+  }, []);
 
   const onBlurProfileDescriptionHandler = (e: FocusEvent<HTMLTextAreaElement>) => {
     const isValidProfileDescription = lengthRange(e.target.value);
@@ -96,7 +97,7 @@ export default function Profile(props: IProfile): JSX.Element {
     }
   };
 
-  const saveProfileHandler = () => {
+  const saveProfileHandler = useCallback(() => {
     if (!userName && !email && !profileDescription) {
       setError({ ...error, error: commonError });
       return;
@@ -108,7 +109,7 @@ export default function Profile(props: IProfile): JSX.Element {
     const login = localStorage.getItem("signInLoginValue");
     photoFile && login && dispatch(saveProfileThunkCreator(photoFile, login, userName, email, profileDescription));
     dispatch(setErrorAC(""));
-  };
+  }, [dispatch, photoFile, userName, email, profileDescription]);
 
   const convertToBase64 = (file: File) =>
     new Promise((res, rej) => {
@@ -122,14 +123,14 @@ export default function Profile(props: IProfile): JSX.Element {
       };
     });
 
-  const onPhotoSelected = async (e: ChangeEvent<HTMLInputElement>) => {
+  const onPhotoSelected = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       const file = e.target.files[0];
       const base64: string = (await convertToBase64(file)) as string;
 
       setPhotoFile(base64);
     }
-  };
+  }, []);
 
   useEffect(() => {
     setPhotoFile(profile.photo);
@@ -214,4 +215,6 @@ export default function Profile(props: IProfile): JSX.Element {
       {passwordModal && <PasswordModalContainer togglePasswordModal={togglePasswordModal} />}
     </div>
   );
-}
+});
+
+export default Profile;

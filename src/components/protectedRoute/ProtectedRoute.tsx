@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-use-before-define
+import React, { ReactNode, useCallback, useState } from "react";
 import { AppRootState } from "@/app/storetype";
-import { ReactNode, useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import { path } from "../header/headerWithContext";
@@ -10,13 +11,13 @@ interface IProtectedRoute {
   path: string;
 }
 
-function ProtectedRoute(props: IProtectedRoute): JSX.Element {
+const ProtectedRoute = React.memo((props: IProtectedRoute): JSX.Element => {
   const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
   const [modal, setShowModal] = useState(true);
 
-  const toggleSignIn = () => {
+  const toggleSignIn = useCallback(() => {
     setShowModal(!modal);
-  };
+  }, [modal]);
 
   if (!isSignedIn && modal) {
     return <SignInContainer toggleSignIn={toggleSignIn} />;
@@ -32,6 +33,6 @@ function ProtectedRoute(props: IProtectedRoute): JSX.Element {
       }}
     />
   );
-}
+});
 
 export default ProtectedRoute;

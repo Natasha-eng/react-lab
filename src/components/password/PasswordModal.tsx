@@ -6,7 +6,7 @@ import { changePasswordThunkCreator } from "@/thunks/thunks";
 import { isPasswordValide } from "@/utils/util";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import modalStyle from "../modal/modal.module.css";
 
@@ -22,15 +22,15 @@ export default function PasswordModal(props: PasswordModal): JSX.Element {
   const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
   const dispatch = useDispatch();
 
-  const changePasswordHandler = (value: string) => {
+  const changePasswordHandler = useCallback((value: string) => {
     setNewPasswordValue(value);
-  };
+  }, []);
 
-  const changeRepeatPasswordHandler = (value: string) => {
+  const changeRepeatPasswordHandler = useCallback((value: string) => {
     setRepeatNewPasswordValue(value);
-  };
+  }, []);
 
-  const onBlurPasswordHandler = (value: string) => {
+  const onBlurPasswordHandler = useCallback((value: string) => {
     const validPassword = isPasswordValide(value);
     if (validPassword === null) {
       setError({
@@ -43,9 +43,9 @@ export default function PasswordModal(props: PasswordModal): JSX.Element {
         passwordError: "",
       });
     }
-  };
+  }, []);
 
-  const onBlurRepeatPasswordHandler = (value: string) => {
+  const onBlurRepeatPasswordHandler = useCallback((value: string) => {
     const validPassword = isPasswordValide(value);
     if (validPassword === null) {
       setError({
@@ -65,9 +65,9 @@ export default function PasswordModal(props: PasswordModal): JSX.Element {
         repeatPasswordError: "",
       });
     }
-  };
+  }, []);
 
-  const changePasswordаHandler = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const changePassword = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (!newPasswordValue && !repeatNewPasswordValue) {
       setError({ ...error, error: commonError });
       return;
@@ -111,7 +111,7 @@ export default function PasswordModal(props: PasswordModal): JSX.Element {
             onChangeValueHandler={changeRepeatPasswordHandler}
           />
           {backError && <div>{backError}</div>}
-          <button type="submit" onClick={changePasswordаHandler}>
+          <button type="submit" onClick={changePassword}>
             Submit
           </button>
         </div>

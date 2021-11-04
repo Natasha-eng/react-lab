@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-use-before-define
+import React, { useCallback } from "react";
 import { setMessageAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
 import { balanceMessage } from "@/constants/constants";
@@ -5,12 +7,12 @@ import { updateCartsThunkCreator } from "@/thunks/thunks";
 import { useDispatch, useSelector } from "react-redux";
 import modalStyle from "./confirmationModal.module.css";
 
-export default function ConfirmationModal({ closeModal, total }: { closeModal: () => void; total: number }) {
+const constConfirmationModal = React.memo(({ closeModal, total }: { closeModal: () => void; total: number }) => {
   const balance = useSelector<AppRootState, number>((state) => state.profile.profile.balance);
   const message = useSelector<AppRootState, string>((state) => state.systemMessages.message);
   const dispatch = useDispatch();
 
-  const buyGames = () => {
+  const buyGames = useCallback(() => {
     if (total > balance) {
       dispatch(setMessageAC(balanceMessage));
     } else {
@@ -19,11 +21,13 @@ export default function ConfirmationModal({ closeModal, total }: { closeModal: (
       closeModal();
       dispatch(setMessageAC(""));
     }
-  };
-  const closeModalHandler = () => {
+  }, [dispatch, total, balance, closeModal]);
+
+  const closeModalHandler = useCallback(() => {
     closeModal();
     dispatch(setMessageAC(""));
-  };
+  }, [dispatch, closeModal]);
+
   return (
     <div className={modalStyle.modalBackground}>
       <div className={modalStyle.modalContainer}>
@@ -45,4 +49,5 @@ export default function ConfirmationModal({ closeModal, total }: { closeModal: (
       </div>
     </div>
   );
-}
+});
+export default constConfirmationModal;

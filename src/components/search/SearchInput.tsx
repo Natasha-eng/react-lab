@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-use-before-define
+import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useState } from "react";
 import { AppRootState } from "@/app/storetype";
 import { GameType } from "@/types/types";
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { debounce } from "lodash";
 import { fetchGamesByNameThunkCreator } from "@/thunks/thunks";
@@ -8,7 +9,7 @@ import { clearGamesAC } from "@/actions/actions";
 import Preloader from "@/elements/preloader/Preloader";
 import searchInputStyles from "./searchInput.module.css";
 
-function SearchInput(): JSX.Element {
+const SearchInput = React.memo((): JSX.Element => {
   const dispatch = useDispatch();
   const filteredGames = useSelector<AppRootState, Array<GameType>>((state) => state.filteredGames.games);
   const isFetching = useSelector<AppRootState, boolean>((state) => state.filteredGames.isFetching);
@@ -24,15 +25,15 @@ function SearchInput(): JSX.Element {
     search ? searchInputStyles.searchSlider : searchInputStyles.closeSearchSlider
   }`;
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyPress = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
     if (e.code === "Enter") {
       alert("got produck");
     }
-  };
+  }, []);
 
-  const productModalHandler = () => {
+  const productModalHandler = useCallback(() => {
     alert("got produck");
-  };
+  }, []);
 
   useEffect(() => {
     if (name) {
@@ -66,6 +67,6 @@ function SearchInput(): JSX.Element {
       )}
     </div>
   );
-}
+});
 
 export default SearchInput;

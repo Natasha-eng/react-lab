@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-use-before-define
+import React, { useCallback } from "react";
 import modalStyle from "../../confirmationModal/confirmationModal.module.css";
 
 interface IDeleteGameModal {
@@ -6,10 +8,10 @@ interface IDeleteGameModal {
   gameName: string;
 }
 
-export default function DeleteGameModal(props: IDeleteGameModal): JSX.Element {
-  const deleteGame = () => {
+const DeleteGameModal = React.memo((props: IDeleteGameModal): JSX.Element => {
+  const deleteGame = useCallback(() => {
     props.deleteGameHandler();
-  };
+  }, [props.deleteGameHandler]);
 
   return (
     <div className={modalStyle.modalBackground}>
@@ -31,4 +33,6 @@ export default function DeleteGameModal(props: IDeleteGameModal): JSX.Element {
       </div>
     </div>
   );
-}
+});
+
+export default DeleteGameModal;

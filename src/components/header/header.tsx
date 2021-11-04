@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-use-before-define
+import React, { KeyboardEvent, useCallback, useState } from "react";
 import { setIsSignedInAC } from "@/actions/actions";
-import { KeyboardEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaSignOutAlt } from "react-icons/fa";
@@ -7,7 +8,7 @@ import { ImProfile } from "react-icons/im";
 import { CgGames } from "react-icons/cg";
 import { path } from "@/constants/constants";
 import { AppRootState } from "@/app/storetype";
-import { CartGameType } from "@/types/types";
+import { ICart } from "backend/src/types/types";
 import SignInContainer from "../signin/SignInContainer";
 import SignUpContainer from "../signup/SignUpContainer";
 import headerStyle from "./header.module.css";
@@ -17,45 +18,48 @@ interface IHome {
   userName: string;
 }
 
-function Header(props: IHome): JSX.Element {
+const Header = React.memo((props: IHome): JSX.Element => {
   const [dropdown, setDropdown] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [signUp, setSignUp] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const cartGames = useSelector<AppRootState, CartGameType[]>((state) => state.cartGames);
+  const cartGames = useSelector<AppRootState, ICart[]>((state) => state.cartGames);
 
   const slide = `${headerStyle.subMenu} ${dropdown ? headerStyle.SlideSideBar : headerStyle.CloseSlideSideBar}`;
 
-  const toggleDropdown = () => {
+  const toggleDropdown = useCallback(() => {
     setDropdown(!dropdown);
-  };
+  }, [dropdown]);
 
-  const toggleSignIn = () => {
+  const toggleSignIn = useCallback(() => {
     if (props.isSignedIn) {
       setSignIn(false);
     }
     setSignIn(!signIn);
-  };
+  }, [props.isSignedIn]);
 
-  const toggleSignUp = () => {
+  const toggleSignUp = useCallback(() => {
     if (props.isSignedIn) {
       setSignUp(false);
     }
     setSignUp(!signUp);
-  };
+  }, [props.isSignedIn]);
 
-  const signOutHandler = () => {
+  const signOutHandler = useCallback(() => {
     dispatch(setIsSignedInAC(false));
     history.push(path.home);
-  };
+  }, [dispatch]);
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLLIElement>) => {
-    if (e.code === "Enter") {
-      setDropdown(!dropdown);
-    }
-  };
+  const handleKeyPress = useCallback(
+    (e: KeyboardEvent<HTMLLIElement>) => {
+      if (e.code === "Enter") {
+        setDropdown(!dropdown);
+      }
+    },
+    [dropdown]
+  );
 
   return (
     <header className={headerStyle.header}>
@@ -142,6 +146,6 @@ function Header(props: IHome): JSX.Element {
       {signUp && <SignUpContainer toggleSignUp={toggleSignUp} />}
     </header>
   );
-}
+});
 
 export default Header;
