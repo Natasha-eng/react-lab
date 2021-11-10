@@ -95,7 +95,7 @@ const CreateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
           price: +gamePrice,
           description: gameDescription,
           allowedAge,
-          data: "",
+          data: new Date(),
           img: photoFile,
           category: platform,
           genre,
