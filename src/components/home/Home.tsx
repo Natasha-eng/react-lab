@@ -34,10 +34,6 @@ const Home = React.memo((props: RouteComponentProps): JSX.Element => {
     dispatch(fetchGamesByDateThunkCreator());
   }, []);
 
-  useEffect(() => {
-    dispatch(fetchGamesByDateThunkCreator());
-  }, [games]);
-
   return (
     <div className={main.content}>
       <div>Home page</div>
@@ -66,7 +62,7 @@ const Home = React.memo((props: RouteComponentProps): JSX.Element => {
       <div className={homeStyles.subTitle}>New Games</div>
       <div className={homeStyles.gamesContainer}>
         {games.map((g) => (
-          <Game key={g.id} game={g} updateGame={updateGame} />
+          <Game key={g.id} game={g} updateGame={updateGame} path={props.location.pathname} />
         ))}
       </div>
     </div>
