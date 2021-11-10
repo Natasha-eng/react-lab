@@ -12,6 +12,7 @@ import gameStyle from "./game.module.css";
 interface GamePropsType {
   game: GameType;
   updateGame: (updatedGame: GameType) => void;
+  path: string;
 }
 
 const Game = React.memo((props: GamePropsType): JSX.Element => {
@@ -62,14 +63,14 @@ const Game = React.memo((props: GamePropsType): JSX.Element => {
           <button type="button" onClick={addGameHandler}>
             Add to cart
           </button>
-          {isAdmin && (
+          {isAdmin && props.path !== "/home" && (
             <button type="button" onClick={toggleModal}>
               Edit
             </button>
           )}
         </div>
       </div>
-      {/* {isModal && <CreateGameModalContainer toggleModal={toggleModal} updateGameHandler={updateGameHandler} />} */}
+
       {isModal && ComponentWithLoader}
     </div>
   );
