@@ -67,18 +67,20 @@ export default function PasswordModal(props: PasswordModal): JSX.Element {
     }
   }, []);
 
-  const changePassword = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (!newPasswordValue && !repeatNewPasswordValue) {
-      setError({ ...error, error: commonError });
-      return;
-    }
-    e.preventDefault();
-    setError({ ...error, error: "" });
-    dispatch(setErrorAC(""));
-    const login = localStorage.getItem("signInLoginValue");
-    login && dispatch(changePasswordThunkCreator(login, newPasswordValue));
-  };
-
+  const changePassword = useCallback(
+    (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      if (!newPasswordValue && !repeatNewPasswordValue) {
+        setError({ ...error, error: commonError });
+        return;
+      }
+      e.preventDefault();
+      setError({ ...error, error: "" });
+      dispatch(setErrorAC(""));
+      const login = localStorage.getItem("signInLoginValue");
+      login && dispatch(changePasswordThunkCreator(login, newPasswordValue));
+    },
+    [newPasswordValue, repeatNewPasswordValue, dispatch]
+  );
   return (
     <form className={modalStyle.modalBackground} onClick={props.togglePasswordModal}>
       <div className={modalStyle.modalContent} onClick={(e) => e.stopPropagation()}>
