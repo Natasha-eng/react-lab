@@ -9,6 +9,7 @@ import main from "../styles/main.module.css";
 
 interface GamesPropsType {
   updateGame: (updatedGame: GameType) => void;
+  path: string;
 }
 
 const Games = React.memo((props: GamesPropsType): JSX.Element => {
@@ -25,7 +26,7 @@ const Games = React.memo((props: GamesPropsType): JSX.Element => {
   return (
     <div className={homeStyles.gamesContainer}>
       {games.map((g) => (
-        <Game key={g.id} game={g} updateGame={updateGame} />
+        <Game key={g.id} game={g} updateGame={updateGame} path={props.path} />
       ))}
       {backError && <div className={main.error}>{backError}</div>}
     </div>

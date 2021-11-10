@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-use-before-define
 import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, withRouter } from "react-router-dom";
+import { useParams, withRouter, RouteComponentProps } from "react-router-dom";
 import { fetchSortedGamesByCategoryThunkCreator, fetchSortedGamesThunkCreator } from "@/thunks/thunks";
 import SearchInput from "@/components/search/SearchInput";
 import useLoader from "@/useLoader/useLoader";
@@ -19,7 +19,7 @@ type CategoryParams = {
   category: string;
 };
 
-const Products = React.memo((): JSX.Element => {
+const Products = React.memo((props: RouteComponentProps): JSX.Element => {
   const dispatch = useDispatch();
   const isAdmin = useSelector<AppRootState, boolean>((state) => state.profile.profile.isAdmin);
   const [selectedAge, setSelectedAge] = useState(age.all);
@@ -45,7 +45,9 @@ const Products = React.memo((): JSX.Element => {
     setUpdatedGame(updatedGame);
   }, []);
 
-  const { setLoaderHandler, ComponentWithLoader } = useLoader(<Games updateGame={updateGame} />);
+  const { setLoaderHandler, ComponentWithLoader } = useLoader(
+    <Games updateGame={updateGame} path={props.location.pathname} />
+  );
 
   const toggleModal = useCallback(() => {
     setIsModal(!isModal);
