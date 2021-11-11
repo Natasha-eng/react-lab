@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-use-before-define
+import React, { MouseEvent, useCallback, useEffect, useState } from "react";
 import { setErrorAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
 import InputText from "@/elements/input/InputText";
@@ -5,7 +7,6 @@ import { signUpThunkCreator } from "@/thunks/thunks";
 import { isLoginValide, isPasswordValide } from "@/utils/util";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { commonError, errorLogin, errorPassword, errorRepeatPassword } from "@/constants/constants";
@@ -16,7 +17,7 @@ interface ISignUp {
   toggleSignUp: () => void;
 }
 
-export default function SignUp(props: ISignUp): JSX.Element {
+const SignUp = React.memo((props: ISignUp): JSX.Element => {
   const dispatch = useDispatch();
   const [signUpLoginValue, setSignUpLoginValue] = useState("");
   const [signUpPasswordValue, setSignUpPasswordValue] = useState("");
@@ -26,7 +27,7 @@ export default function SignUp(props: ISignUp): JSX.Element {
   const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
   const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
 
-  const onBlurLoginHandler = (value: string) => {
+  const onBlurLoginHandler = useCallback((value: string) => {
     const validLoginName = isLoginValide(value);
     if (validLoginName === null) {
       setError({
@@ -39,9 +40,9 @@ export default function SignUp(props: ISignUp): JSX.Element {
         loginError: "",
       });
     }
-  };
+  }, []);
 
-  const onBlurPasswordHandler = (value: string) => {
+  const onBlurPasswordHandler = useCallback((value: string) => {
     const validPassword = isPasswordValide(value);
     if (validPassword === null) {
       setError({
@@ -54,55 +55,61 @@ export default function SignUp(props: ISignUp): JSX.Element {
         passwordError: "",
       });
     }
-  };
+  }, []);
 
-  const onBlurRepeatPasswordHandler = (value: string) => {
-    const validPassword = isPasswordValide(value);
-    if (validPassword === null) {
-      setError({
-        ...error,
-        passwordError: errorPassword,
-      });
-      if (value !== signUpPasswordValue) {
+  const onBlurRepeatPasswordHandler = useCallback(
+    (value: string) => {
+      const validPassword = isPasswordValide(value);
+      if (validPassword === null) {
         setError({
           ...error,
-          repeatPasswordError: errorRepeatPassword,
+          passwordError: errorPassword,
+        });
+        if (value !== signUpPasswordValue) {
+          setError({
+            ...error,
+            repeatPasswordError: errorRepeatPassword,
+          });
+        }
+      } else {
+        setError({
+          ...error,
+          passwordError: "",
+          repeatPasswordError: "",
         });
       }
-    } else {
-      setError({
-        ...error,
-        passwordError: "",
-        repeatPasswordError: "",
-      });
-    }
-  };
+    },
+    [signUpPasswordValue]
+  );
 
-  const changeLoginHandler = (value: string) => {
+  const changeLoginHandler = useCallback((value: string) => {
     setSignUpLoginValue(value);
-  };
+  }, []);
 
-  const changePasswordHandler = (value: string) => {
+  const changePasswordHandler = useCallback((value: string) => {
     setSignUpPasswordValue(value);
-  };
+  }, []);
 
-  const changeRepeatPasswordHandler = (value: string) => {
+  const changeRepeatPasswordHandler = useCallback((value: string) => {
     setSignUpRepeatPasswordValue(value);
-  };
+  }, []);
 
-  const signUpHandler = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    if (signUpLoginValue === "" && signUpPasswordValue === "") {
-      setError({ ...error, error: commonError });
-      return;
-    }
+  const signUpHandler = useCallback(
+    (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+      if (signUpLoginValue === "" && signUpPasswordValue === "") {
+        setError({ ...error, error: commonError });
+        return;
+      }
 
-    setError({ ...error, error: "" });
-    if (backError) {
-      dispatch(setErrorAC(""));
-    }
-    dispatch(signUpThunkCreator(signUpLoginValue, signUpPasswordValue));
-  };
+      setError({ ...error, error: "" });
+      if (backError) {
+        dispatch(setErrorAC(""));
+      }
+      dispatch(signUpThunkCreator(signUpLoginValue, signUpPasswordValue));
+    },
+    [dispatch, signUpLoginValue, signUpPasswordValue]
+  );
 
   useEffect(() => {
     if (isSignedIn) {
@@ -161,4 +168,6 @@ export default function SignUp(props: ISignUp): JSX.Element {
       </form>
     </>
   );
-}
+});
+
+export default SignUp;

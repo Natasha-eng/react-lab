@@ -1,10 +1,12 @@
+// eslint-disable-next-line no-use-before-define
+import React from "react";
 import { faApple, faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad } from "@fortawesome/free-solid-svg-icons";
 import footerStyle from "./footer.module.css";
 
-function Footer(): JSX.Element {
-  return (
+const Footer = React.memo(
+  (): JSX.Element => (
     <footer className={footerStyle.footer}>
       <a href="https://www.xbox.com/ru-RU/?xr=mebarnav" target="_blank" rel="noreferrer">
         <i>
@@ -27,7 +29,7 @@ function Footer(): JSX.Element {
         </i>
       </a>
     </footer>
-  );
-}
+  )
+);
 
 export default Footer;

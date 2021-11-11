@@ -255,11 +255,8 @@ export const updateGameThunkCreator =
       AppRootState,
       unknown,
       SetGamesActionType | SetGameActionType | setCartsActionType | setErrorActionType
-    >,
-    getState: () => AppRootState
+    >
   ) => {
-    const state = getState();
-    const cart = state.cartGames.find((c) => c.id === updatedGame.id);
     const response = await api.updateGame(updatedGame);
     if (response.status === 200) {
       dispatch(setGamesAC(response.data.updatedGames));

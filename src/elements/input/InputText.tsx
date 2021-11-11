@@ -1,4 +1,5 @@
-import { ChangeEvent, FocusEvent } from "react";
+// eslint-disable-next-line no-use-before-define
+import React, { ChangeEvent, FocusEvent, useCallback } from "react";
 import inputStyles from "./inputText.module.css";
 import main from "../../styles/main.module.css";
 
@@ -12,14 +13,20 @@ interface IInputText {
   onBlurHander: (value: string) => void;
 }
 
-export default function InputText(props: IInputText): JSX.Element {
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    props.onChangeValueHandler(e.target.value);
-  };
+const InputText = React.memo((props: IInputText): JSX.Element => {
+  const onChangeHandler = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      props.onChangeValueHandler(e.target.value);
+    },
+    [props.onChangeValueHandler]
+  );
 
-  const onBLurInputHandler = (e: FocusEvent<HTMLInputElement>) => {
-    props.onBlurHander(e.target.value);
-  };
+  const onBLurInputHandler = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      props.onBlurHander(e.target.value);
+    },
+    [props.onBlurHander]
+  );
   return (
     <div className={inputStyles.inputWrapper}>
       <div className={inputStyles.input}>
@@ -35,4 +42,6 @@ export default function InputText(props: IInputText): JSX.Element {
       {props.error && <div className={main.error}>{props.error}</div>}
     </div>
   );
-}
+});
+
+export default InputText;

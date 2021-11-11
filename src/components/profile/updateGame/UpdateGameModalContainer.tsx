@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-use-before-define
+import React from "react";
 import Modal from "@/components/modal/Modal";
 import { GameType } from "@/types/types";
 import UpdateGameModal from "./UpdateGameModal";
@@ -7,10 +9,12 @@ interface ICreateGameModalr {
   updateGameHandler: (updatedGame: GameType) => void;
 }
 
-export default function UpdateGameModalContainer(props: ICreateGameModalr): JSX.Element {
-  return (
+const UpdateGameModalContainer = React.memo(
+  (props: ICreateGameModalr): JSX.Element => (
     <Modal>
       <UpdateGameModal toggleModal={props.toggleModal} updateGameHandler={props.updateGameHandler} />
     </Modal>
-  );
-}
+  )
+);
+
+export default UpdateGameModalContainer;

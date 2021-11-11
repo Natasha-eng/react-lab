@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-use-before-define
+import React, { ChangeEvent, MouseEvent, useCallback, useState } from "react";
 import { AppRootState } from "@/app/storetype";
-import { ChangeEvent, MouseEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,7 +22,7 @@ interface ICreateGameModal {
   createGameHandler: (updatedGame: GameType) => void;
 }
 
-export default function CreateGameModal(props: ICreateGameModal): JSX.Element {
+const CreateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
   const dispatch = useDispatch();
   const [error, setError] = useState({ error: "" });
   const [message, setMessage] = useState("");
@@ -34,75 +35,79 @@ export default function CreateGameModal(props: ICreateGameModal): JSX.Element {
   const [gameDescription, setGameDescription] = useState("");
   const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
 
-  const changeAllowedAgeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+  const changeAllowedAgeHandler = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setAllowedAge(e.target.value);
-  };
+  }, []);
 
-  const changeGenre = (e: ChangeEvent<HTMLSelectElement>) => {
+  const changeGenre = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setGenre(e.target.value);
-  };
+  }, []);
 
-  const changeGamePlatform = (e: MouseEvent<HTMLInputElement>) => {
+  const changeGamePlatform = useCallback((e: MouseEvent<HTMLInputElement>) => {
     setPlatform(e.currentTarget.value);
-  };
+  }, []);
 
-  const onBlurHandler = () => {
+  const onBlurHandler = useCallback(() => {
     if (!gameName || !platform || !genre || !gamePrice || !gameDescription) {
       setError({ error: commonError });
     } else {
       setError({ error: "" });
     }
-  };
+  }, [gameName, platform, genre, gamePrice, gameDescription]);
 
-  const changeGameNameHandler = (value: string) => {
+  const changeGameNameHandler = useCallback((value: string) => {
     setGameName(value);
-  };
+  }, []);
 
-  const changeGamePriceHandler = (value: string) => {
+  const changeGamePriceHandler = useCallback((value: string) => {
     setGamePrice(value);
-  };
-  const changeGameDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  }, []);
+
+  const changeGameDescription = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     setGameDescription(e.target.value);
-  };
+  }, []);
 
-  const onPhotoSelected = async (e: ChangeEvent<HTMLInputElement>) => {
+  const onPhotoSelected = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       const file = e.target.files[0];
       const base64: string = (await convertToBase64(file)) as string;
       setPhotoFile(base64);
       changeImageValueHandler(base64);
     }
-  };
+  }, []);
 
-  const changeImageValueHandler = (value: string) => {
+  const changeImageValueHandler = useCallback((value: string) => {
     setPhotoFile(value);
-  };
+  }, []);
 
-  const createGameHandler = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (!gameName || !platform || !genre || !gamePrice || !gameDescription) {
-      setError({ error: commonError });
-    } else {
-      const updatedGame = {
-        id: 0,
-        name: gameName,
-        price: +gamePrice,
-        description: gameDescription,
-        allowedAge,
-        data: "",
-        img: photoFile,
-        category: platform,
-        genre,
-      };
-      props.createGameHandler(updatedGame);
-      dispatch(createGameThunkCreator(updatedGame));
-      setError({ error: "" });
-      setMessage(gameCreatedMessge);
-    }
-  };
+  const createGameHandler = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      if (!gameName || !platform || !genre || !gamePrice || !gameDescription) {
+        setError({ error: commonError });
+      } else {
+        const updatedGame = {
+          id: 0,
+          name: gameName,
+          price: +gamePrice,
+          description: gameDescription,
+          allowedAge,
+          data: new Date(),
+          img: photoFile,
+          category: platform,
+          genre,
+        };
+        props.createGameHandler(updatedGame);
+        dispatch(createGameThunkCreator(updatedGame));
+        setError({ error: "" });
+        setMessage(gameCreatedMessge);
+      }
+    },
+    [gameName, photoFile, platform, genre, gamePrice, gameDescription, props.createGameHandler, dispatch]
+  );
 
   return (
     <>
@@ -243,4 +248,6 @@ export default function CreateGameModal(props: ICreateGameModal): JSX.Element {
       </form>
     </>
   );
-}
+});
+
+export default CreateGameModal;

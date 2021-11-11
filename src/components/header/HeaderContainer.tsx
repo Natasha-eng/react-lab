@@ -1,5 +1,6 @@
-import { AppRootState } from "@/app/storetype";
+// eslint-disable-next-line no-use-before-define
 import React from "react";
+import { AppRootState } from "@/app/storetype";
 import { connect } from "react-redux";
 import Header from "./header";
 

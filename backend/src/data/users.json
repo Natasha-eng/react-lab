@@ -8,21 +8,48 @@
     "password": "1$qwerty1",
     "cart": [
       {
-        "id": 8,
-        "name": "Fortnite",
-        "category": "xbox",
+        "id": 6,
+        "name": "Call of Duty: Modern Warfare/Warzone",
+        "category": "playstation",
         "amount": 1,
-        "orderDate": "10/19/2021",
+        "orderDate": "11/4/2021",
+        "price": 20,
+        "checked": false
+      },
+      {
+        "id": 10,
+        "name": "Apex Legends",
+        "category": "pc",
+        "amount": 1,
+        "orderDate": "11/4/2021",
+        "price": 24.99,
+        "checked": false
+      },
+      {
+        "id": 2,
+        "name": "League of Legends",
+        "category": "pc",
+        "amount": 2,
+        "orderDate": "11/10/2021",
+        "price": 20,
+        "checked": false
+      },
+      {
+        "id": 3,
+        "name": "Counter-Strike: Global Offensive",
+        "category": "playstation",
+        "amount": 1,
+        "orderDate": "11/10/2021",
         "price": 10,
         "checked": false
       },
       {
-        "id": 7,
-        "name": "ROBLOX",
-        "category": "pc",
+        "id": 1,
+        "name": "Minecraft",
+        "category": "playstation",
         "amount": 1,
-        "orderDate": "10/19/2021",
-        "price": 25,
+        "orderDate": "11/10/2021",
+        "price": 23.99,
         "checked": false
       }
     ],

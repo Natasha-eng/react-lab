@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-use-before-define
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { AppRootState } from "@/app/storetype";
 import { useDispatch, useSelector } from "react-redux";
-import { ChangeEvent, useEffect, useState } from "react";
 import { changeGameAmountAC, changeGameStatusAC, setMessageAC } from "@/actions/actions";
 import { ICart } from "@/types/types";
 import { fetchCartThunkCreator, updateCartsThunkCreator } from "@/thunks/thunks";
@@ -8,17 +9,14 @@ import cartStyle from "./cart.module.css";
 import main from "../../styles/main.module.css";
 import ConfirmationModal from "../confirmationModal/confirmationModal";
 
-export default function Cart(): JSX.Element {
+const Cart = React.memo((): JSX.Element => {
   const cartGames = useSelector<AppRootState, ICart[]>((state) => state.cartGames);
   const balance = useSelector<AppRootState, number>((state) => state.profile.profile.balance);
   const message = useSelector<AppRootState, string>((state) => state.systemMessages.message);
   const dispatch = useDispatch();
-  const [total, setTotal] = useState(0);
   const [isModal, setIsModal] = useState(false);
 
-  useEffect(() => {
-    setTotal(cartGames.reduce((acc, curr) => acc + curr.price * Number(curr.amount), 0));
-  }, [cartGames]);
+  const total = useMemo(() => cartGames.reduce((acc, curr) => acc + curr.price * Number(curr.amount), 0), [cartGames]);
 
   useEffect(() => {
     const login = localStorage.getItem("signInLoginValue");
@@ -33,30 +31,35 @@ export default function Cart(): JSX.Element {
     }
   }, [cartGames]);
 
-  const changeAmount = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeGameAmountAC(e.target.name, e.target.value));
-    if (e.target.value) {
-      const login = localStorage.getItem("signInLoginValue");
-      const updatedCarts = cartGames.map((c) =>
-        e.target.dataset.gameid && c.id === +e.target.dataset.gameid ? { ...c, amount: +e.target.value } : c
-      );
-      login && dispatch(updateCartsThunkCreator(login, updatedCarts));
-    }
-  };
+  const changeAmount = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      dispatch(changeGameAmountAC(e.target.name, e.target.value));
+      if (e.target.value) {
+        const login = localStorage.getItem("signInLoginValue");
+        const updatedCarts = cartGames.map((c) =>
+          e.target.dataset.gameid && c.id === +e.target.dataset.gameid ? { ...c, amount: +e.target.value } : c
+        );
 
-  const removeCartItem = () => {
+        login && dispatch(updateCartsThunkCreator(login, updatedCarts));
+      }
+    },
+    [cartGames, dispatch]
+  );
+
+  const removeCartItem = useCallback(() => {
     const login = localStorage.getItem("signInLoginValue");
     const updatedcarts = cartGames.filter((g) => !g.checked);
     login && dispatch(updateCartsThunkCreator(login, updatedcarts));
-  };
+  }, [dispatch, cartGames]);
 
-  const buyProduct = () => {
+  const buyProduct = useCallback(() => {
     setIsModal(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModal(false);
-  };
+  }, []);
+
   return (
     <div className={main.content}>
       <div className={cartStyle.cartGameContainer}>
@@ -122,4 +125,6 @@ export default function Cart(): JSX.Element {
       {isModal && <ConfirmationModal closeModal={closeModal} total={total} />}
     </div>
   );
-}
+});
+
+export default Cart;
