@@ -4,7 +4,7 @@ export interface GameType {
   price: number;
   description: string;
   allowedAge: string;
-  data: string;
+  date?: string;
   img: string;
   category: string;
   genre: string;
