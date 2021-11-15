@@ -12,13 +12,13 @@ import SearchInput from "../search/SearchInput";
 import homeStyles from "./home.module.css";
 
 const Home = React.memo((props: RouteComponentProps): JSX.Element => {
-  const [updatedGame, setUpdatedGame] = useState({
+  const [updatedGame, setUpdatedGame] = useState<GameType>({
     id: 0,
     name: "",
     price: 0,
     description: "",
     allowedAge: "",
-    data: "",
+    date: "",
     img: "",
     category: "",
     genre: "",
@@ -26,8 +26,8 @@ const Home = React.memo((props: RouteComponentProps): JSX.Element => {
   const dispatch = useDispatch();
   const games = useSelector<AppRootState, Array<GameType>>((state) => state.games);
 
-  const updateGame = useCallback((updatedGame: GameType) => {
-    setUpdatedGame(updatedGame);
+  const updateGame = useCallback((gameUpdated: GameType) => {
+    setUpdatedGame(gameUpdated);
   }, []);
 
   useEffect(() => {

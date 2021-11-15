@@ -176,7 +176,7 @@ router.post("/updateGame", async (req: Request, res: Response) => {
   } else {
     const data: string = (await readJsonFromFile("src/data/games.json")) as string;
     const games: IGame[] = JSON.parse(data) as IGame[];
-    const updatedGames = games.map((g) => (g.id === newGame.id ? { ...newGame } : g));
+    const updatedGames = games.map((g) => (g.id === newGame.id ? { ...newGame, date: g.date } : g));
     await writeJsonToFile("./src/data/games.json", updatedGames);
     res.status(200).send({ updatedGames });
   }
