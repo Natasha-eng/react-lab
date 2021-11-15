@@ -22,18 +22,18 @@ type CategoryParams = {
 const Products = React.memo((props: RouteComponentProps): JSX.Element => {
   const dispatch = useDispatch();
   const isAdmin = useSelector<AppRootState, boolean>((state) => state.profile.profile.isAdmin);
-  const [selectedAge, setSelectedAge] = useState(age.all);
-  const [selectedGenre, setSelectedGenre] = useState(genre.all);
-  const [sortCriteria, setSortCriteria] = useState(criteria.name);
-  const [sortType, setSortType] = useState(criteria.ascending);
+  const [selectedAge, setSelectedAge] = useState<string>(age.all);
+  const [selectedGenre, setSelectedGenre] = useState<string>(genre.all);
+  const [sortCriteria, setSortCriteria] = useState<string>(criteria.name);
+  const [sortType, setSortType] = useState<string>(criteria.ascending);
   const [isModal, setIsModal] = useState(false);
-  const [updatedGame, setUpdatedGame] = useState({
+  const [updatedGame, setUpdatedGame] = useState<GameType>({
     id: 0,
     name: "",
     price: 0,
     description: "",
     allowedAge: "",
-    data: "",
+    date: "",
     img: "",
     category: "",
     genre: "",
@@ -41,8 +41,8 @@ const Products = React.memo((props: RouteComponentProps): JSX.Element => {
 
   const { category } = useParams<CategoryParams>();
 
-  const updateGame = useCallback((updatedGame: GameType) => {
-    setUpdatedGame(updatedGame);
+  const updateGame = useCallback((gameUpdated: GameType) => {
+    setUpdatedGame(gameUpdated);
   }, []);
 
   const { setLoaderHandler, ComponentWithLoader } = useLoader(
