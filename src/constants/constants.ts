@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 export const errorLogin =
   "Your login is not valid. Only characters A-Z, a-z, numbers 0-9 are  acceptable. Login can be at least 2 charecters long and no more than 20 characters";
 export const errorPassword =
@@ -22,37 +23,37 @@ export const path = {
   cart: "/cart",
 };
 
-export const genre = {
-  all: "all",
-  allGenres: "allGenres",
-  shooter: "Shooter",
-  arcade: "Arcade",
-  survive: "Survive",
-};
+export const enum genre {
+  all = "all",
+  allGenres = "allGenres",
+  shooter = "Shooter",
+  arcade = "Arcade",
+  survive = "Survive",
+}
 
-export const gameGenre = {
-  shooter: "Shooter",
-  arcade: "Arcade",
-  survive: "Survive",
-};
+export const enum gameGenre {
+  shooter = "Shooter",
+  arcade = "Arcade",
+  survive = "Survive",
+}
 
-export const age = {
-  all: "all",
-  age3: "3+",
-  age6: "6+",
-  age12: "12+",
-  age18: "18+",
-};
+export const enum age {
+  all = "all",
+  age3 = "3+",
+  age6 = "6+",
+  age12 = "12+",
+  age18 = "18+",
+}
 
-export const criteria = {
-  name: "name",
-  price: "price",
-  ascending: "ascending",
-  descending: "descending",
-};
+export const enum criteria {
+  name = "name",
+  price = "price",
+  ascending = "ascending",
+  descending = "descending",
+}
 
-export const gamePlatform = {
-  pc: "pc",
-  playstation: "playstation",
-  xbox: "xbox",
-};
+export const enum gamePlatform {
+  pc = "pc",
+  playstation = "playstation",
+  xbox = "xbox",
+}

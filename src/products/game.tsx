@@ -3,10 +3,10 @@ import React, { useCallback, useState } from "react";
 import { setMessageAC, updateGameAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
 import UpdateGameModalContainer from "@/components/profile/updateGame/UpdateGameModalContainer";
-import { addGameThunkCreator, fetchGameThunkCreator } from "@/thunks/thunks";
 import { GameType } from "@/types/types";
 import useLoader from "@/useLoader/useLoader";
 import { useDispatch, useSelector } from "react-redux";
+import { addGameThunkCreator, fetchGameThunkCreator } from "@/thunks/thunks";
 import gameStyle from "./game.module.css";
 
 interface GamePropsType {

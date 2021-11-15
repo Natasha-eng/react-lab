@@ -3,7 +3,7 @@ import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useState } f
 import { AppRootState } from "@/app/storetype";
 import { GameType } from "@/types/types";
 import { useDispatch, useSelector } from "react-redux";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import { fetchGamesByNameThunkCreator } from "@/thunks/thunks";
 import { clearGamesAC } from "@/actions/actions";
 import Preloader from "@/elements/preloader/Preloader";
