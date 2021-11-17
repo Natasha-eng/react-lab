@@ -1,5 +1,5 @@
-import Types from "@/thunks/actiontTypes";
-import { GameType, ICart, IProfileData, UserProfileType } from "@/types/types";
+import { GameType, ICart, IProfileData, UserProfileType } from "app/types/types";
+import Types from "../thunks/actiontTypes";
 
 // actions
 export const setGamesAC = (games: Array<GameType>) => ({ type: Types.SET_GAMES, games } as const);

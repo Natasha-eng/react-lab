@@ -1,6 +1,6 @@
 import { ActionsType } from "@/actions/actions";
-import Types from "@/thunks/actiontTypes";
 import { ICart } from "@/types/types";
+import Types from "../../thunks/actiontTypes";
 
 const initialState: ICart[] = [];
 
