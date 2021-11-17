@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputText component should render Input component 1`] = `
+<div
+  className="inputWrapper"
+>
+  <div
+    className="input"
+  >
+    <label
+      htmlFor="username"
+    >
+      Username
+    </label>
+    <input
+      name="username"
+      onBlur={[Function]}
+      onChange={[Function]}
+      type="text"
+      value="natasha"
+    />
+  </div>
+  <div
+    className="error"
+  >
+    error
+  </div>
+</div>
+`;
