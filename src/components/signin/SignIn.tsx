@@ -1,13 +1,13 @@
 // eslint-disable-next-line no-use-before-define
 import React, { MouseEvent, useCallback, useEffect, useState } from "react";
-import { setErrorAC, signInSagaAC } from "@/actions/actions";
-import { AppRootState } from "@/app/storetype";
-import { commonError, errorLogin, errorPassword } from "@/constants/constants";
-import InputText from "@/elements/input/InputText";
-import { isLoginValide, isPasswordValide } from "@/utils/util";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
+import { isLoginValide, isPasswordValide } from "../../utils/util";
+import { commonError, errorLogin, errorPassword } from "../../constants/constants";
+import InputText from "../../elements/input/InputText";
+import { AppRootState } from "../../app/storetype";
+import { setErrorAC, signInSagaAC } from "../../actions/actions";
 import modalStyle from "../modal/modal.module.css";
 import main from "../../styles/main.module.css";
 

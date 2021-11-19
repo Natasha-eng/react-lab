@@ -1,3 +1,6 @@
+import { ThunkDispatch } from "redux-thunk";
+import { GameType, ICart } from "../types/types";
+import { AppRootState } from "../app/storetype";
 import {
   changePasswordAC,
   changePasswordActionType,
@@ -29,11 +32,8 @@ import {
   setUserProfileActonType,
   setUserStatusAC,
   setUserStatusActionType,
-} from "@/actions/actions";
-import { api } from "@/api/games-api";
-import { AppRootState } from "@/app/storetype";
-import { GameType, ICart } from "@/types/types";
-import { ThunkDispatch } from "redux-thunk";
+} from "../actions/actions";
+import { api } from "../api/games-api";
 
 // thunks
 export const fetchGamesThunkCreator =

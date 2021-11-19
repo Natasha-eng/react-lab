@@ -1,13 +1,14 @@
 // eslint-disable-next-line no-use-before-define
 import React, { ChangeEvent, FocusEvent, useCallback, useEffect, useState } from "react";
-import { AppRootState } from "@/app/storetype";
-import InputText from "@/elements/input/InputText";
-import { fetchProfileThunkCreator, saveProfileThunkCreator } from "@/thunks/thunks";
-import { UserProfileType } from "@/types/types";
-import { isEmailValid, isLoginValide, lengthRange } from "backend/src/utils/util";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { setErrorAC } from "@/actions/actions";
+import { isEmailValid, isLoginValide, lengthRange } from "../../utils/util";
+import { setErrorAC } from "../../actions/actions";
+import { fetchProfileThunkCreator, saveProfileThunkCreator } from "../../thunks/thunks";
+import { UserProfileType } from "../../types/types";
+import { AppRootState } from "../../app/storetype";
+import InputText from "../../elements/input/InputText";
 import main from "../../styles/main.module.css";
 import { path } from "../header/HeaderContainer";
 import PasswordModalContainer from "../password/PasswordModalContainer";

@@ -1,13 +1,13 @@
-import { setErrorAC } from "@/actions/actions";
-import { AppRootState } from "@/app/storetype";
-import { commonError, errorPassword, errorRepeatPassword } from "@/constants/constants";
-import InputText from "@/elements/input/InputText";
-import { changePasswordThunkCreator } from "@/thunks/thunks";
-import { isPasswordValide } from "@/utils/util";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MouseEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { isPasswordValide } from "../../utils/util";
+import { changePasswordThunkCreator } from "../../thunks/thunks";
+import InputText from "../../elements/input/InputText";
+import { commonError, errorPassword, errorRepeatPassword } from "../../constants/constants";
+import { AppRootState } from "../../app/storetype";
+import { setErrorAC } from "../../actions/actions";
 import modalStyle from "../modal/modal.module.css";
 
 interface PasswordModal {
