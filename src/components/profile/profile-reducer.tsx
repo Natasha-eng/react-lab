@@ -1,6 +1,6 @@
 import { ActionsType } from "@/actions/actions";
 import Types from "@/thunks/actiontTypes";
-import { IProfile, UserProfileType } from "@/types/types";
+import { IProfile, UserProfileType } from "app/interfcaces/interfaces";
 
 const initialState: IProfile = {
   userName: "",

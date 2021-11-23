@@ -1,4 +1,4 @@
-import { GameType, ICart, UserProfileType } from "@/types/types";
+import { GameType, ICart, UserProfileType } from "app/interfcaces/interfaces";
 import axios from "axios";
 
 const instance = axios.create({
