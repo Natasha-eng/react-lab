@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-use-before-define
 import React, { ChangeEvent, FocusEvent, useCallback } from "react";
-import inputStyles from "./inputText.module.css";
+import inputStyles from "./css/inputText.module.css";
 import main from "../../styles/main.module.css";
 
 interface IInputText {

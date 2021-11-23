@@ -1,5 +1,6 @@
 import { ThunkDispatch } from "redux-thunk";
-import { GameType, ICart } from "../types/types";
+import { gameCreatedMessge, gameUpdatedMessage } from "app/constants/constants";
+import { GameType, ICart } from "../interfcaces/interfaces";
 import { AppRootState } from "../app/storetype";
 import {
   changePasswordAC,
@@ -21,6 +22,7 @@ import {
   SetGamesActionType,
   setIsSignedInAC,
   setIsSignedInActionType,
+  setMessageAC,
   setMessageActionType,
   setTotalGameCostAC,
   setTotalGameCostActionType,
@@ -254,13 +256,14 @@ export const updateGameThunkCreator =
     dispatch: ThunkDispatch<
       AppRootState,
       unknown,
-      SetGamesActionType | SetGameActionType | setCartsActionType | setErrorActionType
+      SetGamesActionType | SetGameActionType | setCartsActionType | setMessageActionType | setErrorActionType
     >
   ) => {
     const response = await api.updateGame(updatedGame);
     if (response.status === 200) {
       dispatch(setGamesAC(response.data.updatedGames));
       dispatch(setGameAC(updatedGame));
+      dispatch(setMessageAC(gameUpdatedMessage));
     }
     if (response.status === 500) {
       dispatch(setErrorAC(response.data.errorMessage));
@@ -270,11 +273,16 @@ export const updateGameThunkCreator =
 export const createGameThunkCreator =
   (newGame: GameType) =>
   async (
-    dispatch: ThunkDispatch<AppRootState, unknown, SetGamesActionType | SetGameActionType | setErrorActionType>
+    dispatch: ThunkDispatch<
+      AppRootState,
+      unknown,
+      SetGamesActionType | SetGameActionType | setMessageActionType | setErrorActionType
+    >
   ) => {
     const response = await api.createGame(newGame);
     if (response.status === 200) {
       dispatch(setGamesAC(response.data.newGames));
+      dispatch(setMessageAC(gameCreatedMessge));
     }
     if (response.status === 500) {
       dispatch(setErrorAC(response.data.errorMessage));

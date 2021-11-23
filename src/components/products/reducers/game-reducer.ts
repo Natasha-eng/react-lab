@@ -1,6 +1,6 @@
 import { ActionsType } from "@/actions/actions";
 import Types from "@/thunks/actiontTypes";
-import { GameType } from "@/types/types";
+import { GameType } from "app/interfcaces/interfaces";
 
 const initialState: GameType = {
   id: 0,

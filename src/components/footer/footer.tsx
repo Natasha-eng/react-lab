@@ -3,7 +3,7 @@ import React from "react";
 import { faApple, faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad } from "@fortawesome/free-solid-svg-icons";
-import footerStyle from "./footer.module.css";
+import footerStyle from "./css/footer.module.css";
 
 const Footer = React.memo(
   (): JSX.Element => (

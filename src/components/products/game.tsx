@@ -2,12 +2,12 @@
 import React, { useCallback, useState } from "react";
 import { setMessageAC, updateGameAC } from "@/actions/actions";
 import { AppRootState } from "@/app/storetype";
-import UpdateGameModalContainer from "@/components/profile/updateGame/UpdateGameModalContainer";
-import { GameType } from "@/types/types";
+import UpdateGameModalContainer from "app/components/gameModals/updateGame/UpdateGameModalContainer";
+import { GameType } from "app/interfcaces/interfaces";
 import useLoader from "@/useLoader/useLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { addGameThunkCreator, fetchGameThunkCreator } from "@/thunks/thunks";
-import gameStyle from "./game.module.css";
+import gameStyle from "./css/game.module.css";
 
 interface GamePropsType {
   game: GameType;

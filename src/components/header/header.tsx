@@ -11,7 +11,7 @@ import { path } from "../../constants/constants";
 import { setIsSignedInAC } from "../../actions/actions";
 import SignInContainer from "../signin/SignInContainer";
 import SignUpContainer from "../signup/SignUpContainer";
-import headerStyle from "./header.module.css";
+import headerStyle from "./css/header.module.css";
 
 interface IHome {
   isSignedIn: boolean;
@@ -38,19 +38,19 @@ const Header = React.memo((props: IHome): JSX.Element => {
       setSignIn(false);
     }
     setSignIn(!signIn);
-  }, [props.isSignedIn]);
+  }, [props.isSignedIn, signIn]);
 
   const toggleSignUp = useCallback(() => {
     if (props.isSignedIn) {
       setSignUp(false);
     }
     setSignUp(!signUp);
-  }, [props.isSignedIn]);
+  }, [props.isSignedIn, signUp]);
 
   const signOutHandler = useCallback(() => {
     dispatch(setIsSignedInAC(false));
     history.push(path.home);
-  }, [dispatch]);
+  }, [dispatch, history]);
 
   const handleKeyPress = useCallback(
     (e: KeyboardEvent<HTMLLIElement>) => {

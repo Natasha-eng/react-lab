@@ -1,15 +1,15 @@
-import { authReducer } from "@/auth-reducer";
 import { profileReducer } from "@/components/profile/profile-reducer";
-import { filteredGamesReducer } from "@/products/filteredGames-reducer";
-import { gamesReducer } from "@/products/games-reducer";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import mySaga from "@/saga/saga";
-import { sortedGamesReducer } from "@/products/sortedGames-reducer";
-import { cartReducer } from "@/components/cart/cart-reducer";
+import { cartReducer } from "app/components/cart/reducer/cart-reducer";
 import { systemMessagesReducer } from "@/systemMessages/systemMessages-reducer";
-import { gameReducer } from "@/products/game-reducer";
+import { gamesReducer } from "app/components/products/reducers/games-reducer";
+import { filteredGamesReducer } from "app/components/products/reducers/filteredGames-reducer";
+import { sortedGamesReducer } from "app/components/products/reducers/sortedGames-reducer";
+import { gameReducer } from "app/components/products/reducers/game-reducer";
+import { authReducer } from "app/auth/reducer/auth-reducer";
 
 const sagaMiddleware = createSagaMiddleware();
 

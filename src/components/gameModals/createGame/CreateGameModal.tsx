@@ -1,78 +1,65 @@
 // eslint-disable-next-line no-use-before-define
-import React, { ChangeEvent, MouseEvent, useCallback, useEffect, useState } from "react";
+import React, { ChangeEvent, MouseEvent, useCallback, useState } from "react";
 import { AppRootState } from "@/app/storetype";
 import { useDispatch, useSelector } from "react-redux";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputText from "@/elements/input/InputText";
 import { age } from "backend/src/constants/constants";
-import { GameType } from "@/types/types";
+import { GameType } from "app/interfcaces/interfaces";
 import { convertToBase64 } from "@/utils/util";
-import { deleteGameThunkCreator, updateGameThunkCreator } from "@/thunks/thunks";
-import { setMessageAC } from "@/actions/actions";
-import { commonError, gameGenre, gamePlatform, gameUpdatedMessage } from "@/constants/constants";
-import modalStyle from "../../modal/modal.module.css";
+import { createGameThunkCreator } from "@/thunks/thunks";
+import { commonError, gameGenre, gamePlatform } from "@/constants/constants";
+import modalStyle from "../../modal/css/modal.module.css";
 import main from "../../../styles/main.module.css";
-import profileStyle from "../profile.module.css";
-import productsStyle from "../../../products/products.module.css";
-import userPhoto from "../../../assets/images/avatar_square_blue_120dp.png";
-import gameModalStyle from "./createGameModal.module.css";
-import DeleteGameModal from "../deleteGaemModal/DeleteGameModal";
+import profileStyle from "../../profile/css/profile.module.css";
+import productsStyle from "../../products/css/products.module.css";
+import gamePhoto from "../../../assets/images/bd3f28084f579a8b2391d49f5a9dc570.jpg";
+import gameModalStyle from "./css/createGameModal.module.css";
 
 interface ICreateGameModal {
   toggleModal: () => void;
-  updateGameHandler: (updatedGame: GameType) => void;
+  createGameHandler: (updatedGame: GameType) => void;
 }
 
-const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
+const CreateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
   const dispatch = useDispatch();
-  const [error, setError] = useState("");
-  const game = useSelector<AppRootState, GameType>((state) => state.game);
-  const message = useSelector<AppRootState, string>((state) => state.systemMessages.message);
-  const [allowedAge, setAllowedAge] = useState(game.allowedAge);
-  const [platform, setPlatform] = useState(game.category);
-  const [photoFile, setPhotoFile] = useState<string>(game.img);
-  const [gameName, setGameName] = useState(game.name);
-  const [genre, setGenre] = useState(game.genre);
-  const [gamePrice, setGamePrice] = useState(game.price.toString());
-  const [gameDescription, setGameDescription] = useState(game.description);
+  const [error, setError] = useState({ error: "" });
+  // const [message, setMessage] = useState("");
+  const [allowedAge, setAllowedAge] = useState("");
+  const [platform, setPlatform] = useState("");
+  const [photoFile, setPhotoFile] = useState<string>(gamePhoto);
+  const [gameName, setGameName] = useState("");
+  const [genre, setGenre] = useState("");
+  const [gamePrice, setGamePrice] = useState("");
+  const [gameDescription, setGameDescription] = useState("");
   const backError = useSelector<AppRootState, string>((state) => state.systemMessages.error);
-  const [isModal, setIsModal] = useState(false);
-
-  useEffect(() => {
-    setPhotoFile(game.img);
-    setAllowedAge(game.allowedAge);
-    setPlatform(game.category);
-    setGameName(game.name);
-    setGenre(game.genre);
-    setGamePrice(game.price.toString());
-    setGameDescription(game.description);
-  }, [game.img, game.allowedAge, game.category, game.name, game.genre, game.price, game.description]);
+  const message = useSelector<AppRootState, string>((state) => state.systemMessages.message);
 
   const changeAllowedAgeHandler = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setAllowedAge(e.target.value);
   }, []);
 
+  const changeGenre = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    setGenre(e.target.value);
+  }, []);
+
   const changeGamePlatform = useCallback((e: MouseEvent<HTMLInputElement>) => {
-    setPlatform(e.currentTarget.name);
+    setPlatform(e.currentTarget.value);
   }, []);
 
   const onBlurHandler = useCallback(() => {
     if (!gameName || !platform || !genre || !gamePrice || !gameDescription) {
-      setError(commonError);
+      setError({ error: commonError });
     } else {
-      setError("");
+      setError({ error: "" });
     }
   }, [gameName, platform, genre, gamePrice, gameDescription]);
 
   const changeGameNameHandler = useCallback((value: string) => {
     setGameName(value);
-  }, []);
-
-  const changeGenre = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    e.preventDefault();
-    setGenre(e.target.value);
   }, []);
 
   const changeGamePriceHandler = useCallback((value: string) => {
@@ -88,79 +75,48 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
     setPhotoFile(value);
   }, []);
 
-  const onPhotoSelected = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      const file = e.target.files[0];
-      const base64: string = (await convertToBase64(file)) as string;
-      setPhotoFile(base64);
-      changeImageValueHandler(base64);
-    }
-  }, []);
+  const onPhotoSelected = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files?.length) {
+        const file = e.target.files[0];
+        const base64: string = (await convertToBase64(file)) as string;
+        setPhotoFile(base64);
+        changeImageValueHandler(base64);
+      }
+    },
+    [changeImageValueHandler]
+  );
 
-  const updateGameHandler = useCallback(
+  const createGameHandler = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (!gameName || !platform || !genre || !gamePrice || !gameDescription) {
-        setError(commonError);
+        setError({ error: commonError });
       } else {
         const updatedGame = {
-          id: game.id,
+          id: 0,
           name: gameName,
           price: +gamePrice,
           description: gameDescription,
           allowedAge,
+          date: "",
           img: photoFile,
           category: platform,
           genre,
         };
-        props.updateGameHandler(updatedGame);
-        dispatch(updateGameThunkCreator(updatedGame));
-        dispatch(setMessageAC(gameUpdatedMessage));
-        setError("");
+        props.createGameHandler(updatedGame);
+        dispatch(createGameThunkCreator(updatedGame));
+        setError({ error: "" });
+        // setMessage(gameCreatedMessge);
       }
     },
-    [gameName, platform, genre, gamePrice, gameDescription, photoFile, game.id, dispatch, props.updateGameHandler]
+    [gameName, photoFile, platform, genre, gamePrice, gameDescription, props.createGameHandler, dispatch]
   );
-
-  const deleteGameHandler = useCallback(() => {
-    const updatedGame = {
-      id: game.id,
-      name: gameName,
-      price: +gamePrice,
-      description: gameDescription,
-      allowedAge,
-      data: "",
-      img: photoFile,
-      category: platform,
-      genre,
-    };
-    props.updateGameHandler(updatedGame);
-    dispatch(deleteGameThunkCreator(updatedGame.id));
-  }, [
-    dispatch,
-    props.updateGameHandler,
-    gameName,
-    photoFile,
-    platform,
-    gamePrice,
-    gameDescription,
-    photoFile,
-    game.id,
-  ]);
-
-  const openModal = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsModal(true);
-  }, []);
-
-  const closeModal = useCallback(() => {
-    setIsModal(false);
-  }, []);
 
   return (
     <>
       <form className={modalStyle.modalBackground}>
-        <div className={modalStyle.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div className={modalStyle.modalContent}>
           <div className={modalStyle.modalTitle}>
             <h2>Edit Cart</h2>
             <button type="button" className={modalStyle.closeButton} onClick={props.toggleModal}>
@@ -171,7 +127,7 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
           </div>
           <div className={modalStyle.modalInfoContainer}>
             <div className={profileStyle.mainPhotoWrapper}>
-              <img src={photoFile || userPhoto} alt="MainPhoto" />
+              <img src={photoFile || gamePhoto} alt="MainPhoto" />
 
               <label htmlFor="profileImg" className={profileStyle.changePhotoButton}>
                 Change Profile Image
@@ -186,7 +142,7 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                 value={gameName}
                 onChangeValueHandler={changeGameNameHandler}
                 onBlurHander={onBlurHandler}
-                error={error}
+                error={error.error}
               />
 
               <InputText
@@ -196,7 +152,7 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                 value={gamePrice}
                 onChangeValueHandler={changeGamePriceHandler}
                 onBlurHander={onBlurHandler}
-                error={error}
+                error={error.error}
               />
 
               <InputText
@@ -206,7 +162,7 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                 value={photoFile}
                 onChangeValueHandler={changeImageValueHandler}
                 onBlurHander={onBlurHandler}
-                error={error}
+                error={error.error}
               />
 
               <div className={profileStyle.profileTextareaWrapper}>
@@ -219,10 +175,12 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                     rows={4}
                     cols={70}
                     onChange={changeGameDescription}
+                    onBlur={onBlurHandler}
                   />
                 </div>
                 <div className={main.error} />
               </div>
+
               <label htmlFor="gamesCriteria" className={productsStyle.sortForm}>
                 Genre
                 <select id="gamesGenre" name="gamesGenre" value={genre} onChange={changeGenre}>
@@ -234,8 +192,8 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
               <label htmlFor="gamesCriteria" className={productsStyle.sortForm}>
                 Age
                 <select id="gamesCriteria" name="gamesCriteria" value={allowedAge} onChange={changeAllowedAgeHandler}>
-                  <option value={age.age6}>6+</option>
                   <option value={age.age3}>3+</option>
+                  <option value={age.age6}>6+</option>
                   <option value={age.age12}>12+</option>
                   <option value={age.age18}>18+</option>
                 </select>
@@ -247,6 +205,7 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                     <label htmlFor={gamePlatform.pc}>PC</label>
                     <input
                       id={gamePlatform.pc}
+                      value={gamePlatform.pc}
                       name={gamePlatform.pc}
                       type="checkbox"
                       checked={gamePlatform.pc === platform}
@@ -281,23 +240,18 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
               </div>
 
               {backError && <div className={main.error}>{backError}</div>}
+              {error.error && <div className={main.error}>{error.error}</div>}
+              {message && <p className={modalStyle.message}>{message}</p>}
 
-              <button type="submit" onClick={updateGameHandler}>
+              <button type="submit" onClick={createGameHandler}>
                 Submit
-              </button>
-              <button type="submit" onClick={openModal}>
-                Delete Card
               </button>
             </div>
           </div>
-          <p className={modalStyle.message}>{message}</p>
         </div>
-        {isModal && (
-          <DeleteGameModal closeModal={closeModal} deleteGameHandler={deleteGameHandler} gameName={game.name} />
-        )}
       </form>
     </>
   );
 });
 
-export default UpdateGameModal;
+export default CreateGameModal;
