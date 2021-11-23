@@ -14,7 +14,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 router.get("/products", async (req: Request, res: Response) => {
   const games: IGame[] = (await readJsonFromFile("src/data/games.json")) as IGame[];
   if (!games) {
-    res.status(500).send("We can't give you games");
+    res.status(500).send("Error occured. Try later.");
   } else {
     res.status(200).send(games);
   }
@@ -23,14 +23,13 @@ router.get("/products", async (req: Request, res: Response) => {
 router.post("/products", async (req: Request, res: Response) => {
   const data: string = (await readJsonFromFile("src/data/games.json")) as string;
   const games: IGame[] = JSON.parse(data) as IGame[];
-  const { sortCriteria } = req.body;
-  const { sortType } = req.body;
-  const { selectedAge } = req.body;
-  const { selectedGenre } = req.body;
-
   if (!games) {
     res.status(500).send({ errorMessage: "There are no games with such parameters" });
   } else {
+    const { sortCriteria } = req.body;
+    const { sortType } = req.body;
+    const { selectedAge } = req.body;
+    const { selectedGenre } = req.body;
     sortedGames(selectedAge, selectedGenre, sortCriteria, sortType, games, res);
   }
 });
@@ -53,10 +52,11 @@ router.get("/products/:category", async (req: Request, res: Response) => {
   const category: string = req.params.category as string;
   const data: string = (await readJsonFromFile("src/data/games.json")) as string;
   const games: IGame[] = JSON.parse(data) as IGame[];
-  const filteredByCategoryGames = games.filter((g: IGame) => g.category === category);
+
   if (!games) {
     res.status(500).send("No games with such category.");
   } else {
+    const filteredByCategoryGames = games.filter((g: IGame) => g.category === category);
     res.status(200).send(filteredByCategoryGames);
   }
 });
@@ -65,10 +65,11 @@ router.get("/game/:id", async (req: Request, res: Response) => {
   const gameId: number = +req.params.id as number;
   const data: string = (await readJsonFromFile("src/data/games.json")) as string;
   const games: IGame[] = JSON.parse(data) as IGame[];
-  const fetchedGame = games.find((g: IGame) => g.id === gameId);
+
   if (!games) {
     res.status(500).send("Some error occured.");
   } else {
+    const fetchedGame = games.find((g: IGame) => g.id === gameId);
     res.status(200).send(fetchedGame);
   }
 });
@@ -78,15 +79,15 @@ router.post("/products/:category", async (req: Request, res: Response) => {
   const data: string = (await readJsonFromFile("src/data/games.json")) as string;
   const games: IGame[] = JSON.parse(data) as IGame[];
 
-  const { sortCriteria } = req.body;
-  const { sortType } = req.body;
-  const { selectedAge } = req.body;
-  const { selectedGenre } = req.body;
-
-  const filteredByCategoryGames = games.filter((g: IGame) => g.category === category);
   if (!games) {
     res.status(500).send("There are no games with such parameters");
   } else {
+    const { sortCriteria } = req.body;
+    const { sortType } = req.body;
+    const { selectedAge } = req.body;
+    const { selectedGenre } = req.body;
+
+    const filteredByCategoryGames = games.filter((g: IGame) => g.category === category);
     sortedGames(selectedAge, selectedGenre, sortCriteria, sortType, filteredByCategoryGames, res);
   }
 });
@@ -94,13 +95,14 @@ router.post("/products/:category", async (req: Request, res: Response) => {
 router.get("/home/getTopProducts", async (req: Request, res: Response) => {
   const data: string = (await readJsonFromFile("src/data/games.json")) as string;
   const games: IGame[] = JSON.parse(data) as IGame[];
-  const byDate = (a: IGame, b: IGame) => new Date(b.date).valueOf() - new Date(a.date).valueOf();
-  const sortGames: IGame[] = games.sort(byDate);
-  const firstThreeeGames = sortGames.slice(0, 3);
+
   if (!games) {
     res.send(500).send("Some error occured.Try later.");
   } else {
-    res.status(200).send(firstThreeeGames);
+    const byDate = (a: IGame, b: IGame) => new Date(b.date).valueOf() - new Date(a.date).valueOf();
+    const sortGames: IGame[] = games.sort(byDate);
+    const firstThreeGames = sortGames.slice(0, 3);
+    res.status(200).send(firstThreeGames);
   }
 });
 
