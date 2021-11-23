@@ -6,15 +6,15 @@ import { useHistory, useParams } from "react-router-dom";
 import { isEmailValid, isLoginValide, lengthRange } from "../../utils/util";
 import { setErrorAC } from "../../actions/actions";
 import { fetchProfileThunkCreator, saveProfileThunkCreator } from "../../thunks/thunks";
-import { UserProfileType } from "../../types/types";
+import { UserProfileType } from "../../interfcaces/interfaces";
 import { AppRootState } from "../../app/storetype";
 import InputText from "../../elements/input/InputText";
 import main from "../../styles/main.module.css";
-import { path } from "../header/HeaderContainer";
+
 import PasswordModalContainer from "../password/PasswordModalContainer";
 import userPhoto from "../../assets/images/avatar_square_blue_120dp.png";
-import profileStyle from "./profile.module.css";
-import { userNameError, emailError, textareaError, commonError } from "../../constants/constants";
+import profileStyle from "./css/profile.module.css";
+import { userNameError, emailError, textareaError, commonError, path } from "../../constants/constants";
 
 interface IProfile {
   isSignedIn: boolean;

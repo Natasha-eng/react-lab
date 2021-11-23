@@ -5,7 +5,7 @@ import { AppRootState } from "@/app/storetype";
 import { balanceMessage } from "@/constants/constants";
 import { updateCartsThunkCreator } from "@/thunks/thunks";
 import { useDispatch, useSelector } from "react-redux";
-import modalStyle from "./confirmationModal.module.css";
+import modalStyle from "./css/confirmationModal.module.css";
 
 const constConfirmationModal = React.memo(({ closeModal, total }: { closeModal: () => void; total: number }) => {
   const balance = useSelector<AppRootState, number>((state) => state.profile.profile.balance);

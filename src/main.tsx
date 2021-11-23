@@ -16,7 +16,7 @@ import Preloader from "./elements/preloader/Preloader";
 const Home = React.lazy(() => import("./components/home/Home"));
 const About = React.lazy(() => import("./components/about/About"));
 const Profile = React.lazy(() => import("./components/profile/Profile"));
-const Products = React.lazy(() => import("./products/Products"));
+const Products = React.lazy(() => import("./components/products/Products"));
 const Cart = React.lazy(() => import("./components/cart/Cart"));
 
 interface AppProps {
@@ -40,10 +40,6 @@ const App = React.memo(() => {
             <ProtectedRoute path={path.products}>
               <Products />
             </ProtectedRoute>
-
-            {/* <Route path="/products" render={() => <Products />} /> */}
-            {/* <Route path="/products/:category" render={() => <Products />} /> */}
-            {/* <Route path={path.about} render={() => <About />} /> */}
             <ProtectedRoute path={path.about}>
               <About />
             </ProtectedRoute>
@@ -73,7 +69,6 @@ class AppContainer extends Component<AppProps, AppState> {
   }
 
   componentDidCatch() {
-    console.log("componentDidCatch");
     alert("error occured ");
     console.error();
     this.setState({ hasError: true });

@@ -17,15 +17,6 @@
         "checked": false
       },
       {
-        "id": 10,
-        "name": "Apex Legends",
-        "category": "pc",
-        "amount": 1,
-        "orderDate": "11/4/2021",
-        "price": 24.99,
-        "checked": false
-      },
-      {
         "id": 2,
         "name": "League of Legends",
         "category": "pc",

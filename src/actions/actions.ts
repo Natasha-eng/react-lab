@@ -1,4 +1,4 @@
-import { GameType, ICart, IProfileData, UserProfileType } from "app/types/types";
+import { GameType, ICart, IProfileData, UserProfileType } from "app/interfcaces/interfaces";
 import Types from "../thunks/actiontTypes";
 
 // actions

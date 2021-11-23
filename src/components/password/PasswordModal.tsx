@@ -8,7 +8,7 @@ import InputText from "../../elements/input/InputText";
 import { commonError, errorPassword, errorRepeatPassword } from "../../constants/constants";
 import { AppRootState } from "../../app/storetype";
 import { setErrorAC } from "../../actions/actions";
-import modalStyle from "../modal/modal.module.css";
+import modalStyle from "../modal/css/modal.module.css";
 
 interface PasswordModal {
   togglePasswordModal: () => void;

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import SignInContainer from "../signin/SignInContainer";
 import SignUpContainer from "../signup/SignUpContainer";
-import headerStyle from "./header.module.css";
+import headerStyle from "./css/header.module.css";
 
 export const path = {
   home: "/home",

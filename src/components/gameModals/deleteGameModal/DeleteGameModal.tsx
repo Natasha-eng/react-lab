@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useCallback } from "react";
-import modalStyle from "../../confirmationModal/confirmationModal.module.css";
+import modalStyle from "../../confirmationModal/css/confirmationModal.module.css";
 
 interface IDeleteGameModal {
   closeModal: () => void;

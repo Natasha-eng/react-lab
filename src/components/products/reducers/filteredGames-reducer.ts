@@ -1,6 +1,6 @@
 import { ActionsType } from "@/actions/actions";
 import Types from "@/thunks/actiontTypes";
-import { GameType } from "@/types/types";
+import { GameType } from "app/interfcaces/interfaces";
 
 interface IInitialGames {
   games: GameType[];

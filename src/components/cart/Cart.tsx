@@ -3,9 +3,9 @@ import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from "r
 import { AppRootState } from "@/app/storetype";
 import { useDispatch, useSelector } from "react-redux";
 import { changeGameAmountAC, changeGameStatusAC, setMessageAC } from "@/actions/actions";
-import { ICart } from "@/types/types";
+import { ICart } from "app/interfcaces/interfaces";
 import { fetchCartThunkCreator, updateCartsThunkCreator } from "@/thunks/thunks";
-import cartStyle from "./cart.module.css";
+import cartStyle from "./css/cart.module.css";
 import main from "../../styles/main.module.css";
 import ConfirmationModal from "../confirmationModal/confirmationModal";
 

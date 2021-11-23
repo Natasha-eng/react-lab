@@ -8,7 +8,7 @@ import { commonError, errorLogin, errorPassword } from "../../constants/constant
 import InputText from "../../elements/input/InputText";
 import { AppRootState } from "../../app/storetype";
 import { setErrorAC, signInSagaAC } from "../../actions/actions";
-import modalStyle from "../modal/modal.module.css";
+import modalStyle from "../modal/css/modal.module.css";
 import main from "../../styles/main.module.css";
 
 interface ISignIn {

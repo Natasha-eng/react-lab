@@ -1,6 +1,6 @@
-import { ICart } from "app/types/types";
+import { changeGameStatusAC, setCartsAC } from "app/actions/actions";
+import { ICart } from "app/interfcaces/interfaces";
 import { cartReducer } from "./cart-reducer";
-import { changeGameStatusAC, setCartsAC } from "../../actions/actions";
 
 let state: ICart[];
 

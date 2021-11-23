@@ -1,6 +1,6 @@
 import { ActionsType } from "@/actions/actions";
 import Types from "@/thunks/actiontTypes";
-import { SystemMessagesState } from "@/types/types";
+import { SystemMessagesState } from "app/interfcaces/interfaces";
 
 const initialState: SystemMessagesState = {
   message: "",

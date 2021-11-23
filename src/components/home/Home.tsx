@@ -1,34 +1,19 @@
 // eslint-disable-next-line no-use-before-define
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { AppRootState } from "@/app/storetype";
-import Game from "@/products/game";
+import Game from "app/components/products/game";
 import { fetchGamesByDateThunkCreator } from "@/thunks/thunks";
-import { GameType } from "@/types/types";
+import { GameType } from "app/interfcaces/interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, RouteComponentProps } from "react-router-dom";
 import main from "../../styles/main.module.css";
-import headerStyle from "../header/header.module.css";
+import headerStyle from "../header/css/header.module.css";
 import SearchInput from "../search/SearchInput";
-import homeStyles from "./home.module.css";
+import homeStyles from "./css/home.module.css";
 
 const Home = React.memo((props: RouteComponentProps): JSX.Element => {
-  const [updatedGame, setUpdatedGame] = useState<GameType>({
-    id: 0,
-    name: "",
-    price: 0,
-    description: "",
-    allowedAge: "",
-    date: "",
-    img: "",
-    category: "",
-    genre: "",
-  });
   const dispatch = useDispatch();
   const games = useSelector<AppRootState, Array<GameType>>((state) => state.games);
-
-  const updateGame = useCallback((gameUpdated: GameType) => {
-    setUpdatedGame(gameUpdated);
-  }, []);
 
   useEffect(() => {
     dispatch(fetchGamesByDateThunkCreator());
@@ -62,7 +47,7 @@ const Home = React.memo((props: RouteComponentProps): JSX.Element => {
       <div className={homeStyles.subTitle}>New Games</div>
       <div className={homeStyles.gamesContainer}>
         {games.map((g) => (
-          <Game key={g.id} game={g} updateGame={updateGame} path={props.location.pathname} />
+          <Game key={g.id} game={g} updateGame={() => {}} path={props.location.pathname} />
         ))}
       </div>
     </div>

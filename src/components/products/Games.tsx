@@ -2,10 +2,10 @@
 import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { AppRootState } from "@/app/storetype";
-import { GameType } from "@/types/types";
+import { GameType } from "app/interfcaces/interfaces";
 import Game from "./game";
-import homeStyles from "../components/home/home.module.css";
-import main from "../styles/main.module.css";
+import homeStyles from "../home/css/home.module.css";
+import main from "../../styles/main.module.css";
 
 interface GamesPropsType {
   updateGame: (updatedGame: GameType) => void;

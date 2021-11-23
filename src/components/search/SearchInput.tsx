@@ -1,13 +1,13 @@
 // eslint-disable-next-line no-use-before-define
 import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useState } from "react";
 import { AppRootState } from "@/app/storetype";
-import { GameType } from "@/types/types";
+import { GameType } from "app/interfcaces/interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
 import { fetchGamesByNameThunkCreator } from "@/thunks/thunks";
 import { clearGamesAC } from "@/actions/actions";
 import Preloader from "@/elements/preloader/Preloader";
-import searchInputStyles from "./searchInput.module.css";
+import searchInputStyles from "./css/searchInput.module.css";
 
 const SearchInput = React.memo((): JSX.Element => {
   const dispatch = useDispatch();

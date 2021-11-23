@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useMemo, useState } from "react";
 
 interface IsignInState {
   loginName: string;
@@ -25,11 +25,14 @@ export default function Context({ children }: { children: ReactNode }): JSX.Elem
     signedIn: false,
   });
 
-  return (
-    <SignInContext.Provider
-      value={{ loginName: signInState.loginName, signedIn: signInState.signedIn, signInHandler: setSignInState }}
-    >
-      {children}
-    </SignInContext.Provider>
+  const signInData = useMemo(
+    () => ({
+      loginName: signInState.loginName,
+      signedIn: signInState.signedIn,
+      signInHandler: setSignInState,
+    }),
+    [signInState.loginName, signInState.signedIn]
   );
+
+  return <SignInContext.Provider value={signInData}>{children}</SignInContext.Provider>;
 }

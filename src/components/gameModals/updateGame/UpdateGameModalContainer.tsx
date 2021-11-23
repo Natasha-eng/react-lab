@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-use-before-define
 import React from "react";
 import Modal from "@/components/modal/Modal";
-import { GameType } from "@/types/types";
+import { GameType } from "app/interfcaces/interfaces";
 import UpdateGameModal from "./UpdateGameModal";
 
 interface ICreateGameModalr {

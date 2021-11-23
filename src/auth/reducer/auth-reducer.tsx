@@ -1,6 +1,7 @@
 import { ActionsType } from "@/actions/actions";
-import { AuthInitialState } from "@/types/types";
-import Types from "./thunks/actiontTypes";
+import { AuthInitialState } from "app/interfcaces/interfaces";
+import Types from "app/thunks/actiontTypes";
+
 
 const initialState: AuthInitialState = {
   isSignedIn: false,
