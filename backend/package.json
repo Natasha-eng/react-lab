@@ -2,9 +2,9 @@
   "name": "back",
   "version": "1.0.0",
   "main": "app.ts",
+  "type": "module",
   "scripts": {
-    "start": "node src/app.ts",
-    "dev": "node src/app.ts"
+   "start": "ts-node src/app.ts"
   },
   "author": "Natasha",
   "license": "ISC",
