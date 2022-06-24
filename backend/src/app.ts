@@ -5,6 +5,8 @@ import compression from "compression";
 import games from "./games-router";
 import users from "./users-router";
 
+let port = process.env.PORT || 5000;
+
 const app = express();
 
 app.use(cors());
@@ -29,4 +31,4 @@ app.get("/", (req, res) => {
   res.send("App is running.");
 });
 
-app.listen(5000, () => console.log("Server running "));
+app.listen(port, () => console.log("Server running "));
