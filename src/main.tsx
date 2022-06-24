@@ -1,9 +1,9 @@
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
 // eslint-disable-next-line no-use-before-define
-import React, { Component, StrictMode } from "react";
+import React, { Component, StrictMode, useEffect, useMemo } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import Footer from "./components/footer/footer";
 import { store } from "./app/store";
 import mainStyle from "./styles/main.module.css";
@@ -12,6 +12,9 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import { AppRootState } from "./app/storetype";
 import { path } from "./constants/constants";
 import Preloader from "./elements/preloader/Preloader";
+import { fetchCartThunkCreator } from "./thunks/thunks";
+import { ICart } from "./interfcaces/interfaces";
+import { setMessageAC } from "./actions/actions";
 
 const Home = React.lazy(() => import("./components/home/Home"));
 const About = React.lazy(() => import("./components/about/About"));
@@ -28,6 +31,20 @@ interface AppState {
 
 const App = React.memo(() => {
   const isSignedIn = useSelector<AppRootState, boolean>((state) => state.auth.isSignedIn);
+  const cartGames = useSelector<AppRootState, ICart[]>((state) => state.cartGames);
+  const dispatch = useDispatch();
+
+  const total = useMemo(() => cartGames.reduce((acc, curr) => acc + curr.price * Number(curr.amount), 0), [cartGames]);
+
+  useEffect(() => {
+    const login = localStorage.getItem("signInLoginValue");
+    login && dispatch(fetchCartThunkCreator(login, total));
+    if(cartGames.length === 0){
+      dispatch(setMessageAC("Your cart is empty"));
+     } else{
+      dispatch(setMessageAC(""))
+     }
+  }, []);
 
   return (
     <div>
@@ -45,7 +62,7 @@ const App = React.memo(() => {
             </ProtectedRoute>
             <Route path={path.profile} render={() => <Profile isSignedIn={isSignedIn} />} />
             <ProtectedRoute path={path.cart}>
-              <Cart />
+              <Cart total={total}/>
             </ProtectedRoute>
             <Redirect from="*" to={path.home} />
             <Redirect to={path.profile} />

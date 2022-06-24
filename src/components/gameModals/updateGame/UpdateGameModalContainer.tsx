@@ -12,7 +12,7 @@ interface ICreateGameModalr {
 const UpdateGameModalContainer = React.memo(
   (props: ICreateGameModalr): JSX.Element => (
     <Modal>
-      <UpdateGameModal toggleModal={props.toggleModal} updateGameHandler={props.updateGameHandler} />
+      <UpdateGameModal  toggleModal={props.toggleModal} updateGameHandler={props.updateGameHandler} />
     </Modal>
   )
 );

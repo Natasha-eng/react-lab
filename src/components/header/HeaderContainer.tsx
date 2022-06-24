@@ -18,6 +18,7 @@ class HeaderContainer extends React.Component<mapStateToProps> {
 const mapStateToProps = (state: AppRootState) => ({
   isSignedIn: state.auth.isSignedIn,
   userName: state.profile.userName,
+  // cartGames: state.cartGames
 });
 
 export default connect(mapStateToProps)(HeaderContainer);

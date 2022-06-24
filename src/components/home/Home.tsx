@@ -10,6 +10,7 @@ import main from "../../styles/main.module.css";
 import headerStyle from "../header/css/header.module.css";
 import SearchInput from "../search/SearchInput";
 import homeStyles from "./css/home.module.css";
+import mainStyle from "../../styles/main.module.css";
 
 const Home = React.memo((props: RouteComponentProps): JSX.Element => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Home = React.memo((props: RouteComponentProps): JSX.Element => {
 
   return (
     <div className={main.content}>
-      <div>Home page</div>
+      <div className={mainStyle.pageName}>Home page</div>
 
       <SearchInput />
 

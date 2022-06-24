@@ -46,7 +46,7 @@ const CreateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
     setGenre(e.target.value);
   }, []);
 
-  const changeGamePlatform = useCallback((e: MouseEvent<HTMLInputElement>) => {
+  const changeGamePlatform = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPlatform(e.currentTarget.value);
   }, []);
 
@@ -209,7 +209,7 @@ const CreateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                       name={gamePlatform.pc}
                       type="checkbox"
                       checked={gamePlatform.pc === platform}
-                      onClick={changeGamePlatform}
+                      onChange={changeGamePlatform}
                     />
                   </div>
 
@@ -221,7 +221,7 @@ const CreateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                       name={gamePlatform.playstation}
                       type="checkbox"
                       checked={gamePlatform.playstation === platform}
-                      onClick={changeGamePlatform}
+                      onChange={changeGamePlatform}
                     />
                   </div>
 
@@ -233,21 +233,19 @@ const CreateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                       name={gamePlatform.xbox}
                       type="checkbox"
                       checked={gamePlatform.xbox === platform}
-                      onClick={changeGamePlatform}
+                      onChange={changeGamePlatform}
                     />
                   </div>
                 </div>
               </div>
-
-              {backError && <div className={main.error}>{backError}</div>}
-              {error.error && <div className={main.error}>{error.error}</div>}
-              {message && <p className={modalStyle.message}>{message}</p>}
-
-              <button type="submit" onClick={createGameHandler}>
-                Submit
-              </button>
             </div>
           </div>
+          {backError && <div className={main.error}>{backError}</div>}
+          {error.error && <div className={main.error}>{error.error}</div>}
+          {message && <p className={modalStyle.message}>{message}</p>}
+          <button type="submit" onClick={createGameHandler}>
+            Submit
+          </button>
         </div>
       </form>
     </>

@@ -3,6 +3,7 @@
   "version": "1.1.1",
   "description": "Must-have config for Webpack 5",
   "main": "main.tsx",
+  "homepage": "https://Natasha-eng.github.io/react-lab",
   "scripts": {
     "test": "jest",
     "start": "npm run serve",
@@ -16,7 +17,9 @@
     "lint-styles": "./node_modules/.bin/stylelint --fix --cache ./**/*.{css,scss,less} && prettier --write **/*.{css,scss,less} --loglevel warn",
     "lint-md": "./node_modules/.bin/markdownlint --fix **/*.md --ignore node_modules",
     "prepare": "husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks && git config --unset core.hooksPath",
-    "postinstall": "npm audit fix"
+    "postinstall": "npm audit fix",
+    "predeploy": "npm run build-dev",
+    "deploy": "gh-pages -d build-dev"
   },
   "jest": {
     "moduleNameMapper": {
@@ -50,7 +53,6 @@
   "bugs": {
     "url": "https://github.com/Yegorich555/webpack-must-have/issues"
   },
-  "homepage": "https://github.com/Yegorich555/webpack-must-have#readme",
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
@@ -146,6 +148,7 @@
     "@types/redux-saga": "^0.10.5",
     "axios": "^0.21.1",
     "core-js": "^3.15.2",
+    "gh-pages": "^3.2.3",
     "identity-obj-proxy": "^3.0.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",

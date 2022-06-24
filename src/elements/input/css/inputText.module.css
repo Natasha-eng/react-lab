@@ -16,6 +16,7 @@ button {
   border-radius: 5px;
   background-color: black;
   color: white;
+  margin: 10px;
 }
 
 button:hover {
@@ -32,4 +33,20 @@ button:hover {
   display: flex;
   justify-content: space-between;
   margin: 10px;
+}
+
+.input label {
+  margin-right: 5px;
+}
+
+@media (max-width: 960px) {
+  .inputWrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .inputWrapper {
+    width: auto;
+  }
 }

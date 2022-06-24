@@ -11,6 +11,7 @@ import { GameType } from "app/interfcaces/interfaces";
 import CreateGameModalContainer from "app/components/gameModals/createGame/CreateGameModalContainer";
 import main from "../../styles/main.module.css";
 import productsStyle from "./css/products.module.css";
+import mainStyle from "../../styles/main.module.css";
 import Games from "./Games";
 import searchInputStyles from "../search/css/searchInput.module.css";
 import { ageData, genresData } from "./data";
@@ -21,6 +22,7 @@ type CategoryParams = {
 
 const Products = React.memo((props: RouteComponentProps): JSX.Element => {
   const dispatch = useDispatch();
+  const games = useSelector<AppRootState, Array<GameType>>((state) => state.sortedGames);
   const isAdmin = useSelector<AppRootState, boolean>((state) => state.profile.profile.isAdmin);
   const [selectedAge, setSelectedAge] = useState<string>(age.all);
   const [selectedGenre, setSelectedGenre] = useState<string>(genre.all);
@@ -96,7 +98,7 @@ const Products = React.memo((props: RouteComponentProps): JSX.Element => {
 
   return (
     <div className={main.content}>
-      <div>Products page</div>
+      <div className={mainStyle.pageName}>Products page</div>
       <div className={searchInputStyles.inputContainer}>
         <SearchInput />
         {isAdmin && (
@@ -126,7 +128,7 @@ const Products = React.memo((props: RouteComponentProps): JSX.Element => {
             <h3>Genres</h3>
 
             {genresData.map((d) => (
-              <div className={productsStyle.formItem}>
+              <div key={d.label} className={productsStyle.formItem}>
                 <label htmlFor={d.htmlFor}>
                   <input
                     type="radio"
@@ -144,7 +146,7 @@ const Products = React.memo((props: RouteComponentProps): JSX.Element => {
             <h3>Age</h3>
 
             {ageData.map((a) => (
-              <div className={productsStyle.formItem}>
+              <div key={a.label} className={productsStyle.formItem}>
                 <label htmlFor={a.value}>
                   <input
                     type="radio"

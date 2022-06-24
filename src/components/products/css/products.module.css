@@ -43,3 +43,43 @@
 .sortItems input[type="radio"] {
   margin-right: 10px;
 }
+@media (max-width: 960px) {
+  .contentWrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sortForm {
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    padding: 0;
+  }
+
+  .sortWrapper {
+    width: 70%;
+  }
+
+  .sortForm select {
+    margin: auto;
+  }
+
+  .sortItems {
+    margin: auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .sortWrapper {
+    width: 100%;
+  }
+
+  .sortItems {
+    width: auto;
+  }
+
+  .sortForm {
+    width: 100%;
+  }
+}

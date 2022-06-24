@@ -1,0 +1,35 @@
+.subMenu {
+  width: 13%;
+  position: absolute;
+  z-index: 20;
+  top: 100px;
+  list-style-type: none;
+  text-align: start;
+  color: white;
+  box-shadow: 5px 30px 40px 10px black;
+  border: 1px solid white;
+}
+
+.subMenu li {
+  background: black;
+  cursor: pointer;
+  color: white;
+}
+
+.subMenu li:hover {
+  /* background: rgb(68, 55, 143); */
+  color: white;
+}
+
+.subMenu.clicked {
+  display: none;
+}
+
+.subItem {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: white;
+  padding: 16px;
+}

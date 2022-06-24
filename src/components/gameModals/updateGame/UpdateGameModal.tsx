@@ -55,7 +55,7 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
     setAllowedAge(e.target.value);
   }, []);
 
-  const changeGamePlatform = useCallback((e: MouseEvent<HTMLInputElement>) => {
+  const changeGamePlatform = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPlatform(e.currentTarget.name);
   }, []);
 
@@ -254,7 +254,7 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                       name={gamePlatform.pc}
                       type="checkbox"
                       checked={gamePlatform.pc === platform}
-                      onClick={changeGamePlatform}
+                      onChange={changeGamePlatform}
                     />
                   </div>
 
@@ -266,7 +266,7 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                       name={gamePlatform.playstation}
                       type="checkbox"
                       checked={gamePlatform.playstation === platform}
-                      onClick={changeGamePlatform}
+                      onChange={changeGamePlatform}
                     />
                   </div>
 
@@ -278,21 +278,21 @@ const UpdateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
                       name={gamePlatform.xbox}
                       type="checkbox"
                       checked={gamePlatform.xbox === platform}
-                      onClick={changeGamePlatform}
+                      onChange={changeGamePlatform}
                     />
                   </div>
                 </div>
               </div>
-
-              {backError && <div className={main.error}>{backError}</div>}
-
-              <button type="submit" onClick={updateGameHandler}>
-                Submit
-              </button>
-              <button type="submit" onClick={openModal}>
-                Delete Card
-              </button>
             </div>
+          </div>
+          {backError && <div className={main.error}>{backError}</div>}
+          <div className={modalStyle.buttonsContainer}>
+            <button type="submit" onClick={updateGameHandler}>
+              Submit
+            </button>
+            <button type="submit" onClick={openModal}>
+              Delete Card
+            </button>
           </div>
           <p className={modalStyle.message}>{message}</p>
         </div>

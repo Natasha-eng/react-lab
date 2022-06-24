@@ -87,7 +87,7 @@ const SignIn = React.memo((props: ISignIn): JSX.Element => {
   return (
     <>
       <form className={modalStyle.modalBackground} onClick={props.toggleSignIn}>
-        <div className={modalStyle.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div className={`${modalStyle.modalContent} ${modalStyle.modalAuthorize}`} onClick={(e) => e.stopPropagation()}>
           <div className={modalStyle.modalTitle}>
             <h2>Authorization</h2>
             <button type="button" className={modalStyle.closeButton} onClick={props.toggleSignIn}>
@@ -96,7 +96,7 @@ const SignIn = React.memo((props: ISignIn): JSX.Element => {
               </i>
             </button>
           </div>
-          <div className={modalStyle.inputsContainer}>
+          <div className={`${modalStyle.inputsContainer} ${modalStyle.inputs}`}>
             <InputText
               name="login"
               type="text"

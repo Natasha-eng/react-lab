@@ -220,10 +220,15 @@ export const fetchCartThunkCreator =
     dispatch: ThunkDispatch<
       AppRootState,
       unknown,
-      setCartsActionType | setUserBalanceActionType | setTotalGameCostActionType | setErrorActionType
+      | setCartsActionType
+      | setUserBalanceActionType
+      | setTotalGameCostActionType
+      | setErrorActionType
+      | setMessageActionType
     >
   ) => {
     const response = await api.fetchCart(userName);
+
     if (response.status === 200) {
       dispatch(setCartsAC(response.data.updatedCart));
       dispatch(setUserBalanceAC(response.data.balance));

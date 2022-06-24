@@ -81,3 +81,25 @@
   height: auto;
   max-height: 300px;
 }
+
+@media (max-width: 500px) {
+  .flipCardBack,
+  .flipCardFront {
+    width: 286px;
+    min-height: 440px;
+  }
+
+  .flipCardFront .inner,
+  .flipCardBack .inner {
+    padding: 0;
+  }
+
+  .inner img {
+    max-width: 165px;
+    max-height: 400px;
+  }
+
+  .inner h3 {
+    font-size: 22px;
+  }
+}

@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.pageName {
+  margin-top: 100px;
+}
+
 .content {
   padding: 20px;
 }
@@ -12,7 +16,7 @@
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  height: 80vh;
+  min-height: 80vh;
 }
 
 .mainTitle {
@@ -37,7 +41,7 @@
 }
 
 .container {
-  min-height: 80vh;
+  min-height: 90vh;
   background: -webkit-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("./../assets/images/2020-games-cyberpunk-2077-night-city.png");
   background-repeat: no-repeat;
@@ -86,4 +90,19 @@
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 50;
+}
+
+.bottomMargin {
+  margin-bottom: 100px;
+}
+
+@media (max-width: 960px) {
+  .bottomMargin {
+    margin-bottom: 0;
+  }
+
+  .contentProfile {
+    flex-direction: column;
+    align-items: center;
+  }
 }

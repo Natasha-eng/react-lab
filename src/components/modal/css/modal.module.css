@@ -1,9 +1,9 @@
 .modalBackground {
   position: fixed;
-  z-index: 5;
+  z-index: 21;
   top: 0;
   bottom: 0;
-  width: 100%;
+  width: 100vw;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
@@ -13,6 +13,8 @@
 .modalContent {
   min-width: 500px;
   min-height: 280px;
+  width: 90%;
+  height: 99%;
   padding: 20px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.3);
@@ -20,6 +22,7 @@
   box-sizing: border-box;
   backdrop-filter: blur(5px);
   box-shadow: 0 0 77px 0 rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
 
 .modalTitle {
@@ -66,4 +69,55 @@
 .message {
   color: rgb(81, 238, 20);
   font-size: 18px;
+}
+
+.inputsContainer.inputs {
+  flex-direction: column;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.modalContent.modalAuthorize {
+  height: 50%;
+  width: 40%;
+}
+
+@media (max-width: 960px) {
+  .modalContent {
+    min-width: auto;
+    overflow: scroll;
+    height: 94%;
+    padding: 5px;
+  }
+
+  .modalBackground {
+    overflow: scroll;
+  }
+
+  .modalInfoContainer {
+    flex-direction: column;
+  }
+
+  .inputsContainer.inputs {
+    flex-direction: column;
+  }
+
+  .inputsContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .modalContent.modalAuthorize {
+    width: 70%;
+  }
+}
+
+@media (max-width: 600px) {
+  .modalContent.modalAuthorize {
+    width: 96%;
+  }
 }
