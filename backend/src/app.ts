@@ -25,4 +25,8 @@ app.use(
 app.use("/", games);
 app.use("/", users);
 
+app.get("/", (req, res) => {
+  res.send("App is running.");
+});
+
 app.listen(5000, () => console.log("Server running "));
