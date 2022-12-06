@@ -39,11 +39,11 @@ const App = React.memo(() => {
   useEffect(() => {
     const login = localStorage.getItem("signInLoginValue");
     login && dispatch(fetchCartThunkCreator(login, total));
-    if(cartGames.length === 0){
+    if (cartGames.length === 0) {
       dispatch(setMessageAC("Your cart is empty"));
-     } else{
+    } else {
       dispatch(setMessageAC(""))
-     }
+    }
   }, []);
 
   return (
@@ -62,7 +62,7 @@ const App = React.memo(() => {
             </ProtectedRoute>
             <Route path={path.profile} render={() => <Profile isSignedIn={isSignedIn} />} />
             <ProtectedRoute path={path.cart}>
-              <Cart total={total}/>
+              <Cart total={total} />
             </ProtectedRoute>
             <Redirect from="*" to={path.home} />
             <Redirect to={path.profile} />

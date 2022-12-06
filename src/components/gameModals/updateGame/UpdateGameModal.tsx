@@ -5,13 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputText from "@/elements/input/InputText";
-import { age } from "backend/src/constants/constants";
 
 import { convertToBase64 } from "@/utils/util";
 import { deleteGameThunkCreator, updateGameThunkCreator } from "@/thunks/thunks";
-import { commonError, gameGenre, gamePlatform } from "@/constants/constants";
 import { GameType } from "app/interfcaces/interfaces";
 import { setMessageAC } from "app/actions/actions";
+import { age, commonError, gameGenre, gamePlatform } from "../../../constants/constants";
 import modalStyle from "../../modal/css/modal.module.css";
 import main from "../../../styles/main.module.css";
 import profileStyle from "../../profile/css/profile.module.css";
