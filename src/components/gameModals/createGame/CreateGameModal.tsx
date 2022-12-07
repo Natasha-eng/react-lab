@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-use-before-define
-import React, { ChangeEvent, MouseEvent, useCallback, useState } from "react";
+import { ChangeEvent, memo, MouseEvent, useCallback, useState } from "react";
 import { AppRootState } from "@/app/storetype";
 import { useDispatch, useSelector } from "react-redux";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +20,7 @@ interface ICreateGameModal {
   createGameHandler: (updatedGame: GameType) => void;
 }
 
-const CreateGameModal = React.memo((props: ICreateGameModal): JSX.Element => {
+const CreateGameModal = memo((props: ICreateGameModal): JSX.Element => {
   const dispatch = useDispatch();
   const [error, setError] = useState({ error: "" });
   // const [message, setMessage] = useState("");

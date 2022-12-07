@@ -2,7 +2,7 @@ import { GameType, ICart, UserProfileType } from "app/interfcaces/interfaces";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://games-api.onrender.com",
+  baseURL: "https://games-api-x9e5.onrender.com",
 });
 
 // api
